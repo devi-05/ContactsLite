@@ -69,6 +69,8 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     lazy var searchTextLabel : UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         label.textColor = .label.withAlphaComponent(0.7)
         return label
     }()
@@ -111,15 +113,17 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        refreshDataSource()
-        tableView.reloadData()
+        if(passedData == nil){
+            refreshDataSource()
+            tableView.reloadData()
+        }
     }
     
     func refreshDataSource(){
         lazy  var fetchedData = DBHelper.fetchData()
         dbContactList = Helper.decodeToContact(list: fetchedData)
-        print(dbContactList.count)
-         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC"))))))
+        
+         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "DESC"))))))
         
         if (localDataSource?.data.count == 0){
             tableView.backgroundView = addContactView
@@ -129,6 +133,8 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
             addContactView.isHidden = true
         }
         passedData = localDataSource
+        updateTotalContacts()
+        
         tableView.reloadData()
     }
     
@@ -143,17 +149,20 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         fatalError("init(coder:) has not been implemented")
     }
     override func viewDidLoad() {
-        print(Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC"))))))
+     
         
         super.viewDidLoad()
         if(passedData == nil){
             refreshDataSource()
-            passedData = localDataSource
+//            passedData = localDataSource
             title = "iPhone"
         }
         else{
             title = passedData?.groupName
+            updateTotalContacts()
         }
+       
+        
         if (passedData?.data.count == 0){
             tableView.backgroundView = addContactView
         }
@@ -178,9 +187,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         setUpCreateContactView()
 
         tableView.tableHeaderView = profileCardLabel
-        for i in 0..<(passedData?.data.count)!{
-            totalContacts+=(passedData?.data[i].rows.count)!
-        }
+        
        
             if(totalContacts > 5){
                 tableView.tableFooterView = dataCountLabel
@@ -197,7 +204,11 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     }
     
     
-    
+    func updateTotalContacts(){
+        for i in 0..<(passedData?.data.count)!{
+                   totalContacts+=(passedData?.data[i].rows.count)!
+        }
+    }
 
     
     func setUpNavigationItems() {
@@ -264,6 +275,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         mailLabel.translatesAutoresizingMaskIntoConstraints = false
         
+       
         searchImage.translatesAutoresizingMaskIntoConstraints = false
         searchTextLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -286,15 +298,18 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
             mailLabel.heightAnchor.constraint(equalToConstant: 30),
             
             
+            searchImage.centerXAnchor.constraint(equalTo: searchResultView.centerXAnchor,constant: -10),
             searchImage.topAnchor.constraint(equalTo: searchResultView.topAnchor,constant: 300),
-            searchImage.leadingAnchor.constraint(equalTo: searchResultView.leadingAnchor, constant: 150),
+//            searchImage.leadingAnchor.constraint(equalTo: searchResultView.leadingAnchor, constant: 50),
             searchImage.widthAnchor.constraint(equalToConstant: 80),
             searchImage.heightAnchor.constraint(equalToConstant: 80),
             
-            searchTextLabel.topAnchor.constraint(equalTo: searchImage.bottomAnchor, constant: 5),
-            searchTextLabel.leadingAnchor.constraint(equalTo: searchResultView.leadingAnchor, constant: 80),
-            searchTextLabel.widthAnchor.constraint(equalToConstant: 250),
-            searchTextLabel.heightAnchor.constraint(equalToConstant: 60)
+            searchTextLabel.topAnchor.constraint(equalTo: searchResultView.topAnchor, constant: 380),
+            searchTextLabel.leadingAnchor.constraint(equalTo: searchResultView.leadingAnchor, constant: 50),
+            searchTextLabel.trailingAnchor.constraint(equalTo: searchResultView.trailingAnchor, constant: -50),
+            searchTextLabel.bottomAnchor.constraint(equalTo: searchResultView.bottomAnchor, constant: -350)
+            
+
             
         ])
     }

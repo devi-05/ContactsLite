@@ -24,6 +24,19 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         let view = UIView()
         return view
     }()
+//    lazy var editImage:UIImageView = {
+//        let image = UIImage(named: "pencil")
+//        let bannerWidth = navigationController?.navigationBar.frame.size.width
+//              let bannerHeight = navigationController?.navigationBar.frame.size.height
+//        let bannerX = bannerWidth! / 2 - (image?.size.width)! / 2
+//              let bannerY = bannerHeight! / 2 - (image?.size.height)! / 2
+//
+//        let imgView = UIImageView(frame: CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height: bannerHeight!))
+//        imgView.image = image
+//        imgView.tintColor = .systemBlue
+//        imgView.contentMode = .scaleAspectFit
+//        return imgView
+//    }()
     lazy var grpData:[GroupModel] = []
     lazy var grpNames:[[String:Any]] = []
     override func viewWillAppear(_ animated: Bool) {
@@ -48,7 +61,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
    
         title = "Lists"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(edit))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "applepencil"), style: .plain, target: self, action: #selector(edit))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),style: .plain, target: self, action: #selector(add))
         tableView.tableFooterView = nil
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
