@@ -24,9 +24,12 @@ class Helper{
         var data:[SectionContent] = []
         var isHash = true
         var hashSectionContent:SectionContent?
+        var firstLetter:String = ""
         for i in lists{
             let name =  i.firstName
-            var firstLetter:String = String(name.first!)
+            if let firstName = name.first {
+                 firstLetter = String(firstName)
+            }
             
             if (!CharacterSet.lowercaseLetters.contains(firstLetter.lowercased().unicodeScalars.first!)){
                 if(isHash){
@@ -170,7 +173,7 @@ class Helper{
                 }
                 
             }
-            ds.append(Contacts(contactId: id,profileImage: image, firstName: firstName,lastName: lastName,workInfo: workInfo, phoneNumber: phoneNum,Email: emailArray,address: address,socialprofile: socialProfile,favourite: isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: groups))
+            ds.append(Contacts(contactId: id,profileImage: image, firstName: firstName,lastName: lastName,workInfo: workInfo, phoneNumber: phoneNum,email: emailArray,address: address,socialProfile: socialProfile,favourite: isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: groups))
             
         }
         

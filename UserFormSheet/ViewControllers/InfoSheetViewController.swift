@@ -24,7 +24,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     weak var tabvc:TabBarViewController?
     weak var allContactsVc:AllContactsVc?
     var info:Contacts?
-    
+    var inputDict:[String:Any] = [:]
     init(contact:Contacts?){
         super.init(nibName: nil, bundle: nil)
         self.info = contact
@@ -38,27 +38,14 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     var id:Int?
     var image:UIImage?
-    var firstName:String = ""
-    var lastName:String?
-    var workInfo:String?
+
+    var workInfoArray:[String] = []
     var emailArray:[String] = []
     var isFavourite:Int = 0
     var isEmergencyContact:Int = 0
-    var notes:String?
+
     var groups:[String] = []
-    
-    var doorNo:Int?
-    var street:String?
-    var city:String?
-    var postcode:Int?
-    var state:String?
-    var country:String?
-    
-    
-    var link:String?
-    var socialProfOption:String?
-    
-    var addressOption:String?
+//    var isAddTapped:Bool = false
     
     var phoneNumRowIndex:Int?
     
@@ -88,23 +75,23 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     
     var headerDataSource:[DataSource] = [
-        DataSource(data: [Headers.firstName,"Last Name"]),
+        DataSource(data: ["First Name","Last Name"]),
         DataSource(data: ["Work Info"]),
         DataSource(data: ["PhoneNumber"]),
         DataSource(data: ["Email"]),
         DataSource(data: ["Address"]),
         DataSource(data: ["Social Profile"]),
-        DataSource(data: ["Favourites"]),
-        DataSource(data: ["Emergency Contact"]),
         DataSource(data: ["Notes"]),
-        DataSource(data: ["Groups"])]
+        DataSource(data: ["Groups"]),
+        DataSource(data: ["Favourites"]),
+        DataSource(data: ["Emergency Contact"])]
     
     
     lazy var photoLabel:UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle.fill")
         imageView.tintColor = .gray
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        imageView.layer.cornerRadius = 75
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -141,7 +128,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     }
     
     var buttonMenu: UIMenu {
-        return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+        return UIMenu(children: menuItems)
     }
     
     func getImage(images: UIImage) {
@@ -160,13 +147,13 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
         else if type == "address"{
             
-            addressOption = option
+            addressModel[addressRowIndex! - 1].modelType = option
             
         }
         
         else if type == "Social Profile"{
             
-            socialProfOption = option
+            socialProfileModel[socialProfileRowIndex! - 1].profileType = option
         }
         tableView.reloadData()
         
@@ -185,14 +172,14 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         grpData = Helper.getGroupsData(locDS:localDataSource , grpName: groupNames)
         print("grpdata\(grpData)")
         
-
+        
         tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "New Contact"
-        print(grpData)
+        
         view.backgroundColor = .secondarySystemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancelButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DoneButton))
@@ -212,33 +199,45 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             if(info?.profileImage != nil){
                 image = UIImage(data: (info?.profileImage)!)
                 photoLabel.image = image
-                photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
-                photoLabel.layer.masksToBounds = true
+//                photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
+//                photoLabel.layer.masksToBounds = true
+                addPhotoButton.setTitle("Edit Photo", for: .normal)
                 
             }
             
-            firstName = info!.firstName
-            lastName = info?.lastName
-            workInfo = info?.workInfo
-            phoneNumModel = info!.phoneNumber
-            emailArray = (info?.Email)!
-            addressModel = (info?.address)!
-            socialProfileModel = (info?.socialprofile)!
-            notes = info?.notes
-            isFavourite = (info?.favourite)!
-            isEmergencyContact = (info?.emergencyContact)!
+            
+//            firstName = info!.firstName
+//            lastName = info?.lastName
+//            workInfo = info?.workInfo
+//            phoneNumModel = info!.phoneNumber
+//            emailArray = (info?.Email)!
+//            addressModel = (info?.address)!
+//            socialProfileModel = (info?.socialprofile)!
+//            notes = info?.notes
+//            isFavourite = (info?.favourite)!
+//            isEmergencyContact = (info?.emergencyContact)!
             
             return
         }
     }
     
     @objc func cancelButton(){
+        if (info != nil){
+            navigationController?.popViewController(animated: true)
+            
+        }
         dismiss(animated: true)
     }
     
     @objc func DoneButton(){
-        dismiss(animated: true)
-        guard !firstName.isEmpty,
+        view.endEditing(true)
+        if (info != nil){
+            navigationController?.popViewController(animated: true)
+            let newContact = Contacts(contactId: id!,profileImage: image?.pngData(), firstName: inputDict["First Name"]! as! String,lastName: inputDict["Last Name"] as? String,workInfo:  inputDict["Work Info"] as? String,phoneNumber: (inputDict["phone"]) as! [PhoneNumberModel],email: (inputDict["Email"]) as? [String],address: (inputDict["Address"]) as? [AddressModel],socialProfile: (inputDict["Social Profile"]) as? [SocialProfileModel],favourite:isFavourite,emergencyContact: isEmergencyContact,notes: String(describing:(inputDict["Notes"]))  ,groups: groups)
+            print(newContact)
+        }
+        
+        guard !String(describing:inputDict["First Name"]).isEmpty,
               !phoneNumModel.isEmpty else {
             return
         }
@@ -249,16 +248,43 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             return
         }
         id = myInt
-        let newContact = Contacts(contactId: id!,profileImage: image?.pngData(), firstName: firstName,lastName: lastName,workInfo: workInfo,phoneNumber: phoneNumModel,Email: emailArray,address: addressModel,socialprofile: socialProfileModel,favourite:isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: groups)
-        
+        guard let firstName = inputDict["First Name"] as? String else{
+            let alertController = UIAlertController(title: nil, message: "Error in First Name", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default){ _ in
+                print("aery")
+                self.dismiss(animated: true)
+            }
+
+            alertController.addAction(okAction)
+//            UIApplication.shared.windows.first?.rootViewController?.presentedViewController?.present(alertController, animated: true)
+            present(alertController, animated: true)
+            
+            return
+        }
+        let newContact = Contacts(
+            contactId: id!,
+            profileImage: image?.pngData(),
+            firstName: firstName,
+            lastName: inputDict["Last Name"] as? String,
+            workInfo:  inputDict["Work Info"] as? String,
+            phoneNumber: (inputDict["phone"]) as! [PhoneNumberModel],
+            email: (inputDict["Email"]) as? [String],
+            address: (inputDict["Address"]) as? [AddressModel],
+            socialProfile: (inputDict["Social Profile"]) as? [SocialProfileModel],
+            favourite:isFavourite,
+            emergencyContact: isEmergencyContact,
+            notes: (inputDict["Notes"]) as? String  ,
+            groups: groups)
+       
         DBHelper.assignDb(contactList: newContact)
-//        tabvc?.refreshFavData()
+        //        tabvc?.refreshFavData()
         allContactsVc?.refreshDataSource()
         allContactsVc?.tableView.reloadData()
-
-        addtoLocalGrpDataSource(grpName:groups,contact:newContact)
-
         
+        addtoLocalGrpDataSource(grpName:groups,contact:newContact)
+        
+        dismiss(animated: true)
         
     }
     
@@ -285,12 +311,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
     }
     
-    @objc func addPhoto() {
-        let imgPicker = ImagePickerViewController()
-        imgPicker.delegate = self
-        present(UINavigationController(rootViewController: imgPicker), animated: true)
-        print("adding photo")
-    }
+    //    @objc func addPhoto() {
+    //        let imgPicker = ImagePickerViewController()
+    //        imgPicker.delegate = self
+    //        present(UINavigationController(rootViewController: imgPicker), animated: true)
+    //        print("adding photo")
+    //    }
     func setUpTableView(){
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
@@ -311,26 +337,76 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return headerDataSource.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(info != nil){
+            
+            if  headerDataSource[section].data[0] == "Work Info"{
+                return info?.workInfo != nil ? 2 : 1
+            }
+            else if headerDataSource[section].data[0] == "Email"{
+                return info?.email != nil ? 2 : 1
+            }
+            else if headerDataSource[section].data[0] == "PhoneNumber" {
+                return (info?.phoneNumber.count)!+1
+            }
+            else if headerDataSource[section].data[0] == "Address"{
+                return (info?.address?.count)!+1
+            }
+            else if headerDataSource[section].data[0] == "Social Profile"{
+                return (info?.socialProfile?.count)!+1
+            }
+            else{
+                return 1
+            }
+        }
+        else{
+            if(section == 0){
+                return 2
+            }
+            else{
+                switch headerDataSource[section].data[0]{
+                case "Work Info":
+                    return  (workInfoArray.count+1)
+                case "PhoneNumber":
+                    return  (phoneNumModel.count+1)
+                case "Email":
+                    return  (emailArray.count+1)
+                case "Address":
+                    return (addressModel.count+1)
+                case "Social Profile":
+                    return (socialProfileModel.count+1)
+                case "Favourites":
+                    return 1
+                case "Emergency Contact":
+                    return 1
+                case "Notes":
+                    return 1
+                default:
+                    return grpData.count
+                }
+            }
+        }
         
-        
-        return section == 0 ? 2: ( section == (headerDataSource.count - 1) ? grpData.count:headerDataSource[section].data.count)
+//        return section == 0 ? 2: ( section == 7 ? grpData.count:headerDataSource[section].data.count)
     }
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        if indexPath.section == 8 || indexPath.section == 6 || indexPath.section == 7 || (indexPath.section == 9 && indexPath.row == 0){
+       
+        if headerDataSource[indexPath.section].data[0] == "Favourites"  || headerDataSource[indexPath.section].data[0] == "Emergency Contact"  || headerDataSource[indexPath.section].data[0] == "Notes"  || (headerDataSource[indexPath.section].data[0] == "Groups"  && indexPath.row == 0){
+            
             return UITableViewCell.EditingStyle.none
         }
         
         
-        if indexPath.section > 0 && indexPath.row > 0 && indexPath.section != 9 {
+        if indexPath.section > 0 && indexPath.row > 0 && headerDataSource[indexPath.section].data[0] != "Groups"  {
             return UITableViewCell.EditingStyle.delete
         }
         
-        if indexPath.section > 0 || (indexPath.section == 9 && indexPath.row > 0){
+        if ( indexPath.section > 0 || (headerDataSource[indexPath.section].data[0] == "Groups"  && indexPath.row > 0)){
             return  UITableViewCell.EditingStyle.insert
         }
         
@@ -340,20 +416,29 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .insert{
-            if(indexPath.section != 9){
-                if (indexPath.section == 2){
+            
+            if(headerDataSource[indexPath.section].data[0] != "Groups" ){
+                if (headerDataSource[indexPath.section].data[0] == "Work Info"){
+                    if(workInfoArray.isEmpty){
+                        workInfoArray.append("")
+                    }
+                }
+                else if (headerDataSource[indexPath.section].data[0] == "PhoneNumber" ){
                     phoneNumModel.append(PhoneNumberModel(modelType: "mobile"))
                 }
-                else if (indexPath.section == 4){
-                    addressOption = "home"
-                    //                    addressModel.append(AddressModel(modelType: "home"))
+                else if (headerDataSource[indexPath.section].data[0] == "Address" ){
+                    addressModel.append(AddressModel(modelType: "home"))
+                    
                 }
-                else if (indexPath.section == 5) {
-                    socialProfOption = "Twitter"
-                    //                    socialProfileModel.append(SocialProfileModel(profileType: "Twitter"))
+                else if (headerDataSource[indexPath.section].data[0] == "Social Profile" ) {                    socialProfileModel.append(SocialProfileModel(profileType: "Twitter"))
                 }
-                headerDataSource[indexPath.section].data.append(headerDataSource[indexPath.section].data[0])
-                tableView.insertRows(at: [IndexPath(row:  headerDataSource[indexPath.section].data.count-1, section: indexPath.section)], with: .bottom)
+                else if (headerDataSource[indexPath.section].data[0] == "Email" ){
+                    
+                    emailArray.append("")
+                }
+                
+                tableView.reloadData()
+
             }
             else{
                 groups.append(grpData[indexPath.row].groupName)
@@ -361,21 +446,40 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             }
         }
         else if editingStyle == .delete {
-            if (indexPath.section == 2){
+            if (headerDataSource[indexPath.section].data[0] == "PhoneNumber" ){
                 phoneNumModel.remove(at: indexPath.row - 1)
             }
-            else if (indexPath.section == 4){
+            else if (headerDataSource[indexPath.section].data[0] == "Address" ){
                 if (!addressModel.isEmpty){
                     addressModel.remove(at: indexPath.row - 1)
                 }
             }
+            else if (headerDataSource[indexPath.section].data[0] == "Email" ){
+                emailArray.remove(at: indexPath.row - 1)
+            }
+            else if (headerDataSource[indexPath.section].data[indexPath.row - 1] == "Work Info" ){
+                workInfoArray.remove(at: indexPath.row - 1)
+            }
             
-            headerDataSource[indexPath.section].data.remove(at: indexPath.row)
+//            headerDataSource[indexPath.section].data.remove(at: indexPath.row)
             
-            tableView.deleteRows(at: [IndexPath(row: indexPath.row, section: indexPath.section)], with: .left)
+
             tableView.reloadData()
         }
-    
+        
+    }
+
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        
+        if (indexPath.section == 0 || headerDataSource[indexPath.section].data[0] == "Favourites" || headerDataSource[indexPath.section].data[0] == "Emergency Contact"){
+            return false
+        }
+        if(headerDataSource[indexPath.section].data[0] == "Groups" && indexPath.row == 0){
+            return false
+        }
+        else{
+            return true
+        }
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -383,116 +487,197 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard  indexPath.section != 0 else{
+        
+        guard  (indexPath.section != 0) else{
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactNameTableViewCell.identifier, for: indexPath) as? ContactNameTableViewCell
-            if firstName != "" && indexPath.row == 0 {
-                cell?.textField.text = firstName
+            cell?.contentView.layoutMargins = UIEdgeInsets.zero
+            if(info != nil){
+                
+                cell?.textField.text = (indexPath.row == 0) ? (info?.firstName) : (info?.lastName)
+                
             }
-            if lastName != nil && indexPath.row == 1 {
-                cell?.textField.text = lastName
+            
+            if inputDict["First Name"] != nil && indexPath.row == 0 {
+                if let firstName = inputDict["First Name"]{
+                    cell?.textField.text = String(describing: firstName)
+                }
+            }
+            if String(describing: inputDict["Last Name"]).isEmpty && indexPath.row == 1 {
+                cell?.textField.text = String(describing: inputDict["Last Name"])
             }
             cell?.textField.attributedPlaceholder = NSAttributedString(string:(headerDataSource[indexPath.section].data[indexPath.row]) ,attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray])
             cell?.textField.delegate = self
             return cell!
         }
-        
-        if(indexPath.section == 2 && indexPath.row > 0){
+        if(headerDataSource[indexPath.section].data[0] == "PhoneNumber" && indexPath.row > 0){
+
             let cell = tableView.dequeueReusableCell(withIdentifier: PhoneNumberTableViewCell.identifier, for: indexPath) as? PhoneNumberTableViewCell
-            
-            cell?.optionLabel.text = phoneNumModel[indexPath.row-1].modelType
-            cell?.numInput.attributedPlaceholder = NSAttributedString(string:"phone",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
-            cell?.cellView.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
-            cell?.cellView.tag = indexPath.row
-            cell?.numInput.delegate = self
-            cell?.numInput.tag = indexPath.row
-            
-            if let number = phoneNumModel[indexPath.row-1].number {
+            if(info != nil){
+                if let modelType = info?.phoneNumber[indexPath.row - 1].modelType,let number = info?.phoneNumber[indexPath.row - 1].number{
+                    cell?.optionLabel.text = modelType
+                    cell?.numInput.text = String(number)
+                }
                 
-                cell?.numInput.text = String(number)
+                
+            }
+            else{
+                cell?.optionLabel.text = phoneNumModel[indexPath.row-1].modelType
+                cell?.numInput.attributedPlaceholder = NSAttributedString(string:"phone",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
+                cell?.cellView.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+                cell?.cellView.tag = indexPath.row
+                cell?.numInput.delegate = self
+                cell?.numInput.tag = indexPath.row
+                
+                
+                if let number = phoneNumModel[indexPath.row-1].number {
+                    
+                    cell?.numInput.text = String(number)
+                }
             }
             
             return cell!
         }
+            
         
-        if(indexPath.section == 4 && indexPath.row > 0){
+        if(headerDataSource[indexPath.section].data[0] == "Address" && indexPath.row > 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: AddressTableViewCell.identifier, for: indexPath) as? AddressTableViewCell
-            if(indexPath.row - 1 < addressModel.count){
-                cell?.doorNumTf.text = String( addressModel[indexPath.row - 1].doorNo ?? 0)
-                cell?.streetTf.text = String( addressModel[indexPath.row - 1].Street ?? "" )
-                cell?.cityTf.text = String( addressModel[indexPath.row - 1].city ?? "")
-                cell?.postCodeTf.text = String( addressModel[indexPath.row - 1].postcode ?? 0)
-                cell?.stateTf.text = String(addressModel[indexPath.row - 1].state ?? "")
-                cell?.CountryTf.text = String( addressModel[indexPath.row - 1].country ?? "")
+            if(info != nil){
+                if let modelType = info?.address?[indexPath.row - 1].modelType{
+                    cell?.optionLabel.text = modelType
+                }
+                if let doorNo = info?.address?[indexPath.row - 1].doorNo{
+                    cell?.doorNumTf.text = doorNo
+                }
+                if let street = info?.address?[indexPath.row - 1].Street{
+                    cell?.streetTf.text = street
+                }
+                if let city = info?.address?[indexPath.row - 1].city{
+                    cell?.cityTf.text = city
+                }
+                if let postcode = info?.address?[indexPath.row - 1].postcode{
+                    cell?.postCodeTf.text = postcode
+                }
+                if let state = info?.address?[indexPath.row - 1].state{
+                    cell?.stateTf.text = state
+                }
+                if let country = info?.address?[indexPath.row - 1].country{
+                    cell?.CountryTf.text = country
+                }
                 
             }
-            
-            cell?.optionLabel.text = addressOption
-            cell?.optionButton.addTarget(self, action: #selector(addressOptions), for: .touchUpInside)
-            
-            cell?.doorNumTf.delegate = self
-            cell?.streetTf.delegate = self
-            cell?.cityTf.delegate = self
-            cell?.postCodeTf.delegate = self
-            cell?.stateTf.delegate = self
-            cell?.CountryTf.delegate = self
-            
-            cell?.optionButton.tag = indexPath.row
-            cell?.doorNumTf.tag = indexPath.row
-            cell?.streetTf.tag = indexPath.row
-            cell?.cityTf.tag = indexPath.row
-            cell?.postCodeTf.tag = indexPath.row
-            cell?.stateTf.tag = indexPath.row
-            cell?.CountryTf.tag = indexPath.row
+            else{
+                cell?.optionLabel.text = addressModel[indexPath.row-1].modelType
+                cell?.optionButton.addTarget(self, action: #selector(addressOptions), for: .touchUpInside)
+                
+                cell?.doorNumTf.delegate = self
+                cell?.streetTf.delegate = self
+                cell?.cityTf.delegate = self
+                cell?.postCodeTf.delegate = self
+                cell?.stateTf.delegate = self
+                cell?.CountryTf.delegate = self
+                
+                cell?.optionButton.tag = indexPath.row
+                cell?.doorNumTf.tag = indexPath.row
+                cell?.streetTf.tag = indexPath.row
+                cell?.cityTf.tag = indexPath.row
+                cell?.postCodeTf.tag = indexPath.row
+                cell?.stateTf.tag = indexPath.row
+                cell?.CountryTf.tag = indexPath.row
+                
+                if let doorNo = addressModel[indexPath.row - 1].doorNo{
+                    cell?.doorNumTf.text = String(doorNo)
+                }
+                if let street = addressModel[indexPath.row - 1].Street{
+                    cell?.streetTf.text = street
+                }
+                if let city = addressModel[indexPath.row - 1].city{
+                    cell?.cityTf.text = city
+                }
+                if let postcode = addressModel[indexPath.row - 1].postcode{
+                    cell?.postCodeTf.text = String(postcode)
+                }
+                if let state = addressModel[indexPath.row - 1].state{
+                    cell?.stateTf.text = state
+                }
+                if let country = addressModel[indexPath.row - 1].country{
+                    cell?.CountryTf.text = country
+                }
+            }
             
             return cell!
         }
         
-        if (indexPath.section == 5 && indexPath.row > 0){
+        if (headerDataSource[indexPath.section].data[0] == "Social Profile" && indexPath.row > 0){
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SocialProfileTableViewCell.identifier, for: indexPath) as? SocialProfileTableViewCell
-            if(indexPath.row-1 < socialProfileModel.count){
-                cell?.numInput.text = String( socialProfileModel[indexPath.row - 1].link!)
+            if (info != nil) {
+                if let profileType = info?.socialProfile?[indexPath.row - 1].profileType{
+                    cell?.optionLabel.text = profileType
+                }
+                if let link = info?.socialProfile?[indexPath.row - 1].link{
+                    cell?.numInput.text = link}
             }
-            cell?.optionLabel.text = socialProfOption
-            cell?.numInput.attributedPlaceholder = NSAttributedString(string:"Social Profile",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
-            cell?.cellView.tag = indexPath.row
-            cell?.numInput.keyboardType = .emailAddress
-            cell?.numInput.delegate = self
-            cell?.numInput.tag = indexPath.row
-            
-            cell?.cellView.addTarget(self, action: #selector(socialProfileOptions), for: .touchUpInside)
+            else{
+                cell?.optionLabel.text = socialProfileModel[indexPath.row-1].profileType
+                cell?.numInput.attributedPlaceholder = NSAttributedString(string:"Social Profile",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
+                cell?.cellView.tag = indexPath.row
+                cell?.numInput.keyboardType = .emailAddress
+                cell?.numInput.delegate = self
+                cell?.numInput.tag = indexPath.row
+                
+                cell?.cellView.addTarget(self, action: #selector(socialProfileOptions), for: .touchUpInside)
+                if let link = socialProfileModel[indexPath.row - 1].link{
+                    cell?.numInput.text = link
+                }
+            }
             return cell!
         }
         
-        if (indexPath.section == 8){
+        if (headerDataSource[indexPath.section].data[0] == "Notes" ){
             let cell = tableView.dequeueReusableCell(withIdentifier: NotesTableViewCell.identifier) as! NotesTableViewCell
+            if info != nil{
+                cell.textView.text = info?.notes
+            }
             cell.textView.delegate = self
             return cell
         }
-        if (indexPath.section == 6){
+        if (headerDataSource[indexPath.section].data[0] == "Favourites"){
             let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier) as! FavouriteAndEmergencyContactTableViewCell
             cell.text.text = "Favourite"
             cell.images.addTarget(self, action: #selector(tapFavourite), for: .touchUpInside)
-            
+            if (info != nil){
+                isFavourite = (info?.favourite)!
+            }
             if (isFavourite == 0){
                 cell.images.setImage(UIImage(systemName: "star"), for: .normal)
                 cell.images.tintColor = .systemBlue
             }
+            else{
+                cell.images.setImage(UIImage(systemName: "star.fill"), for: .normal)
+                cell.images.tintColor = .systemBlue
+            }
             return cell
         }
-        if (indexPath.section == 7){
+        if (headerDataSource[indexPath.section].data[0] == "Emergency Contact" ){
             let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier) as! FavouriteAndEmergencyContactTableViewCell
             cell.text.text = "Emergency Contact"
             cell.images.addTarget(self, action: #selector(tapEmergency), for: .touchUpInside)
+            if (info != nil){
+                isEmergencyContact = (info?.emergencyContact)!
+            }
             if(isEmergencyContact == 0){
                 cell.images.setImage(UIImage(systemName: "staroflife"), for: .normal)
                 cell.images.tintColor = .systemRed
                 
             }
+            else{
+                cell.images.setImage(UIImage(systemName: "staroflife.fill"), for: .normal)
+                cell.images.tintColor = .systemRed
+            }
             
             return cell
         }
-        if (indexPath.section == 9 && indexPath.row > 0){
+        if (headerDataSource[indexPath.section].data[0] == "Groups" && indexPath.row > 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.identifier) as! GroupsTableViewCell
             cell.selectionStyle = .blue
             cell.label.text = grpData[indexPath.row].groupName
@@ -510,16 +695,27 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }else{
             let cell = tableView.dequeueReusableCell(withIdentifier: AddTableViewCell.identifier, for: indexPath) as! AddTableViewCell
             if(indexPath.section == 1){
+                if info != nil {
+                    cell.textField.text = info?.workInfo!
+                }
+                cell.textField.tag = indexPath.row - 1
                 
-                cell.textField.text = workInfo
+                    if(!workInfoArray.isEmpty){
+                        cell.textField.text =  workInfoArray[indexPath.row - 1]
+                    }
+                
             }
             if(indexPath.section == 3){
+                cell.textField.tag =  indexPath.row - 1
+                if info != nil {
+                    cell.textField.text = info?.email?[indexPath.row - 1]
+                }
                 if indexPath.row-1 < emailArray.count {
-                    print( "email id is \(emailArray[indexPath.row-1])")
+                    print( "email id is \(emailArray)")
                     cell.textField.text = emailArray[indexPath.row-1]
                 }
             }
-            cell.textField.attributedPlaceholder = NSAttributedString(string: (headerDataSource[indexPath.section].data[indexPath.row]),attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
+            cell.textField.attributedPlaceholder = NSAttributedString(string: (headerDataSource[indexPath.section].data[0]),attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
             cell.textField.delegate = self
             
             return cell
@@ -536,10 +732,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         return " "
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if ( indexPath.section == 4 && indexPath.row > 0){
+
+        if ( headerDataSource[indexPath.section].data[0] == "Address"  && indexPath.row > 0){
             return 300.0
         }
-        else if indexPath.section == 8{
+        else if headerDataSource[indexPath.section].data[0] == "Notes" {
             return 150.0
         }
         else{
@@ -560,13 +757,68 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if (indexPath.section == 9 && indexPath.row > 0){
-            //            print("in 9")
-            groups.append(grpData[indexPath.row].groupName)
-            //            print("====> \(groups)")
+        if(headerDataSource[indexPath.section].data[indexPath.row] != "Groups" ){
+            if (headerDataSource[indexPath.section].data[0] == "PhoneNumber" ){
+                phoneNumModel.append(PhoneNumberModel(modelType: "mobile"))
+                tableView.reloadData()
+            }
+            else if (headerDataSource[indexPath.section].data[0] == "Address" ){
+                addressModel.append(AddressModel(modelType: "home"))
+                tableView.reloadData()
+            }
+            else if (headerDataSource[indexPath.section].data[0] == "Social Profile" ) {
+                
+                socialProfileModel.append(SocialProfileModel(profileType: "Twitter"))
+                tableView.reloadData()
+            }
+            else if (headerDataSource[indexPath.section].data[0] == "Favourites"){
+                if(isFavourite == 0){
+                    isFavourite = 1
+                }
+                else{
+                    isFavourite = 0
+                }
+                tableView.reloadData()
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == "Emergency Contact"){
+                if(isEmergencyContact == 0){
+                    isEmergencyContact = 1}
+                else{
+                    isEmergencyContact = 0
+                }
+                tableView.reloadData()
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == "Work Info"){
+                if(workInfoArray.isEmpty){
+                    workInfoArray.append("")
+                    tableView.reloadData()
+                    
+                }
+            }
+                else if (headerDataSource[indexPath.section].data[0] == "Email"){
+                    emailArray.append("")
+                    tableView.reloadData()
+                }
+                if(headerDataSource[indexPath.section].data[0] != "Favourites" && headerDataSource[indexPath.section].data[0] != "Emergency Contact"){
+                    
+                    headerDataSource[indexPath.section].data.append(headerDataSource[indexPath.section].data[0])
+                    tableView.reloadData()
+                    //                tableView.insertRows(at: [IndexPath(row:  headerDataSource[indexPath.section].data.count-1, section: indexPath.section)], with: .bottom)
+                }
+            
+            else{
+                if (headerDataSource[indexPath.section].data[0] == "Groups"  && indexPath.row > 0){
+                    groups.append(grpData[indexPath.row].groupName)
+                    
+                }
+                
+            }
         }
-        
     }
+        
+    
     
     @objc func showOptions(sender:UIButton){
         phoneNumRowIndex = sender.tag
@@ -619,49 +871,117 @@ extension InfoSheetViewController:UITextFieldDelegate {
         
         switch textField.attributedPlaceholder?.string{
         case "First Name":
-            firstName = textField.text!
+            if let firstName = textField.text{
+                if firstName != ""{
+      
+                    inputDict["First Name"] = firstName}
+                else{
+                    inputDict["First Name"] = nil
+                }
+            }
+            else{
+                inputDict["First Name"] = nil
+            }
+
         case "Last Name":
-            lastName = textField.text!
+            if let lastName = textField.text {
+                
+                if lastName != ""{
+                    inputDict["Last Name"] = lastName
+                }
+                else{
+                    inputDict["Last Name"] = nil
+                }
+            }
+            else{
+                inputDict["Last Name"] = nil
+            }
         case "Work Info":
-            workInfo = textField.text!
+            if let workInfo = textField.text{
+                workInfoArray[textField.tag ] = workInfo
+                
+                inputDict["Work Info"] = workInfoArray[0]}
+            else{
+                inputDict["Work Info"] = nil
+            }
+
         case "Email":
-            emailArray.append(textField.text!)
-            //            print("in did end email \(emailArray)")
+            if let email = textField.text{
+                print(textField.tag)
+                emailArray[textField.tag ] = (email)
+                inputDict["Email"] = emailArray}
+            else{
+                inputDict["Email"] = nil
+            }
+            
         case "phone":
-            phoneNumModel[textField.tag - 1 ].number = Int64(textField.text!)
+            if let phoneNumber = textField.text {
+                phoneNumModel[textField.tag - 1 ].number = Int64(phoneNumber)
+                inputDict["phone"] = phoneNumModel
+            }
+            else{
+                inputDict["phone"] = nil
+            }
         case "Door no." :
-            doorNo = Int(textField.text!)
+            if let doorNo = textField.text{
+                addressModel[textField.tag - 1].doorNo = doorNo
+            }
+            else{
+                addressModel[textField.tag - 1].doorNo = nil
+            }
+            
             
         case "street":
-            street = textField.text!
-            
-            //            addressModel[textField.tag - 1].Street = textField.text!
+            if let street = textField.text {
+                addressModel[textField.tag - 1].Street = street
+            }
+            else{
+                addressModel[textField.tag - 1].Street = nil
+            }
         case "City":
-            city = textField.text!
-            //            addressModel[textField.tag - 1].city = textField.text!
+            if let city = textField.text{
+                addressModel[textField.tag - 1].city = city
+            }
+            else{
+                addressModel[textField.tag - 1].city = nil
+            }
         case "PostCode":
-            postcode = Int(textField.text!)
-            //            addressModel[textField.tag - 1].postcode = Int(textField.text!)
+            if let postcode = textField.text{
+                addressModel[textField.tag - 1].postcode = postcode}
+            else{
+                addressModel[textField.tag - 1].postcode = nil
+            }
         case "state":
-            state = textField.text!
-            //            addressModel[textField.tag - 1].state = textField.text!
+            if let state = textField.text{
+                addressModel[textField.tag - 1].state = state
+            }
+            else{
+                addressModel[textField.tag - 1].state = nil
+            }
         case "Country":
-            country = textField.text!
-            addressModel.append(AddressModel(modelType: addressOption!,doorNo: doorNo,Street: street,city: city,postcode: postcode,state: state,country: country))
-            
+            if let country = textField.text{
+                addressModel[textField.tag - 1].country = country
+            }
+            else{
+                addressModel[textField.tag - 1].country = nil
+            }
+            inputDict["Address"] = addressModel
+
+       
         case "Social Profile":
-            link = textField.text!
-            socialProfileModel.append(SocialProfileModel(profileType: socialProfOption!,link: link))
-            
-            //            socialProfileModel[textField.tag - 1].link = textField.text!
+            if let socialProfile = textField.text{
+                socialProfileModel[textField.tag - 1].link = socialProfile
+                
+            }
+            else{
+                socialProfileModel[textField.tag - 1].link = nil
+            }
+            inputDict["Social Profile"] = socialProfileModel
+
         default:
             return
         }
         
-        
-        //        print("phn ==>  \(phoneNumModel)")
-        //        print("add ==> \(addressModel)")
-        //        print("sp ==> \(socialProfileModel)")
         textField.resignFirstResponder()
     }
     
@@ -678,7 +998,12 @@ extension InfoSheetViewController:UITextFieldDelegate {
     
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        notes = textView.text!
+        if let notes = textView.text{
+            inputDict["Notes"] = notes
+        }
+        else{
+            inputDict["Notes"] = nil
+        }
         //        print(textView.text!)
         if textView.text == "" {
             textView.text = "Notes"

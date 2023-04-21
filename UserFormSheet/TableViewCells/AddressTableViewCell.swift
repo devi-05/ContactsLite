@@ -124,9 +124,9 @@ class AddressTableViewCell: UITableViewCell {
         horizontalContainer.translatesAutoresizingMaskIntoConstraints = false
 //        doorNumTf.translatesAutoresizingMaskIntoConstraints = false
 //        streetTf.translatesAutoresizingMaskIntoConstraints = false
-//        cityTf.translatesAutoresizingMaskIntoConstraints = false
+        cityTf.translatesAutoresizingMaskIntoConstraints = false
 //        stateTf.translatesAutoresizingMaskIntoConstraints = false
-//        postCodeTf.translatesAutoresizingMaskIntoConstraints = false
+        postCodeTf.translatesAutoresizingMaskIntoConstraints = false
 //        CountryTf.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
@@ -147,10 +147,18 @@ class AddressTableViewCell: UITableViewCell {
             
             horizontalContainer.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 100),
             horizontalContainer.leadingAnchor.constraint(equalTo: optionButton.trailingAnchor),
-            horizontalContainer.widthAnchor.constraint(equalToConstant: 60),
+            horizontalContainer.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             horizontalContainer.heightAnchor.constraint(equalToConstant: 100),
             
+            cityTf.topAnchor.constraint(equalTo: contentView.topAnchor),
+            cityTf.leadingAnchor.constraint(equalTo: horizontalContainer.leadingAnchor),
+            cityTf.widthAnchor.constraint(equalToConstant: 90),
+            cityTf.heightAnchor.constraint(equalTo:contentView.heightAnchor),
             
+            postCodeTf.topAnchor.constraint(equalTo: contentView.topAnchor),
+            postCodeTf.leadingAnchor.constraint(equalTo: cityTf.trailingAnchor,constant: 5),
+            postCodeTf.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: 5),
+            postCodeTf.heightAnchor.constraint(equalTo:contentView.heightAnchor),
             
             containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             containerView.leadingAnchor.constraint(equalTo: optionButton.trailingAnchor),

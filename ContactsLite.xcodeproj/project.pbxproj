@@ -39,6 +39,7 @@
 		3391AB5829EA8C2B0040A41B /* EmailAndNotesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3391AB5729EA8C2B0040A41B /* EmailAndNotesTableViewCell.swift */; };
 		33A9329F29E3DBF1009ACEDA /* CustomListTableViewCell1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A9329E29E3DBF1009ACEDA /* CustomListTableViewCell1.swift */; };
 		33A932A129E3DE1E009ACEDA /* GroupsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33A932A029E3DE1E009ACEDA /* GroupsTableViewCell.swift */; };
+		33AA614D29F0FD9700CCA9BB /* FormSheetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AA614C29F0FD9700CCA9BB /* FormSheetViewController.swift */; };
 		33C289C829EC1B90007FAAAD /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C289C729EC1B90007FAAAD /* LocalDataSource.swift */; };
 		33C289CA29EC6304007FAAAD /* SocialProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C289C929EC6304007FAAAD /* SocialProfileTableViewCell.swift */; };
 		33C289CC29ED499A007FAAAD /* DisplayGpMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C289CB29ED499A007FAAAD /* DisplayGpMembersTableViewController.swift */; };
@@ -81,6 +82,7 @@
 		33A9329E29E3DBF1009ACEDA /* CustomListTableViewCell1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListTableViewCell1.swift; sourceTree = "<group>"; };
 		33A932A029E3DE1E009ACEDA /* GroupsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewCell.swift; sourceTree = "<group>"; };
 		33A932A429E6C29F009ACEDA /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		33AA614C29F0FD9700CCA9BB /* FormSheetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormSheetViewController.swift; sourceTree = "<group>"; };
 		33C289C729EC1B90007FAAAD /* LocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSource.swift; sourceTree = "<group>"; };
 		33C289C929EC6304007FAAAD /* SocialProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialProfileTableViewCell.swift; sourceTree = "<group>"; };
 		33C289CB29ED499A007FAAAD /* DisplayGpMembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayGpMembersTableViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				336A8F6A29DFF0E1002B9F1F /* SocialProfileTableViewController.swift */,
 				3323A07029D7143500BF193B /* ImagePickerViewController.swift */,
 				336A8F5E29DD9494002B9F1F /* PhoneNumOptionsTableViewController.swift */,
+				33AA614C29F0FD9700CCA9BB /* FormSheetViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -301,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33AA614D29F0FD9700CCA9BB /* FormSheetViewController.swift in Sources */,
 				3323A06F29D6F1AA00BF193B /* ContactNameTableViewCell.swift in Sources */,
 				336A8F5929DD41B8002B9F1F /* AddTableViewCell.swift in Sources */,
 				3323A03729D2AFE700BF193B /* ViewController.swift in Sources */,
@@ -476,10 +480,10 @@
 				DEVELOPMENT_TEAM = HRV5Q98VD4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ContactsLite/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow permission to access camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -504,10 +508,10 @@
 				DEVELOPMENT_TEAM = HRV5Q98VD4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ContactsLite/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow permission to access camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

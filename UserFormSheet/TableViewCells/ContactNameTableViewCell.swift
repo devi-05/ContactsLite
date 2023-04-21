@@ -21,13 +21,14 @@ class ContactNameTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .clear
-//        contentView.backgroundColor = .secondarySystemBackground.withAlphaComponent(0.3)
+
         contentView.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            textField.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
-            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10 ),
-            textField.widthAnchor.constraint(equalToConstant: 100),
+            textField.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 15),
+            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15 ),
+            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
             textField.heightAnchor.constraint(equalToConstant: 50),
            
             

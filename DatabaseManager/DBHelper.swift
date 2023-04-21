@@ -23,6 +23,7 @@
 //
 //}
 import Foundation
+import UIKit
 
 struct DBHelper {
     static var dbManager = DatabaseManager.shared
@@ -39,33 +40,36 @@ struct DBHelper {
     }
     static func assignDb(contactList:Contacts){
         prepare()
-        dbManager.Insert(tableName: "CONTACTS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"PROFILE_PHOTO":(contactList.profileImage) ?? nil,"FIRST_NAME":contactList.firstName,"LAST_NAME":(contactList.lastName) ?? "","WORK_INFO":(contactList.workInfo)!,"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contactList.phoneNumber)),"EMAIL":convertListToString(list: (contactList.Email)!),"ADDRESS":convertListToString(list: addressEncoder(addressList: (contactList.address)!)),"SOCIAL_PROFILE":convertListToString(list: socialProfileEncoder(socialProfList:(contactList.socialprofile)!)),"IS_FAVOURITE":(contactList.favourite)!,"IS_EMERGENCYCONTACT":(contactList.emergencyContact)!,"NOTES":(contactList.notes) ?? ""]])
+        print(contactList.lastName)
+        dbManager.Insert(tableName: "CONTACTS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"PROFILE_PHOTO":(contactList.profileImage) ,"FIRST_NAME":contactList.firstName,"LAST_NAME":(contactList.lastName == nil) ? nil : (contactList.lastName!) ,"WORK_INFO":((contactList.workInfo == nil) ? nil : contactList.workInfo!),"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contactList.phoneNumber)),"EMAIL": contactList.email == nil ? nil : convertListToString(list: (contactList.email)!),"ADDRESS":contactList.address == nil ? nil : convertListToString(list: addressEncoder(addressList: (contactList.address)!)),"SOCIAL_PROFILE":contactList.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contactList.socialProfile)!)),"IS_FAVOURITE":(contactList.favourite)!,"IS_EMERGENCYCONTACT":(contactList.emergencyContact)!,"NOTES":contactList.notes == nil ? nil : (contactList.notes)! ]])
+        
         let dateformat = DateFormatter()
         dateformat.dateFormat = "mmss"
-        guard let myInt = Int(dateformat.string(from: Date()))  else {
+        guard Int(dateformat.string(from: Date())) != nil  else {
             print("Conversion failed.")
             return
         }
-      
-        if(convertListToString(list: contactList.groups!) == ""){
-            return
-        }
-        else{
-
-            print(contactList.groups!)
-            for i in contactList.groups!{
+        if let groups = contactList.groups{
+            if(convertListToString(list: groups) == ""){
+                return
+            }
+            else{
                 
-                
-                let grpId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(i)'")
-                for j in grpId{
-                    for k in j{
-                        dbManager.Insert(tableName: "CONTACTS_AND_GROUPS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"GROUP_ID":Int(String(describing:k.value))!]])
-                        
+                print(contactList.groups!)
+                for i in contactList.groups!{
+                    
+                    
+                    let grpId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(i)'")
+                    for j in grpId{
+                        for k in j{
+                            dbManager.Insert(tableName: "CONTACTS_AND_GROUPS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"GROUP_ID":Int(String(describing:k.value))!]])
+                            
+                        }
                     }
                 }
+                
             }
-            
-}
+        }
     }
     static func fetchData()->[[String:Any]]{
         prepare()
@@ -144,31 +148,34 @@ struct DBHelper {
     
     static func phoneNumDecoder(str:String)->[PhoneNumberModel] {
         var temp:[PhoneNumberModel] = []
-        
-        
-        let encodedData = Data(str.utf8)
-        let decodedData = try! JSONDecoder().decode(PhoneNumberModel.self, from: encodedData)
-        temp.append(decodedData)
+        let separatedStr = str.split(separator: ";")
+        for i in separatedStr{
+            let encodedData = Data(i.utf8)
+            let decodedData = try! JSONDecoder().decode(PhoneNumberModel.self, from: encodedData)
+            temp.append(decodedData)
+        }
         
         return temp
     }
     static func addressDecoder(str:String)->[AddressModel] {
         var temp:[AddressModel] = []
-        
-        let encodedData = Data(str.utf8)
-        let decodedData = try! JSONDecoder().decode(AddressModel.self, from: encodedData)
-        temp.append(decodedData)
-        
+        let separatedStr = str.split(separator: ";")
+        for i in separatedStr{
+            let encodedData = Data(i.utf8)
+            let decodedData = try! JSONDecoder().decode(AddressModel.self, from: encodedData)
+            temp.append(decodedData)
+        }
         return temp
     }
     static func socialProfileDecoder(str:String)->[SocialProfileModel] {
         var temp:[SocialProfileModel] = []
-        
-        
-        let encodedData = Data(str.utf8)
-        let decodedData = try! JSONDecoder().decode(SocialProfileModel.self, from: encodedData)
-        temp.append(decodedData)
-        
+        let separatedStr = str.split(separator: ";")
+        for i in separatedStr{
+            
+            let encodedData = Data(i.utf8)
+            let decodedData = try! JSONDecoder().decode(SocialProfileModel.self, from: encodedData)
+            temp.append(decodedData)
+        }
         return temp
     }
     

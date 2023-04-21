@@ -73,7 +73,6 @@ class PhoneNumberTableViewCell: UITableViewCell {
         calculateSize()
         print(size.width)
         contentView.addSubview(cellView)
-//        cellView.addSubview(delButton)
         cellView.addSubview(optionLabel)
         cellView.addSubview(disclosureIndicator)
         contentView.addSubview(numInput)
@@ -86,7 +85,7 @@ class PhoneNumberTableViewCell: UITableViewCell {
     func configureConstraints(){
         
         cellView.translatesAutoresizingMaskIntoConstraints = false
-//        delButton.translatesAutoresizingMaskIntoConstraints = false
+
         optionLabel.translatesAutoresizingMaskIntoConstraints = false
         disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
         numInput.translatesAutoresizingMaskIntoConstraints = false
@@ -97,10 +96,7 @@ class PhoneNumberTableViewCell: UITableViewCell {
             cellView.widthAnchor.constraint(equalToConstant: 150),
             cellView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
             
-//            delButton.topAnchor.constraint(equalTo: cellView.topAnchor,constant: 18),
-//            delButton.leadingAnchor.constraint(equalTo: cellView.leadingAnchor,constant: 15),
-//            delButton.widthAnchor.constraint(equalToConstant: 25),
-//            delButton.heightAnchor.constraint(equalToConstant: 25),
+
             
             optionLabel.topAnchor.constraint(equalTo: cellView.topAnchor),
             optionLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor,constant: 10),

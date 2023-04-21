@@ -16,7 +16,7 @@ class AddTableViewCell: UITableViewCell {
     
     lazy var textField:UITextField = {
         let textField = UITextField()
-        textField.borderStyle = .roundedRect
+        textField.borderStyle = .none
         textField.keyboardAppearance = .default
         textField.backgroundColor = .clear
         return textField
@@ -40,10 +40,10 @@ class AddTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             
-            textField.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            textField.heightAnchor.constraint(equalToConstant: 40)
+            textField.topAnchor.constraint(equalTo: contentView.topAnchor),
+            textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 5),
+            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            textField.heightAnchor.constraint(equalTo: contentView.heightAnchor)
         ])
        
     }

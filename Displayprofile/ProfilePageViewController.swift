@@ -20,7 +20,7 @@ class ProfilePageViewController: UITableViewController {
     var contact:Contacts
     init(contact:Contacts){
         self.contact = contact
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .grouped)
         
     }
     
@@ -105,6 +105,7 @@ class ProfilePageViewController: UITableViewController {
 
     @objc func edit(){
         navigationController?.pushViewController(InfoSheetViewController(contact: contact), animated: true)
+        print(contact)
     }
     func configureConstraints(){
         photoLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -140,7 +141,7 @@ class ProfilePageViewController: UITableViewController {
     func setEmail(){
         var temp:[Dict] = []
         
-              for i in contact.Email!{
+              for i in contact.email!{
                   if (!i.isEmpty){
                   temp.append(Dict(key: "", value: i))
               }
@@ -177,7 +178,7 @@ class ProfilePageViewController: UITableViewController {
     }
     func setSocialprofile(){
         var temp:[Dict] = []
-        for i in contact.socialprofile!{
+        for i in contact.socialProfile!{
             if i.link != nil{
                 temp.append(Dict(key: i.profileType, value: i.link!))
             }
@@ -186,11 +187,12 @@ class ProfilePageViewController: UITableViewController {
     }
     func setNotes(){
         var temp:[Dict] = []
-        if (!contact.notes!.isEmpty) {
-            temp.append(Dict(key: "", value: contact.notes!))
-            sectionData.append(Datas(sectionName: "Notes", rows: temp))
+        if let notes = contact.notes{
+            if (!notes.isEmpty) {
+                temp.append(Dict(key: "", value: contact.notes!))
+                sectionData.append(Datas(sectionName: "Notes", rows: temp))
+            }
         }
-        
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sectionData.count
@@ -230,9 +232,7 @@ class ProfilePageViewController: UITableViewController {
         header.addSubview(myImage)
         return header
     }
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return sectionData[section].sectionName
-//    }
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sectionData[indexPath.section].sectionName == "Email" || sectionData[indexPath.section].sectionName == "Notes"{
             return 40

@@ -344,8 +344,10 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
        
             if (filteredData.isEmpty){
                 name = (passedData!.data[indexPath.section].rows[indexPath.row].firstName)
-                if (passedData!.data[indexPath.section].rows[indexPath.row].lastName) != nil {
-                    name += " \(passedData!.data[indexPath.section].rows[indexPath.row].lastName!)"
+                if (passedData!.data[indexPath.section].rows[indexPath.row].lastName) != "nil" {
+                    if let passedData = passedData,let lastName =  (passedData.data[indexPath.section].rows[indexPath.row].lastName){
+                        name += " \(lastName)"
+                    }
                     
                 }
                 cell.textLabel?.attributedText = nil
@@ -415,8 +417,8 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filteredData.isEmpty{
-            print("\(passedData!.data[indexPath.section].rows[indexPath.row].firstName) is Selected")
-            let vc = ProfilePageViewController(contact: passedData!.data[indexPath.section].rows[indexPath.row])
+          
+            let vc = ProfilePageViewController(contact: (passedData?.data[indexPath.section].rows[indexPath.row])!)
             navigationController?.pushViewController(vc, animated: true)
         }
         else{
@@ -431,7 +433,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     @objc func addButton(){
         let vc = InfoSheetViewController(contact: nil)
         vc.allContactsVc = self
-//
+
         let navVc = UINavigationController(rootViewController:  vc)
 //        navVc.modalPresentationStyle = .fullScreen
         present(navVc, animated: true)

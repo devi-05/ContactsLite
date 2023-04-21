@@ -81,7 +81,7 @@ struct DatabaseManager{
     }
     
     
-    func Insert(tableName:String,listOfValToBeAppended:[[String:Any]]){
+    func Insert(tableName:String,listOfValToBeAppended:[[String:Any?]]){
        
 
         for i in 0..<listOfValToBeAppended.count{
@@ -98,7 +98,7 @@ struct DatabaseManager{
                                     
             var values:[Any] = []
             for j in columns{
-                values.append(listOfValToBeAppended[i][j]!)
+                values.append(listOfValToBeAppended[i][j]! as Any)
             }
             print(columns)
            print(values)

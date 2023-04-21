@@ -13,6 +13,7 @@ class CustomListTableViewCell: UITableViewCell {
     lazy var textField:UITextField = {
        let textField = UITextField()
         textField.placeholder = "Enter List name"
+        textField.keyboardAppearance = .default
         textField.borderStyle = .roundedRect
         return textField
     }()
