@@ -83,11 +83,11 @@ class Helper{
                     }
                 }
         if (!localDbContactList.isEmpty){
-                groups.append(GroupModel(groupName: "iphone", data:
+                groups.append(GroupModel(groupName: "iPhone", data:
                                             [SectionContent(sectionName: "iPhone", rows: localDbContactList)]))
                                }
         else{
-            groups.append(GroupModel(groupName: "iphone", data:
+            groups.append(GroupModel(groupName: "iPhone", data:
                                         []))
                            }
         

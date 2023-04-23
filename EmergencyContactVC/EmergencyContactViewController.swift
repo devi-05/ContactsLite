@@ -99,7 +99,7 @@ class EmergencyContactViewController: UITableViewController
         return sortedEmergencyContacts[section].sectionName
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return 50
     }
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 

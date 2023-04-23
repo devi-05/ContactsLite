@@ -1,21 +1,19 @@
 //
-//  ProfPageTableViewCell.swift
+//  AddressTableViewCell.swift
 //  ContactsLite
 //
-//  Created by devi-pt6261 on 15/04/23.
+//  Created by devi-pt6261 on 23/04/23.
 //
 
 import UIKit
 
-class ProfPageTableViewCell: UITableViewCell {
-
-   static var identifier = "ProfPageTableViewCell"
-
+class AddressDisplayTableViewCell: UITableViewCell {
+    static var identifier = "AddressDisplayTableViewCell"
     lazy var header:UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 15)
         label.textColor = .label
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 15)
         return label
     }()
     lazy var subHeader:UILabel = {
@@ -43,16 +41,17 @@ class ProfPageTableViewCell: UITableViewCell {
         subHeader.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            header.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 10),
+            header.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5),
             header.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             header.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             header.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2),
             
-            subHeader.topAnchor.constraint(equalTo:header.bottomAnchor, constant: 5),
+            subHeader.topAnchor.constraint(equalTo:header.bottomAnchor),
             subHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             subHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            subHeader.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2)
+            subHeader.heightAnchor.constraint(equalToConstant: 120)
             
         ])
     }
+
 }

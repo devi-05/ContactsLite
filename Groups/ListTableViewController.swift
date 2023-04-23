@@ -206,6 +206,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         
     }
     @objc func done(){
+        isAddTapped = true
         tableView.setEditing(false, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(add))
     }

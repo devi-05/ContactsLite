@@ -14,20 +14,30 @@ class GroupsTableViewCell: UITableViewCell {
         label.textColor = .label
         return label
     }()
-   
+    lazy var leftSideButton:UIButton = {
+        let button = UIButton()
+        return button
+
+    }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(label)
-      
+        contentView.addSubview(leftSideButton)
         label.translatesAutoresizingMaskIntoConstraints = false
-        
+        leftSideButton.translatesAutoresizingMaskIntoConstraints = false
       
         NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: contentView.topAnchor),
-            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
-            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+           
             
+            leftSideButton.topAnchor.constraint(equalTo: contentView.topAnchor),
+            leftSideButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            leftSideButton.widthAnchor.constraint(equalToConstant: 40),
+            leftSideButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            label.topAnchor.constraint(equalTo: contentView.topAnchor),
+            label.leadingAnchor.constraint(equalTo: leftSideButton.trailingAnchor,constant: 15),
+            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -15),
+            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
         
     }

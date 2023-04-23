@@ -25,7 +25,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     var contact:Contacts
     init(contact:Contacts){
         self.contact = contact
-        super.init(style: .grouped)
+        super.init(style: .insetGrouped)
         
     }
     
@@ -65,11 +65,13 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         return view
     }()
     lazy var deleteButton:UIButton = {
-        let button = UIButton(frame: CGRect(x: 100, y: 0, width: 170, height: 40))
-        button.setTitle("Delete Contact", for: .normal)
-        
-        button.setTitleColor(.label, for: .normal)
-        button.backgroundColor = .systemRed.withAlphaComponent(0.9)
+        let button = UIButton(frame: CGRect(x: 150, y: 0, width: 80, height: 50))
+        button.setImage(UIImage(systemName: "trash.fill"), for: .normal)
+        button.tintColor = .white
+        button.layer.cornerRadius = 5 // 38, 33, 35
+        button.layer.borderColor = .init(red: 38/255, green: 33/255, blue: 35/255, alpha: 1)
+      
+        button.backgroundColor = .systemRed
         button.addTarget(self, action: #selector(del), for: .touchUpInside)
         return button
     }()
@@ -80,6 +82,13 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         tableView.reloadData()
        
 
+    }
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionData.count
+        
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sectionData[section].rows.count
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,14 +102,12 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
         navigationController?.navigationBar.prefersLargeTitles = false
         tableView.tableHeaderView = photoView
-//        let footerView = UIView()
         footerView.addSubview(deleteButton)
         tableView.tableFooterView = footerView
-        view.backgroundColor =  .systemBackground
-        tableView.backgroundColor = .secondarySystemBackground
+        tableView.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         tableView.register(ProfPageTableViewCell.self, forCellReuseIdentifier: ProfPageTableViewCell.identifier)
         tableView.register(EmailAndNotesTableViewCell.self, forCellReuseIdentifier: EmailAndNotesTableViewCell.identifier)
-     
+        tableView.register(AddressDisplayTableViewCell.self, forCellReuseIdentifier: AddressDisplayTableViewCell.identifier)
     
     }
     
@@ -110,7 +117,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         let vc = InfoSheetViewController(contact: contact)
         vc.editDelegate = self
         navigationController?.pushViewController(vc, animated: true)
-        //        print(contact)
+   
     }
     @objc func del(){
         DBHelper.deleteContact(contactId: contact.contactId)
@@ -121,7 +128,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         photoLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         workInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-//        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+
         NSLayoutConstraint.activate([
             photoLabel.topAnchor.constraint(equalTo: photoView.topAnchor),
             photoLabel.centerXAnchor.constraint(equalTo: photoView.centerXAnchor),
@@ -138,10 +145,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             workInfoLabel.trailingAnchor.constraint(equalTo: photoView.trailingAnchor, constant: -20),
             workInfoLabel.heightAnchor.constraint(equalToConstant: 50),
             
-//            deleteButton.leadingAnchor.constraint(equalTo: footerView.leadingAnchor, constant: 50),
-//            deleteButton.widthAnchor.constraint(equalToConstant: 45),
-//            deleteButton.heightAnchor.constraint(equalToConstant: 40)
-            
+    
             
         ])
     }
@@ -194,56 +198,61 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     func setEmail(){
         var temp:[Dict] = []
-       
-        if let email = contact.email{
-            for i in email{
-                if (!i.isEmpty){
-                    temp.append(Dict(key: "", value: i))
+        if(contact.email?.count != 0){
+            if let email = contact.email{
+                for i in email{
+                    if (!i.isEmpty){
+                        temp.append(Dict(key: "", value: i))
+                    }
                 }
+                
+                sectionData.append(Datas(sectionName: "Email", rows: temp))
             }
         }
-        sectionData.append(Datas(sectionName: "Email", rows: temp))
     }
     func setAddress(){
         var temp:[Dict] = []
         var address:String = ""
-     
-        if let contactAddress = contact.address{
-            for i in contactAddress{
-                if (i.doorNo) != nil{
-                    address+=String(describing: i.doorNo!)
+        if(contact.address?.count != 0){
+            if let contactAddress = contact.address{
+                for i in contactAddress{
+                    if (i.doorNo) != nil{
+                        address+="\(i.doorNo!)\n"
+                    }
+                    if (i.Street) != nil{
+                        address+="\(i.Street!)\n"
+                    }
+                    if (i.city) != nil{
+                        address+="\(i.city!)\n"
+                    }
+                    if (i.postcode) != nil{
+                        address+="\(i.postcode!)\n"
+                    }
+                    if (i.state) != nil{
+                        address+="\(i.state!)\n"
+                    }
+                    if (i.country) != nil{
+                        address+="\(i.country!)"
+                    }
+                    
+                    temp.append(Dict(key: i.modelType, value: address))
                 }
-                if (i.Street) != nil{
-                    address+=String(describing: i.Street!)
-                }
-                if (i.city) != nil{
-                    address+=String(describing: i.city!)
-                }
-                if (i.postcode) != nil{
-                    address+=String(describing: i.postcode!)
-                }
-                if (i.state) != nil{
-                    address+=String(describing: i.state!)
-                }
-                if (i.country) != nil{
-                    address+=String(describing: i.country!)
-                }
-                
-                temp.append(Dict(key: i.modelType, value: address))
             }
+            sectionData.append(Datas(sectionName: "Address", rows: temp))
         }
-        sectionData.append(Datas(sectionName: "Address", rows: temp))
     }
     func setSocialprofile(){
         var temp:[Dict] = []
-        if let socialProfile = contact.socialProfile{
-            for i in socialProfile{
-            if i.link != nil{
-                temp.append(Dict(key: i.profileType, value: i.link!))
+        if(contact.email?.count != 0){
+            if let socialProfile = contact.socialProfile{
+                for i in socialProfile{
+                    if i.link != nil{
+                        temp.append(Dict(key: i.profileType, value: i.link!))
+                    }
+                }
             }
+            sectionData.append(Datas(sectionName: "Social Profile", rows: temp))
         }
-    }
-        sectionData.append(Datas(sectionName: "Social Profile", rows: temp))
     }
 
     func setNotes(){
@@ -255,16 +264,16 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             }
         }
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionData.count
-        
-    }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionData[section].rows.count
-    }
+   
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+        if(sectionData[section].sectionName == Headers.phoneNumber){
+            return 30
+        }
+        else{
+            return 3
+        }
     }
+    
 //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 //        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width-10, height: 50))
 //        header.layer.cornerRadius = 20
@@ -293,22 +302,50 @@ class ProfilePageViewController: UITableViewController,editDelegate {
 //        header.addSubview(myImage)
 //        return header
 //    }
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        switch sectionData[section].sectionName{
+//        case Headers.phoneNumber:
+//            return Headers.phoneNumber
+//        case Headers.email:
+//            return Headers.email
+//        case Headers.address:
+//            return Headers.address
+//        case Headers.socialProfile:
+//            return Headers.socialProfile
+//        case Headers.notes:
+//            return Headers.notes
+//        default:
+//            return " "
+//        }
+//
+//    }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return " "
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if sectionData[indexPath.section].sectionName == "Email" || sectionData[indexPath.section].sectionName == "Notes"{
-            return 40
+        if sectionData[indexPath.section].sectionName == Headers.email || sectionData[indexPath.section].sectionName == Headers.notes{
+            return 40}
+        else if sectionData[indexPath.section].sectionName == Headers.address{
+            return 120
         }
         else{
             
             return 70
         }
+        
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if sectionData[indexPath.section].sectionName == "Email" || sectionData[indexPath.section].sectionName == "Notes"{
             let cell = tableView.dequeueReusableCell(withIdentifier: EmailAndNotesTableViewCell.identifier) as! EmailAndNotesTableViewCell
             cell.header.text = sectionData[indexPath.section].rows[indexPath.row].value
+            
+            return cell
+        }
+        else if  sectionData[indexPath.section].sectionName == Headers.address {
+            let cell = tableView.dequeueReusableCell(withIdentifier: AddressDisplayTableViewCell.identifier) as! AddressDisplayTableViewCell
+            print(sectionData)
+            cell.header.text = sectionData[indexPath.section].rows[indexPath.row].key
+            cell.subHeader.text = sectionData[indexPath.section].rows[indexPath.row].value
             
             return cell
         }
@@ -319,6 +356,9 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             cell.subHeader.text = sectionData[indexPath.section].rows[indexPath.row].value
             return cell
         }
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
   
 }
