@@ -175,7 +175,7 @@ struct DatabaseManager{
         return fetchedData
     }
     
-    func update(tableName:String,colListWithVal:[String:Any],criteria:String){
+    func update(tableName:String,colListWithVal:[String:Any?],criteria:String){
         var statement:OpaquePointer? = nil
         
         let colList = colListWithVal.keys
@@ -183,7 +183,7 @@ struct DatabaseManager{
         var values:[Any] = []
         
         for i in colList{
-            values.append(colListWithVal[i]!)
+            values.append(colListWithVal[i] as Any)
         }
         var emptyList:[String] = []
         for i in colList{

@@ -44,6 +44,7 @@
 		33C289CA29EC6304007FAAAD /* SocialProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C289C929EC6304007FAAAD /* SocialProfileTableViewCell.swift */; };
 		33C289CC29ED499A007FAAAD /* DisplayGpMembersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C289CB29ED499A007FAAAD /* DisplayGpMembersTableViewController.swift */; };
 		33C289CE29EE5593007FAAAD /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C289CD29EE5593007FAAAD /* Helper.swift */; };
+		33D045FE29F396460058EE62 /* Delegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33D045FD29F396460058EE62 /* Delegates.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -87,6 +88,7 @@
 		33C289C929EC6304007FAAAD /* SocialProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialProfileTableViewCell.swift; sourceTree = "<group>"; };
 		33C289CB29ED499A007FAAAD /* DisplayGpMembersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayGpMembersTableViewController.swift; sourceTree = "<group>"; };
 		33C289CD29EE5593007FAAAD /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		33D045FD29F396460058EE62 /* Delegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegates.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		3323A02629D2AFE700BF193B = {
 			isa = PBXGroup;
 			children = (
+				33D045FD29F396460058EE62 /* Delegates.swift */,
 				33C289CD29EE5593007FAAAD /* Helper.swift */,
 				336A8F7429E2FBDC002B9F1F /* ContactLiteModels.swift */,
 				3391AB5229E9D7280040A41B /* Groups */,
@@ -320,6 +323,7 @@
 				336A8F7129E043E6002B9F1F /* DBHelper.swift in Sources */,
 				33C289C829EC1B90007FAAAD /* LocalDataSource.swift in Sources */,
 				3323A03529D2AFE700BF193B /* SceneDelegate.swift in Sources */,
+				33D045FE29F396460058EE62 /* Delegates.swift in Sources */,
 				33A9329F29E3DBF1009ACEDA /* CustomListTableViewCell1.swift in Sources */,
 				3323A07129D7143500BF193B /* ImagePickerViewController.swift in Sources */,
 				3323A06929D6AD8700BF193B /* InfoSheetViewController.swift in Sources */,

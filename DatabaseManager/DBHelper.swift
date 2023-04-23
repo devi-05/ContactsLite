@@ -40,7 +40,7 @@ struct DBHelper {
     }
     static func assignDb(contactList:Contacts){
         prepare()
-        print(contactList.lastName)
+        
         dbManager.Insert(tableName: "CONTACTS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"PROFILE_PHOTO":(contactList.profileImage) ,"FIRST_NAME":contactList.firstName,"LAST_NAME":(contactList.lastName == nil) ? nil : (contactList.lastName!) ,"WORK_INFO":((contactList.workInfo == nil) ? nil : contactList.workInfo!),"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contactList.phoneNumber)),"EMAIL": contactList.email == nil ? nil : convertListToString(list: (contactList.email)!),"ADDRESS":contactList.address == nil ? nil : convertListToString(list: addressEncoder(addressList: (contactList.address)!)),"SOCIAL_PROFILE":contactList.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contactList.socialProfile)!)),"IS_FAVOURITE":(contactList.favourite)!,"IS_EMERGENCYCONTACT":(contactList.emergencyContact)!,"NOTES":contactList.notes == nil ? nil : (contactList.notes)! ]])
         
         let dateformat = DateFormatter()
@@ -80,6 +80,38 @@ struct DBHelper {
     static func delete(criteria:String?){
         prepare()
         dbManager.deleteRow(tableName: "CONTACTS", criteria: criteria)
+    }
+    static func updateContact(contact:Contacts){
+        prepare()
+        dbManager.update(tableName: "Contacts", colListWithVal: ["PROFILE_PHOTO":contact.profileImage,"FIRST_NAME":contact.firstName,"LAST_NAME":contact.lastName,"WORK_INFO":contact.workInfo,"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contact.phoneNumber)),"EMAIL":(contact.email == nil) ? nil : convertListToString(list: (contact.email)!),"ADDRESS": (contact.address == nil) ? nil : convertListToString(list: addressEncoder(addressList: (contact.address)!)),"SOCIAL_PROFILE":contact.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contact.socialProfile)!)),"IS_FAVOURITE":(contact.favourite)!,"IS_EMERGENCYCONTACT":(contact.emergencyContact)!,"NOTES": (contact.notes == nil) ? nil : (contact.notes)! ], criteria: "CONTACT_ID = \(contact.contactId)")
+        if let groups = contact.groups{
+            if(convertListToString(list: groups) == ""){
+                return
+            }
+            else{
+                
+              
+                for i in groups{
+                    
+                    
+                    let grpId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(i)'")
+                    for j in grpId{
+                        for k in j{
+                            dbManager.update(tableName: "CONTACTS_AND_GROUPS", colListWithVal: ["GROUP_ID":Int(String(describing:k.value))! ], criteria: "CONTACT_ID = \(contact.contactId)")
+                            
+                        }
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    
+    static func deleteContact(contactId:Int){
+        prepare()
+        dbManager.deleteRow(tableName: "CONTACTS", criteria: "CONTACT_ID = \(contactId)")
+        dbManager.deleteRow(tableName: "CONTACTS_AND_GROUPS", criteria: "CONTACT_ID = \(contactId)")
     }
     
     static func phoneNumEncoder(phoneNumList:[PhoneNumberModel])->[String]{

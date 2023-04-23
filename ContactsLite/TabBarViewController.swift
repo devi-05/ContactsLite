@@ -39,7 +39,7 @@ class TabBarViewController: UITabBarController{
         
         vc1.tabBarItem.image = UIImage(systemName: "person.crop.rectangle.stack.fill")
         vc2.tabBarItem.image = UIImage(systemName: "star.fill")
-        vc3.tabBarItem.image = UIImage(systemName: "staroflife")
+        vc3.tabBarItem.image = UIImage(systemName: "staroflife.fill")
         vc4.tabBarItem.image = UIImage(systemName: "person.3.fill")
         
         vc1.tabBarItem.image?.withTintColor(.label)

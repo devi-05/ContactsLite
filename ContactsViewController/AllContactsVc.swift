@@ -11,7 +11,7 @@ import UIKit
 
 
 class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBarDelegate,UISearchResultsUpdating{
-    
+    var isgroupPresent = false
     var bool:Bool = false
     var filteredData:[Contacts]=[]
     var searchedQuery:String = ""
@@ -47,7 +47,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
         label.text = "\(totalContacts) Contacts"
         label.textAlignment = .center
-        label.font = .monospacedDigitSystemFont(ofSize: 15, weight: .bold)
+        label.font = .systemFont(ofSize: 15, weight: .bold)
         label.backgroundColor = .tertiarySystemBackground
         label.textColor = .label
         return label
@@ -113,14 +113,21 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if(passedData == nil){
+        totalContacts = 0
+        // when view appears this function is called so if i passed the data passedData passed data wont be nil it fetches data from db
+//
+        if(!isgroupPresent){
             refreshDataSource()
             tableView.reloadData()
         }
+        
+        
+        
     }
     
     func refreshDataSource(){
         lazy  var fetchedData = DBHelper.fetchData()
+        print("fetched data: \(fetchedData)")
         dbContactList = Helper.decodeToContact(list: fetchedData)
         
          localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "DESC"))))))
@@ -132,6 +139,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         else{
             addContactView.isHidden = true
         }
+
         passedData = localDataSource
         updateTotalContacts()
         
@@ -152,9 +160,10 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
      
         
         super.viewDidLoad()
+        
         if(passedData == nil){
             refreshDataSource()
-//            passedData = localDataSource
+            passedData = localDataSource
             title = "iPhone"
         }
         else{
@@ -162,7 +171,6 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
             updateTotalContacts()
         }
        
-        
         if (passedData?.data.count == 0){
             tableView.backgroundView = addContactView
         }
@@ -204,7 +212,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     }
     
     
-    func updateTotalContacts(){
+    func  updateTotalContacts(){
         for i in 0..<(passedData?.data.count)!{
                    totalContacts+=(passedData?.data[i].rows.count)!
         }
@@ -315,8 +323,11 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        print("passedData : \(passedData)")
         if(!bool){
-            return filteredData.isEmpty ? (passedData!.data.count) : 1}
+            return filteredData.isEmpty ? (passedData!.data.count) : 1
+            
+        }
         
             return 0
         
@@ -419,6 +430,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         if filteredData.isEmpty{
           
             let vc = ProfilePageViewController(contact: (passedData?.data[indexPath.section].rows[indexPath.row])!)
+            
             navigationController?.pushViewController(vc, animated: true)
         }
         else{
@@ -560,6 +572,16 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
             tableView.reloadData()
             
         }
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            DBHelper.deleteContact(contactId: passedData?.data[indexPath.section].rows[indexPath.row ].contactId ?? 0)
+            refreshDataSource()
+            if ((localDataSource?.data.isEmpty) != nil){
+                tableView.backgroundView = addContactView
+            }
+            tableView.reloadData()
+        }
+    }
         
        
         

@@ -10,19 +10,21 @@ import Foundation
 
 
 
-//enum Headers{
-//    static var firstName = "First Name"
-//    static var lastName = "Last Name"
-//    static var workInfo = "Work Info"
-//    static var phoneNumber = "Phone Number"
-//    static var email = "Email"
-//    static var address = "Address"
-//    static var socialProfile = "Social Profile"
-//    static var favourite = "Favourite"
-//    static var emergencyContact = "Emergency Contact"
-//    static var notes = "Notes"
-//    static var groups = "Groups"
-//}
+enum Headers{
+    static var contactId = "Contact Id"
+    static var profileImage = "Profile Image"
+    static var firstName = "First Name"
+    static var lastName = "Last Name"
+    static var workInfo = "Work Info"
+    static var phoneNumber = "Phone Number"
+    static var email = "Email"
+    static var address = "Address"
+    static var socialProfile = "Social Profile"
+    static var favourite = "Favourite"
+    static var emergencyContact = "Emergency Contact"
+    static var notes = "Notes"
+    static var groups = "Groups"
+}
 
 struct Contacts{
     var contactId:Int

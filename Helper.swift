@@ -30,8 +30,9 @@ class Helper{
             if let firstName = name.first {
                  firstLetter = String(firstName)
             }
-            
-            if (!CharacterSet.lowercaseLetters.contains(firstLetter.lowercased().unicodeScalars.first!)){
+            let alphabets = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+            if (!alphabets.description.lowercased().contains(firstLetter.lowercased())){
+//            if (!CharacterSet.lowercaseLetters.contains(firstLetter.lowercased().unicodeScalars.first!)){
                 if(isHash){
                     firstLetter = "#"
                     hashSectionContent = SectionContent(sectionName: "#", rows: [i])

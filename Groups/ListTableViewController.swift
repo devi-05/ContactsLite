@@ -48,7 +48,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         lazy var dbContactList = Helper.decodeToContact(list: fetchedData)
          lazy var localDataSource = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: dbContactList))
         grpNames = DBHelper.fetchGrpNames(colName: "GROUP_NAME")
-        print(grpNames)
+       
         lazy var groupNames:[String] = Helper.getGrpNames(grpName: grpNames)
         grpData = Helper.getGroupsData(locDS: localDataSource, grpName: groupNames)
         tableView.reloadData()
@@ -61,7 +61,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
    
         title = "Lists"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "applepencil"), style: .plain, target: self, action: #selector(edit))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(edit))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),style: .plain, target: self, action: #selector(add))
         tableView.tableFooterView = nil
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -87,7 +87,8 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             isEmptyString = false
             return grpData.count
         }
-       else if(isAddTapped){
+       else if(isAddTapped && !isEditButtonTapped){
+           isAddTapped = false
             return  grpData.count+1
         }
         
@@ -101,6 +102,9 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         if(indexPath.row == 0){
             tableView.setEditing(false, animated: false)
         }
+        else if(indexPath.row > grpData.count - 1){
+            tableView.setEditing(false, animated: false)
+        }
         else if(isEditButtonTapped) {
             tableView.setEditing(true, animated: true)
             isEditButtonTapped = false
@@ -112,17 +116,21 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             if(!dataToBeEdited.isEmpty){
                 cell?.textField.text = dataToBeEdited }
             cell?.textField.delegate = self
+          
             return cell!
         }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomListTableViewCell1.identifier) as? CustomListTableViewCell1
             
+            if(indexPath.row < grpData.count){
+                if (!grpData[indexPath.row].groupName.isEmpty){
+                    cell?.label1.text = grpData[indexPath.row].groupName
+                    
+                    
+                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[indexPath.row].rows.count)):String(grpData[indexPath.row].data.count)
+                }
+            }
 
-            cell?.label1.text = grpData[indexPath.row].groupName
-
-           
-            cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[indexPath.row].rows.count)):String(grpData[indexPath.row].data.count)
-//
             return cell!
         }
         
@@ -136,6 +144,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             let editAction = UIContextualAction(style: .normal,
                                                 title: "Edit")
             { (action, view, completionHandler) in
+                
                 self.editFunctionalities(row: indexPath.row)
             }
             editAction.backgroundColor = .systemBlue.withAlphaComponent(0.6)
@@ -161,6 +170,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         tableView.reloadData()
     }
     func deleteFunctionalities(row:Int){
+        
         let alertController = UIAlertController(title: "", message: "Are you sure you want to delete the list ' \(self.grpData[row].groupName)'?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
@@ -168,6 +178,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             
             DBHelper.deleteGroup(grpName: self.grpData[row ].groupName)
             self.grpData.remove(at: row)
+
             self.tableView.reloadData()
         }
             alertController.addAction(cancelAction)
@@ -178,10 +189,13 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     @objc func edit(){
         print("edit")
 
-        isEditButtonTapped = true
-        tableView.reloadData()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        view.endEditing(true)
         
+    
+        isEditButtonTapped = true
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
+        tableView.reloadData()
     }
     @objc func add(){
         print("add")
@@ -199,7 +213,9 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         if (indexPath.section == 0 && indexPath.row == 0){
             navigationController?.pushViewController(AllContactsVc(data: nil), animated: true)}
         else{
-            navigationController?.pushViewController(AllContactsVc(data: grpData[indexPath.row]), animated: true)
+            let vc = AllContactsVc(data: grpData[indexPath.row])
+            vc.isgroupPresent = true
+            navigationController?.pushViewController(vc, animated: true)
         }
 
     }
@@ -209,6 +225,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         }
         let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
             let edit = UIAction(title:"Edit",image: UIImage(systemName: "pencil"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+                self.view.endEditing(true)
                 self.editFunctionalities(row: indexPath.row)
             }
             let delete = UIAction(title:"Delete",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){ _ in
@@ -248,7 +265,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             isAddTapped = false
         }
         tableView.reloadData()
-        
+        textField.resignFirstResponder()
         
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
