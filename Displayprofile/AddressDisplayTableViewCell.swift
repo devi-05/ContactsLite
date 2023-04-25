@@ -49,7 +49,7 @@ class AddressDisplayTableViewCell: UITableViewCell {
             subHeader.topAnchor.constraint(equalTo:header.bottomAnchor),
             subHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             subHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
-            subHeader.heightAnchor.constraint(equalToConstant: 120)
+            subHeader.heightAnchor.constraint(equalToConstant: 150)
             
         ])
     }

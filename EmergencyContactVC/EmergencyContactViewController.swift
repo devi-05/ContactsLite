@@ -89,7 +89,7 @@ class EmergencyContactViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        title = ""
+//        title = ""
         print("\(sortedEmergencyContacts[indexPath.section].rows[indexPath.row].firstName) is selected" )
         let vc = ProfilePageViewController(contact: sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
         navigationController?.pushViewController(vc, animated: true)

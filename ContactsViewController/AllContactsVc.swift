@@ -25,7 +25,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     }()
     lazy var mailLabel : UILabel = {
         let label = UILabel()
-        label.text = "devi@mail.com"
+        label.text = "devi@gmail.com"
         label.textColor = .secondaryLabel
         return label
     }()
@@ -36,13 +36,11 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         return imageView
     }()
     lazy var profileCardLabel:UIView = {
-        let view = UIView(frame:CGRect(x: 0, y: 0, width: view.frame.size.width, height: 95))
+        let view = UIView(frame:CGRect(x: 25, y: 0, width: view.frame.size.width, height: 95))
         view.backgroundColor = .secondarySystemFill
         view.layer.cornerRadius = 10
         return view
     }()
-    
-   
     lazy var dataCountLabel:UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 40))
         label.text = "\(totalContacts) Contacts"
@@ -131,7 +129,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         print("fetched data: \(fetchedData)")
         dbContactList = Helper.decodeToContact(list: fetchedData)
         
-         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "DESC"))))))
+         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC"))))))
         
         if (localDataSource?.data.count == 0){
             addContactView.isHidden = false
@@ -199,10 +197,10 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         
        
             if(totalContacts > 5){
-                tableView.tableFooterView = dataCountLabel
+                dataCountLabel.isHidden = false
             }
             else{
-                tableView.tableFooterView = nil
+                dataCountLabel.isHidden = true
             }
         
         tableView.keyboardDismissMode = .onDrag
@@ -447,6 +445,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     @objc func addButton(){
         let vc = InfoSheetViewController(contact: nil)
         vc.allContactsVc = self
+        vc.title = "New Contact"
 
         let navVc = UINavigationController(rootViewController:  vc)
 //        navVc.modalPresentationStyle = .fullScreen

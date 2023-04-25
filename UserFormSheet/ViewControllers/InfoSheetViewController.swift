@@ -5,9 +5,15 @@
 //
 
 import UIKit
+protocol TitleDelegate{
+    func setTitle(string:String)
+}
 
-
-class InfoSheetViewController: UITableViewController, UINavigationControllerDelegate {
+class InfoSheetViewController: UITableViewController, UINavigationControllerDelegate ,ImageDelegate,TitleDelegate{
+    func setTitle(string: String) {
+        title = string
+    }
+    
     
     lazy var grpData:[GroupModel] = []
     var editDelegate:editDelegate?
@@ -15,7 +21,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     weak var allContactsVc:AllContactsVc?
     var isEdited = false
     var info:Contacts?
-    var inputDict:[String:Any] = [:]
+    var inputDict:[String:Any] = [:]{
+        didSet{
+            print(inputDict)
+        }
+    }
     
     init(contact:Contacts?){
         super.init(nibName: nil, bundle: nil)
@@ -140,8 +150,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
         grpData = Helper.getGroupsData(locDS:localDataSource , grpName: groupNames)
         
-        
-        
         tableView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -153,7 +161,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "New Contact"
+        
         
         view.backgroundColor = .secondarySystemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
@@ -174,10 +182,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             //Edit functionality
             id = info?.contactId
             if(info?.profileImage != nil){
+                
                 image = UIImage(data: (info?.profileImage)!)
                 photoLabel.image = image
                 addPhotoButton.setTitle("Edit Photo", for: .normal)
                 inputDict[Headers.profileImage] = image
+                
             }
             if let firstName = info?.firstName{
                 inputDict[Headers.firstName] = firstName
@@ -932,20 +942,22 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             allContactsVc?.refreshDataSource()
             allContactsVc?.tableView.reloadData()
             editDelegate?.getUpdatedContact(newContact: newContact)
-            
+            let profVc = ProfilePageViewController(contact: newContact)
+            profVc.titleDelegate = self
             navigationController?.popViewController(animated: true)
+            
             //            navigationController?.pushViewController(ProfilePageViewController(contact: newContact), animated: true)
             
         }
         // add functionality
         else{
-//
+
             guard let firstName = inputDict[Headers.firstName] as? String
                 else{
                     let alertController = UIAlertController(title: nil, message: "First Name Field is Mandatory", preferredStyle: .alert)
                     
                 let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
-                        
+                        return
 //                        self.dismiss(animated: true)
                     }
                     
@@ -956,11 +968,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     return
                 
                 }
+            
             guard let _ = inputDict[Headers.phoneNumber] else{
                 let alertController = UIAlertController(title: nil, message: "Mobile Number Field is Mandatory", preferredStyle: .alert)
                 
             let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
-                    
+                    return
 //                        self.dismiss(animated: true)
                 }
                 
@@ -1038,6 +1051,27 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             super.touchesBegan(touches, with: event)
             view.endEditing(true)
         }
+    func getImage(images: UIImage) {
+        image = images
+        photoLabel.image = image
+        inputDict[Headers.profileImage] = image
+        photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
+        photoLabel.layer.masksToBounds = true
+        
+    }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        //        print(info)
+        if let images = info[.editedImage] as? UIImage{
+            photoLabel.image = images
+            inputDict[Headers.profileImage] = images
+            photoLabel.layer.cornerRadius = 75
+            photoLabel.layer.masksToBounds = true
+            image = images
+        }
+        
+        picker.dismiss(animated: true)
+        addPhotoButton.setTitle("Edit Photo", for: .normal)
+    }
         
     }
 //    var textFieldValues:[Any] = []
@@ -1297,7 +1331,7 @@ extension InfoSheetViewController:UITextFieldDelegate {
                 }
                 
                 
-            case "street":
+            case "Street":
                 if let street = textField.text {
                     addressModel[textField.tag - 1].Street = street
                 }
@@ -1317,7 +1351,7 @@ extension InfoSheetViewController:UITextFieldDelegate {
                 else{
                     addressModel[textField.tag - 1].postcode = nil
                 }
-            case "state":
+            case "State":
                 if let state = textField.text{
                     addressModel[textField.tag - 1].state = state
                 }
@@ -1362,18 +1396,7 @@ extension InfoSheetViewController:UITextFieldDelegate {
 }
 
 extension InfoSheetViewController:UIImagePickerControllerDelegate{
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        //        print(info)
-        if let images = info[.editedImage] as? UIImage{
-            photoLabel.image = images
-            photoLabel.layer.cornerRadius = 75
-            photoLabel.layer.masksToBounds = true
-            image = images
-        }
-        
-        picker.dismiss(animated: true)
-        addPhotoButton.setTitle("Edit Photo", for: .normal)
-    }
+   
 }
 
 extension InfoSheetViewController:UITextViewDelegate{
@@ -1456,12 +1479,13 @@ extension InfoSheetViewController:Delegate{
         
     }
 }
-extension InfoSheetViewController:ImageDelegate{
-    func getImage(images: UIImage) {
-        image = images
-        photoLabel.image = image
-        photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
-        photoLabel.layer.masksToBounds = true
-        
-    }
-}
+//extension InfoSheetViewController:ImageDelegate{
+//    func getImage(images: UIImage) {
+//        image = images
+//        photoLabel.image = image
+//
+//        photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
+//        photoLabel.layer.masksToBounds = true
+//
+//    }
+//}

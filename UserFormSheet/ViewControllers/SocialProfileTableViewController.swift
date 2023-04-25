@@ -15,7 +15,7 @@ class SocialProfileTableViewController: UITableViewController {
     
     var selectedRowIndex:Int?
     
-    var options:[Int:[String]] = [0:["Twitter","Facebook","Flickr","LinkedIn","MySpace"],1:["Add Custom Service"]]
+    var options:[Int:[String]] = [0:["Twitter","Facebook","Flickr","LinkedIn","MySpace"]]
 
     override func viewDidLoad() {
         super.viewDidLoad()

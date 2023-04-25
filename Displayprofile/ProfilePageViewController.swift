@@ -18,9 +18,9 @@ struct Datas{
 class ProfilePageViewController: UITableViewController,editDelegate {
     func getUpdatedContact(newContact: Contacts) {
         self.contact = newContact
-        if let imageData = newContact.profileImage{
-            photoLabel.image = UIImage(data: imageData)
-        }
+//        if let imageData = newContact.profileImage{
+//            photoLabel.image = UIImage(data: imageData)
+//        }
         tableView.reloadData()
     }
     
@@ -31,7 +31,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         super.init(style: .insetGrouped)
         
     }
-    
+    var titleDelegate:TitleDelegate?
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -86,14 +86,20 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     var menuItems: [UIAction] {
         return [
             UIAction(title: "Edit", image: UIImage(systemName: "pencil"), handler: { (_) in
+                
                 let vc = InfoSheetViewController(contact: self.contact)
                 vc.editDelegate = self
+                vc.title = "Edit Contact"
+//                self.titleDelegate?.setTitle(string: "Edit Contact")
                 self.navigationController?.pushViewController(vc, animated: true)
+        
             }),
             UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { (_) in
+                
                 let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete this contact", preferredStyle: .alert)
                 
                 let deleteAction = UIAlertAction(title: "Delete", style: .destructive){ _ in
+                    
                     DBHelper.deleteContact(contactId: self.contact.contactId)
                     self.navigationController?.popViewController(animated: true)
                     
@@ -124,7 +130,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         setUpContents()
         tableView.reloadData()
         
-        
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sectionData.count
@@ -135,7 +140,8 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = ""
+//        title = " "
+//        navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(photoView)
         view.addSubview(footerView)
         tableView.contentInset = .init(top: 0, left: 0, bottom: 70, right: 0)
@@ -217,12 +223,12 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             photoLabel.image = UIImage(data:image)
             photoLabel.layer.cornerRadius = 60
             photoLabel.clipsToBounds = true
-            
-            
+
+
         }
         else{
             photoLabel.image = UIImage(systemName: "person.circle.fill")
-            
+
         }
         
         if let workInfo = contact.workInfo{
@@ -232,11 +238,18 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         else{
             workInfoLabel.text = nil
         }
+        print("IMAGE : \(contact.profileImage)")
+        setImage()
         setPhoneNumber()
         setEmail()
         setAddress()
         setSocialprofile()
         setNotes()
+    }
+    func setImage(){
+        if let imageData = contact.profileImage{
+            photoLabel.image = UIImage(data: imageData)
+        }
     }
     
     func setPhoneNumber(){
@@ -267,10 +280,11 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     func setAddress(){
         var temp:[Dict] = []
-        var address:String = ""
+       
         if(contact.address?.count != 0){
             if let contactAddress = contact.address{
                 for i in contactAddress{
+                    var address:String = ""
                     if (i.doorNo) != nil{
                         address+="\(i.doorNo!)\n"
                     }
@@ -383,7 +397,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         if sectionData[indexPath.section].sectionName == Headers.email || sectionData[indexPath.section].sectionName == Headers.notes{
             return 40}
         else if sectionData[indexPath.section].sectionName == Headers.address{
-            return 120
+            return 170
         }
         else{
             

@@ -152,7 +152,7 @@ class AddressTableViewCell: UITableViewCell {
             
             cityTf.topAnchor.constraint(equalTo: contentView.topAnchor),
             cityTf.leadingAnchor.constraint(equalTo: horizontalContainer.leadingAnchor),
-            cityTf.widthAnchor.constraint(equalToConstant: 90),
+            cityTf.widthAnchor.constraint(equalToConstant: 110),
             cityTf.heightAnchor.constraint(equalTo:contentView.heightAnchor),
             
             postCodeTf.topAnchor.constraint(equalTo: contentView.topAnchor),

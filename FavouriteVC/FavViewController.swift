@@ -87,7 +87,7 @@ class FavViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        title = ""
+//        title = ""
         print("\(sortedFavContacts[indexPath.section].rows[indexPath.row].firstName) is selected" )
         let vc = ProfilePageViewController(contact: sortedFavContacts[indexPath.section].rows[indexPath.row])
         navigationController?.pushViewController(vc, animated: true)
