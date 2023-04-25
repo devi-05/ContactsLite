@@ -18,9 +18,12 @@ struct Datas{
 class ProfilePageViewController: UITableViewController,editDelegate {
     func getUpdatedContact(newContact: Contacts) {
         self.contact = newContact
+        if let imageData = newContact.profileImage{
+            photoLabel.image = UIImage(data: imageData)
+        }
         tableView.reloadData()
     }
-  
+    
     var sectionData :[Datas]=[]
     var contact:Contacts
     init(contact:Contacts){
@@ -61,27 +64,67 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         return label
     }()
     lazy var footerView : UIView  = {
-        let view = UIView()
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 50))
+        view.isUserInteractionEnabled = true
         return view
     }()
-    lazy var deleteButton:UIButton = {
-        let button = UIButton(frame: CGRect(x: 150, y: 0, width: 80, height: 50))
-        button.setImage(UIImage(systemName: "trash.fill"), for: .normal)
-        button.tintColor = .white
-        button.layer.cornerRadius = 5 // 38, 33, 35
-        button.layer.borderColor = .init(red: 38/255, green: 33/255, blue: 35/255, alpha: 1)
-      
-        button.backgroundColor = .systemRed
-        button.addTarget(self, action: #selector(del), for: .touchUpInside)
-        return button
-    }()
+    //    lazy var deleteButton:UIButton = {
+    //        let button = UIButton(frame: CGRect(x: 115, y: 0, width: 170, height: 50))
+    //        button.setTitle("Delete Contact", for: .normal)
+    //        button.setTitleColor(.systemGray6, for: .normal)
+    //        //        button.setImage(UIImage(systemName: "trash.fill"), for: .normal)
+    //        //        button.tintColor = .white
+    //
+    //        button.layer.cornerRadius = 20 // 38, 33, 35
+    //        //        button.layer.borderColor = .init(red: 38/255, green: 33/255, blue: 35/255, alpha: 1) // 214, 40, 40
+    //        button.addTarget(self, action: #selector(del), for: .touchUpInside)
+    //        button.backgroundColor = UIColor(red: 270/255, green: 57/255, blue: 65/255, alpha: 1)
+    //
+    //        return button
+    //    }()
+    
+    var menuItems: [UIAction] {
+        return [
+            UIAction(title: "Edit", image: UIImage(systemName: "pencil"), handler: { (_) in
+                let vc = InfoSheetViewController(contact: self.contact)
+                vc.editDelegate = self
+                self.navigationController?.pushViewController(vc, animated: true)
+            }),
+            UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { (_) in
+                let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete this contact", preferredStyle: .alert)
+                
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive){ _ in
+                    DBHelper.deleteContact(contactId: self.contact.contactId)
+                    self.navigationController?.popViewController(animated: true)
+                    
+                }
+                let cancelAction = UIAlertAction(title: "Cancel", style: .default){ _ in
+                    
+                    
+                }
+                alertController.addAction(cancelAction)
+                alertController.addAction(deleteAction)
+                
+                
+                self.present(alertController, animated: true)
+                
+                return
+                
+            })
+        ]
+    }
+    
+    var buttonMenu: UIMenu {
+        return UIMenu(children: menuItems)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-
+        
         sectionData = []
         setUpContents()
         tableView.reloadData()
-       
-
+        
+        
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sectionData.count
@@ -92,43 +135,54 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = ""
         view.addSubview(photoView)
-        view.addSubview(deleteButton)
+        view.addSubview(footerView)
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 70, right: 0)
         photoView.addSubview(photoLabel)
         photoView.addSubview(nameLabel)
         photoView.addSubview(workInfoLabel)
         configureConstraints()
         setUpContents()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(edit))
+        //        let menuButton = UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: nil)
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem?.menu = buttonMenu
+        } else {
+            // Fallback on earlier versions
+        }
+        
+        
+        
         navigationController?.navigationBar.prefersLargeTitles = false
         tableView.tableHeaderView = photoView
-        footerView.addSubview(deleteButton)
-        tableView.tableFooterView = footerView
-        tableView.backgroundColor = .systemBackground.withAlphaComponent(0.9)
+        //        footerView.addSubview(deleteButton)
+        //        tableView.tableFooterView = footerView
+        tableView.backgroundColor = .systemBackground
         tableView.register(ProfPageTableViewCell.self, forCellReuseIdentifier: ProfPageTableViewCell.identifier)
         tableView.register(EmailAndNotesTableViewCell.self, forCellReuseIdentifier: EmailAndNotesTableViewCell.identifier)
         tableView.register(AddressDisplayTableViewCell.self, forCellReuseIdentifier: AddressDisplayTableViewCell.identifier)
-    
-    }
-    
-    
-    @objc func edit(){
-        print(contact)
-        let vc = InfoSheetViewController(contact: contact)
-        vc.editDelegate = self
-        navigationController?.pushViewController(vc, animated: true)
-   
-    }
-    @objc func del(){
-        DBHelper.deleteContact(contactId: contact.contactId)
-        navigationController?.popViewController(animated: true)
         
     }
+    
+    
+    //    @objc func edit(){
+    //        print(contact)
+    //        let vc = InfoSheetViewController(contact: contact)
+    //        vc.editDelegate = self
+    //        navigationController?.pushViewController(vc, animated: true)
+    //
+    //    }
+    //    @objc func del(){
+    //        DBHelper.deleteContact(contactId: contact.contactId)
+    //        navigationController?.popViewController(animated: true)
+    //
+    //    }
     func configureConstraints(){
         photoLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         workInfoLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         NSLayoutConstraint.activate([
             photoLabel.topAnchor.constraint(equalTo: photoView.topAnchor),
             photoLabel.centerXAnchor.constraint(equalTo: photoView.centerXAnchor),
@@ -145,9 +199,10 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             workInfoLabel.trailingAnchor.constraint(equalTo: photoView.trailingAnchor, constant: -20),
             workInfoLabel.heightAnchor.constraint(equalToConstant: 50),
             
-    
+            
             
         ])
+        
     }
     func setUpContents(){
         if let lastName = contact.lastName
@@ -169,7 +224,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             photoLabel.image = UIImage(systemName: "person.circle.fill")
             
         }
-       
+        
         if let workInfo = contact.workInfo{
             
             workInfoLabel.text = workInfo
@@ -183,7 +238,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         setSocialprofile()
         setNotes()
     }
-       
+    
     func setPhoneNumber(){
         var temp:[Dict] = []
         print("phn num : \(contact.phoneNumber)")
@@ -254,7 +309,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             sectionData.append(Datas(sectionName: "Social Profile", rows: temp))
         }
     }
-
+    
     func setNotes(){
         var temp:[Dict] = []
         if let notes = contact.notes{
@@ -264,7 +319,9 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             }
         }
     }
-   
+    
+    
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(sectionData[section].sectionName == Headers.phoneNumber){
             return 30
@@ -274,51 +331,51 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         }
     }
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width-10, height: 50))
-//        header.layer.cornerRadius = 20
-//        header.tag = section
-//        let mylabel = UILabel(frame: CGRect(x: 0, y: 0, width: header.frame.size.width-10, height: 50))
-//        mylabel.text = sectionData[section].sectionName
-//        mylabel.textColor = .label.withAlphaComponent(0.5)
-//        mylabel.textAlignment = .center
-//        mylabel.font = .systemFont(ofSize: 20, weight: .medium)
-//        let myImage = UIImageView(frame:CGRect(x: 70, y: 12, width: 25, height: 25))
-//        switch sectionData[section].sectionName {
-//            
-//        case "Phone Number":
-//            myImage.image =  UIImage(systemName: "phone.down.circle")
-//        case "Email":
-//            myImage.image = UIImage(systemName: "envelope.fill")
-//        case "Address":
-//            myImage.image = UIImage(systemName: "house.fill")
-//        case "Social Profile":
-//            myImage.image =  UIImage(systemName: "person.crop.circle.dashed")
-//        default:
-//            myImage.image = UIImage(systemName: "doc.text")
-//        }
-//        myImage.tintColor = .label.withAlphaComponent(0.4)
-//        header.addSubview(mylabel)
-//        header.addSubview(myImage)
-//        return header
-//    }
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        switch sectionData[section].sectionName{
-//        case Headers.phoneNumber:
-//            return Headers.phoneNumber
-//        case Headers.email:
-//            return Headers.email
-//        case Headers.address:
-//            return Headers.address
-//        case Headers.socialProfile:
-//            return Headers.socialProfile
-//        case Headers.notes:
-//            return Headers.notes
-//        default:
-//            return " "
-//        }
-//
-//    }
+    //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    //        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width-10, height: 50))
+    //        header.layer.cornerRadius = 20
+    //        header.tag = section
+    //        let mylabel = UILabel(frame: CGRect(x: 0, y: 0, width: header.frame.size.width-10, height: 50))
+    //        mylabel.text = sectionData[section].sectionName
+    //        mylabel.textColor = .label.withAlphaComponent(0.5)
+    //        mylabel.textAlignment = .center
+    //        mylabel.font = .systemFont(ofSize: 20, weight: .medium)
+    //        let myImage = UIImageView(frame:CGRect(x: 70, y: 12, width: 25, height: 25))
+    //        switch sectionData[section].sectionName {
+    //
+    //        case "Phone Number":
+    //            myImage.image =  UIImage(systemName: "phone.down.circle")
+    //        case "Email":
+    //            myImage.image = UIImage(systemName: "envelope.fill")
+    //        case "Address":
+    //            myImage.image = UIImage(systemName: "house.fill")
+    //        case "Social Profile":
+    //            myImage.image =  UIImage(systemName: "person.crop.circle.dashed")
+    //        default:
+    //            myImage.image = UIImage(systemName: "doc.text")
+    //        }
+    //        myImage.tintColor = .label.withAlphaComponent(0.4)
+    //        header.addSubview(mylabel)
+    //        header.addSubview(myImage)
+    //        return header
+    //    }
+    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    //        switch sectionData[section].sectionName{
+    //        case Headers.phoneNumber:
+    //            return Headers.phoneNumber
+    //        case Headers.email:
+    //            return Headers.email
+    //        case Headers.address:
+    //            return Headers.address
+    //        case Headers.socialProfile:
+    //            return Headers.socialProfile
+    //        case Headers.notes:
+    //            return Headers.notes
+    //        default:
+    //            return " "
+    //        }
+    //
+    //    }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return " "
     }
@@ -359,6 +416,47 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if(sectionData[indexPath.section].rows[indexPath.row].key == "mobile"){
+            let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
+            
+            let callAction = UIAlertAction(title: "Call", style: .default){ _ in
+                Helper.makeACall(number: self.sectionData[indexPath.section].rows[indexPath.row].value)
+                //                        self.dismiss(animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive){ _ in
+                
+                
+            }
+            
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(callAction)
+            
+            present(alertController, animated: true)
+            
+            return
+            
+            
+        }
+        
+        //        else{
+        //            let alertController = UIAlertController(title: nil, message: "Couldn't make a call", preferredStyle: .alert)
+        //
+        //        let okAction = UIAlertAction(title: "Ok", style: .default){ _ in
+        //            Helper.makeACall(number: self.sectionData[indexPath.section].rows[indexPath.row].value)
+        ////                        self.dismiss(animated: true)
+        //            }
+        //
+        //            alertController.addAction(okAction)
+        //
+        //            present(alertController, animated: true)
+        //
+        //            return
+        //        }
+        //
+        //    }
+        
+        
+        //}
     }
-  
 }

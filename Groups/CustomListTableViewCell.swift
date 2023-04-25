@@ -13,7 +13,9 @@ class CustomListTableViewCell: UITableViewCell {
     lazy var textField:UITextField = {
        let textField = UITextField()
         textField.placeholder = "Enter List name"
-        textField.keyboardAppearance = .default
+        textField.keyboardAppearance = .alert
+        textField.becomeFirstResponder()
+        textField.tag = 0
         textField.borderStyle = .roundedRect
         return textField
     }()

@@ -58,7 +58,7 @@ class AddressTableViewController: UITableViewController {
         selectedSecIndex = indexPath.section
         selectedRowIndex = indexPath.row
         tableView.reloadData()
-        delegate?.getOptions(option: (options[indexPath.section]?[indexPath.row])!, type: "address")
+        delegate?.getOptions(option: (options[indexPath.section]?[indexPath.row])!, type: Headers.address)
         cancel()
     }
 

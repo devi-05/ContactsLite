@@ -58,7 +58,7 @@ class AddressTableViewCell: UITableViewCell {
     lazy var streetTf:UITextField = {
 
             let tf = UITextField()
-            tf.placeholder = "street"
+            tf.placeholder = "Street"
             tf.borderStyle = .none
             return tf
         }()
@@ -81,7 +81,7 @@ class AddressTableViewCell: UITableViewCell {
     
     lazy var stateTf:UITextField = {
         let tf = UITextField()
-        tf.placeholder = "state"
+        tf.placeholder = "State"
         tf.borderStyle = .none
         return tf
     }()

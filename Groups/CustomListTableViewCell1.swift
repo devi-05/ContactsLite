@@ -13,11 +13,14 @@ class CustomListTableViewCell1: UITableViewCell {
      lazy var label1:UILabel = {
         let label = UILabel()
          label.textColor = .label
+         label.tag = 100
          return label
      }()
      lazy var label2:UILabel = {
          let label = UILabel()
          label.textColor = .gray
+         label.tag = 200
+         label.resignFirstResponder()
          return label
      }()
      lazy var disclosureIndicator:UIButton = {

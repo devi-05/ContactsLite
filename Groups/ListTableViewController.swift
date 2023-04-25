@@ -42,6 +42,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchGrpDataSource()
+        
     }
     func fetchGrpDataSource(){
         lazy  var fetchedData = DBHelper.fetchData()
@@ -54,6 +55,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         tableView.reloadData()
     }
     
+    
     override func viewDidLoad() {
        
         
@@ -61,13 +63,13 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
    
         title = "Lists"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(edit))
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),style: .plain, target: self, action: #selector(add))
         tableView.tableFooterView = nil
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(CustomListTableViewCell.self, forCellReuseIdentifier: CustomListTableViewCell.identifier)
         tableView.register(CustomListTableViewCell1.self, forCellReuseIdentifier: CustomListTableViewCell1.identifier)
-        tableView.keyboardDismissMode = .onDrag
+//        tableView.keyboardDismissMode = .onDrag
      
         
     }
@@ -99,6 +101,9 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if(grpData.count > 1){
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(edit))
+        }
         if(indexPath.row == 0){
             tableView.setEditing(false, animated: false)
         }
@@ -113,6 +118,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: CustomListTableViewCell.identifier) as? CustomListTableViewCell
             cell?.textField.placeholder = "List Name"
+           
             if(!dataToBeEdited.isEmpty){
                 cell?.textField.text = dataToBeEdited }
             cell?.textField.delegate = self
@@ -140,21 +146,21 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     }
 
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        if(indexPath.row != 0){
+        if(indexPath.row != 0 && indexPath.row < grpData.count){
             let editAction = UIContextualAction(style: .normal,
                                                 title: "Edit")
             { (action, view, completionHandler) in
                 
                 self.editFunctionalities(row: indexPath.row)
             }
-            editAction.backgroundColor = .systemBlue.withAlphaComponent(0.6)
+            editAction.backgroundColor = .systemBlue
             let delAction = UIContextualAction(style: .normal,
                                                title: "Delete")
             {  (action, view, completionHandler) in
                 
                 self.deleteFunctionalities(row: indexPath.row)
             }
-            delAction.backgroundColor = .systemRed.withAlphaComponent(0.8)
+            delAction.backgroundColor = UIColor(red: 227/255, green: 51/255, blue: 39/255, alpha: 1)
             return UISwipeActionsConfiguration(actions: [delAction,editAction])
         }
         else{
@@ -178,7 +184,13 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
             
             DBHelper.deleteGroup(grpName: self.grpData[row ].groupName)
             self.grpData.remove(at: row)
-
+            print(self.grpData)
+            if(self.grpData.count == 1){
+                
+                self.navigationItem.leftBarButtonItem = nil
+                self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),style: .plain, target: self, action: #selector(self.add))
+                }
+            
             self.tableView.reloadData()
         }
             alertController.addAction(cancelAction)
@@ -191,6 +203,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
 
         view.endEditing(true)
         
+        
     
         isEditButtonTapped = true
         
@@ -199,17 +212,43 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     }
     @objc func add(){
         print("add")
-        isAddTapped = true
-        temp = grpData.count
-        tableView.reloadData()
-
+//        NotificationCenter.default.addObserver(self, selector: #selector(ListTableViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+      
+//        if let textField = self.view.viewWithTag(0) as? UITextField {
+//            if textField.isFirstResponder {
+//
+//                    textField.resignFirstResponder()
+//                    textField.becomeFirstResponder()
+//                } else {
+//
+//                    textField.becomeFirstResponder()
+//                }
+//
+//        }
+//
+            isAddTapped = true
+            temp = grpData.count
+            tableView.reloadData()
+            
         
     }
     @objc func done(){
         isAddTapped = true
+        isEditButtonTapped = false
         tableView.setEditing(false, animated: false)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(add))
     }
+    
+//    @objc func keyboardWillShow(notification: Notification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//
+//            if self.view.frame.origin.y == 0{
+//                self.view.frame.origin.y += keyboardSize.height
+//            }
+//        }
+//
+//    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0 && indexPath.row == 0){
             navigationController?.pushViewController(AllContactsVc(data: nil), animated: true)}
@@ -239,8 +278,11 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         }
         return config
     }
+    
+
     func textFieldDidEndEditing(_ textField: UITextField) {
         print("end")
+        
         let dateformat = DateFormatter()
         dateformat.dateFormat = "ddhhss"
         guard let myInt = Int(dateformat.string(from: Date()))  else {

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 class Helper{
     static func sort(data:[Contacts])->[Contacts]{
         
@@ -70,7 +70,7 @@ class Helper{
         if(hashSectionContent != nil){
             data.append(hashSectionContent!)
         }
-        
+      
         return data
     }
     
@@ -83,11 +83,11 @@ class Helper{
                     }
                 }
         if (!localDbContactList.isEmpty){
-                groups.append(GroupModel(groupName: "iPhone", data:
-                                            [SectionContent(sectionName: "iPhone", rows: localDbContactList)]))
+                groups.append(GroupModel(groupName: "All Contacts", data:
+                                            [SectionContent(sectionName: "All Contacts", rows: localDbContactList)]))
                                }
         else{
-            groups.append(GroupModel(groupName: "iPhone", data:
+            groups.append(GroupModel(groupName: "All Contacts", data:
                                         []))
                            }
         
@@ -127,6 +127,7 @@ class Helper{
         return grp
     }
     static func decodeToContact(list:[[String:Any]])->[Contacts]{
+        
         var id:Int = 0
         var image:Data?
         var firstName:String = ""
@@ -183,5 +184,17 @@ class Helper{
     }
     
     
-    
+    static func makeACall(number : String) {
+        
+        if let url = URL(string: "tel://\(number)"),
+           UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler:nil)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        } else {
+            print("error")
+        }
+    }
 }

@@ -55,7 +55,7 @@ class PhoneNumOptionsTableView: UITableViewController {
         selectedSectionIndex = indexPath.section
         selectedRowIndex = indexPath.row
         tableView.reloadData()
-        delegate?.getOptions(option: (Options[indexPath.section]?[indexPath.row])!,type: "phoneNumber")
+        delegate?.getOptions(option: (Options[indexPath.section]?[indexPath.row])!,type: Headers.phoneNumber)
         cancel()
         
     }

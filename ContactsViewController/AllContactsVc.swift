@@ -114,6 +114,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         totalContacts = 0
+        
         // when view appears this function is called so if i passed the data passedData passed data wont be nil it fetches data from db
 //
         if(!isgroupPresent){
@@ -133,7 +134,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
          localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "DESC"))))))
         
         if (localDataSource?.data.count == 0){
-            tableView.backgroundView = addContactView
+            addContactView.isHidden = false
         }
 
         else{
@@ -164,7 +165,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         if(passedData == nil){
             refreshDataSource()
             passedData = localDataSource
-            title = "iPhone"
+            title = "Contacts"
         }
         else{
             title = passedData?.groupName
@@ -323,7 +324,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        print("passedData : \(passedData)")
+       
         if(!bool){
             return filteredData.isEmpty ? (passedData!.data.count) : 1
             
@@ -354,6 +355,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
        
             if (filteredData.isEmpty){
+                print(passedData)
                 name = (passedData!.data[indexPath.section].rows[indexPath.row].firstName)
                 if (passedData!.data[indexPath.section].rows[indexPath.row].lastName) != "nil" {
                     if let passedData = passedData,let lastName =  (passedData.data[indexPath.section].rows[indexPath.row].lastName){
@@ -576,15 +578,67 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         if editingStyle == .delete{
             DBHelper.deleteContact(contactId: passedData?.data[indexPath.section].rows[indexPath.row ].contactId ?? 0)
             refreshDataSource()
-            if ((localDataSource?.data.isEmpty) != nil){
-                tableView.backgroundView = addContactView
-            }
+           
             tableView.reloadData()
         }
     }
         
        
-        
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+
+        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
+            let viewProfile = UIAction(title:"View",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off)
+            { _ in
+                
+                if self.filteredData.isEmpty{
+                  
+                    let vc = ProfilePageViewController(contact: (self.passedData?.data[indexPath.section].rows[indexPath.row])!)
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                else{
+                   
+                    let vc = ProfilePageViewController(contact: self.filteredData[indexPath.row])
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            let call = UIAction(title:"Call",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+                let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
+                
+            let callAction = UIAlertAction(title: "Call", style: .default){ _ in
+                print(self.passedData?.data[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number)
+                if let number = self.passedData?.data[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number as? String{
+                    Helper.makeACall(number: String(number))
+                }
+                else{
+                    let alertController = UIAlertController(title: nil, message: "Call Failed", preferredStyle: .alert)
+                    
+                let okAction = UIAlertAction(title: "Ok", style: .default){ _ in
+                   
+        //                        self.dismiss(animated: true)
+                    }
+                    
+                    alertController.addAction(okAction)
+                    
+                    self.present(alertController, animated: true)
+                    
+                    return
+                }
+                
+                }
+                
+                alertController.addAction(callAction)
+                
+                self.present(alertController, animated: true)
+                
+                return
+                
+            }
+            
+            return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
+        }
+        return config
+    }
         
     }
     
@@ -599,4 +653,5 @@ extension UILabel{
           attributedText.addAttributes(highlightedAttributes, range: range)
           self.attributedText = attributedText
       }
+    
 }

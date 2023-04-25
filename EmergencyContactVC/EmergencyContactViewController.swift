@@ -37,7 +37,7 @@ class EmergencyContactViewController: UITableViewController
     lazy var sortedEmergencyContacts:[SectionContent] = []
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        title = "Emergency Contacts"
         emergencyContacts = DBHelper.fetchEmergencyContact(conditions: "IS_EMERGENCYCONTACT = 1")
         sortedEmergencyContacts = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: Helper.decodeToContact(list: (emergencyContacts))))
         if(sortedEmergencyContacts.isEmpty){
@@ -46,11 +46,12 @@ class EmergencyContactViewController: UITableViewController
         else{
             tableView.backgroundView = nil
         }
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.reloadData()
     }
     override func viewDidLoad() {
         
-        title = "Emergency Contacts"
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         containerView.addSubview(imageView)
@@ -88,6 +89,7 @@ class EmergencyContactViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        title = ""
         print("\(sortedEmergencyContacts[indexPath.section].rows[indexPath.row].firstName) is selected" )
         let vc = ProfilePageViewController(contact: sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
         navigationController?.pushViewController(vc, animated: true)

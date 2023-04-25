@@ -60,7 +60,7 @@ class SocialProfileTableViewController: UITableViewController {
         selectedRowIndex = indexPath.row
         tableView.reloadData()
         print(options[indexPath.section]?[indexPath.row] as Any)
-        delegate?.getOptions(option: (options[indexPath.section]?[indexPath.row])!, type: "Social Profile")
+        delegate?.getOptions(option: (options[indexPath.section]?[indexPath.row])!, type: Headers.socialProfile)
         Cancel()
     }
 

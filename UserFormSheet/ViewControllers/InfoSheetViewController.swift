@@ -13,7 +13,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     var editDelegate:editDelegate?
     var selectedGrpIndex:[Int] = []
     weak var allContactsVc:AllContactsVc?
-    
+    var isEdited = false
     var info:Contacts?
     var inputDict:[String:Any] = [:]
     
@@ -129,7 +129,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        inputDict = [:]
+//        if(info == nil){
+//            inputDict = [:]
+//        }
         lazy  var fetchedData = DBHelper.fetchData()
         lazy var dbContactList = Helper.decodeToContact(list: fetchedData)
         lazy var localDataSource = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: dbContactList))
@@ -144,6 +146,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        
+        print("inputdict in viewdidappear : \(inputDict)")
         print("did appear")
     }
     override func viewDidLoad() {
@@ -151,7 +156,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         title = "New Contact"
         
         view.backgroundColor = .secondarySystemBackground
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "cancel", style: .plain, target: self, action: #selector(cancelButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DoneButton))
         
         addSubviewsToPhotoView()
@@ -164,7 +169,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         } else {
             // Fallback on earlier versions
         }
-        
+//
         guard (info == nil) else{
             //Edit functionality
             id = info?.contactId
@@ -172,7 +177,13 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 image = UIImage(data: (info?.profileImage)!)
                 photoLabel.image = image
                 addPhotoButton.setTitle("Edit Photo", for: .normal)
-                inputDict["Profile Image"] = image
+                inputDict[Headers.profileImage] = image
+            }
+            if let firstName = info?.firstName{
+                inputDict[Headers.firstName] = firstName
+            }
+            if let lastName = info?.lastName{
+                inputDict[Headers.lastName] = lastName
             }
             if let workInfo = info?.workInfo{
                 workInfoArray.append(workInfo)
@@ -183,8 +194,10 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.phoneNumber] = phoneNumModel
             }
             if let email = info?.email{
-                emailArray = email
-                inputDict[Headers.email] = emailArray
+                
+                    emailArray = email
+                    inputDict[Headers.email] = emailArray
+                
             }
             if let address = info?.address{
                 addressModel = address
@@ -432,25 +445,36 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             // edit functionality
             if(info != nil){
                 if (indexPath.row == 0){
-                    cell?.textField.text = (info?.firstName)
-                    inputDict[Headers.firstName] = info?.firstName
-                    
+                    if let firstName = inputDict[Headers.firstName] as? String{
+                        cell?.textField.text = firstName
+                        //                    inputDict[Headers.firstName] = info?.firstName
+                    }
+                    else{
+                        cell?.textField.text = nil
+                    }
                 }
                 else if (indexPath.row == 1){
                     
-                    if let lastName = info?.lastName{
+                    if let lastName = inputDict[Headers.lastName] as? String{
                         cell?.textField.text = lastName
-                        inputDict[Headers.lastName] = info?.lastName
+//                        inputDict[Headers.lastName] = info?.lastName
                     }
+                    else{
+                        cell?.textField.text = nil
+                    }
+                   
                 }
             }
             // add functionality
             else{
                 print("indexPath: \(indexPath)")
-                print(indexPath.row)
+                
                 if inputDict[Headers.firstName] != nil && indexPath.row == 0 {
                     if let firstName = inputDict[Headers.firstName]{
                         cell?.textField.text = firstName as? String
+                    }
+                    else{
+                        cell?.textField.text = nil
                     }
                 }
                 
@@ -458,7 +482,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     if let lastName = inputDict[Headers.lastName]{
                         cell?.textField.text = lastName as? String
                     }
-                    
+                    else{
+                        cell?.textField.text = nil
+                    }
                 }
                 else{
                     cell?.textField.text = nil
@@ -492,10 +518,10 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     
                     cell?.numInput.text = String(number)
                     phoneNumModel[indexPath.row - 1].number = Int64( String(number))
-                    inputDict["phone"] = phoneNumModel
+                    inputDict[Headers.phoneNumber] = phoneNumModel
                 }
             }
-            cell?.numInput.attributedPlaceholder = NSAttributedString(string:"phone",attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
+            cell?.numInput.attributedPlaceholder = NSAttributedString(string:Headers.phoneNumber,attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
             return cell!
         }
         
@@ -577,19 +603,27 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
         else if (headerDataSource[indexPath.section].data[0] == Headers.notes ){
             let cell = tableView.dequeueReusableCell(withIdentifier: NotesTableViewCell.identifier) as! NotesTableViewCell
-            if info != nil{
-                if let notes = info?.notes{
-                    cell.textView.text = notes
-                    
-                    inputDict[Headers.notes] = info?.notes
-                }
-                else{
-                    cell.textView.text = Headers.notes
-                }
+            if let notes = inputDict[Headers.notes] as? String{
+                cell.textView.text = notes
             }
             else{
                 cell.textView.text = Headers.notes
             }
+//            if info != nil{
+//                if let notes = info?.notes{
+//                    cell.textView.text = notes
+//
+////                    inputDict[Headers.notes] = info?.notes
+//                }
+//
+//                else{
+//                    cell.textView.text = inputDict[Hea]
+//                }
+//            }
+//            else{
+//                cell.textView.text = Headers.notes
+//            }
+            
             cell.textView.delegate = self
             return cell
             
@@ -602,10 +636,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             if (isFavourite == 0){
                 
                 cell.textButton.setTitle("Add to favourite", for: .normal)
-                
+                cell.textButton.setTitleColor(.label, for: .normal)
             }
             else{
                 cell.textButton.setTitle("Added to favourite", for: .normal)
+                cell.textButton.setTitleColor(.systemBlue, for: .normal)
             }
             inputDict[Headers.favourite] = isFavourite
             return cell
@@ -617,10 +652,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             
             if(isEmergencyContact == 0){
                 cell.textButton.setTitle("Add to emergency Contact", for: .normal)
-                
+                cell.textButton.setTitleColor(.label, for: .normal)
             }
             else{
                 cell.textButton.setTitle("Added to emergency contact", for: .normal)
+                cell.textButton.setTitleColor(.systemRed, for: .normal)
             }
             inputDict[Headers.emergencyContact] = isFavourite
             return cell
@@ -650,7 +686,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             
             if(!workInfoArray.isEmpty){
                 cell.textField.text =  workInfoArray[indexPath.row - 1]
-                inputDict[Headers.workInfo] = workInfoArray
+                inputDict[Headers.workInfo] = workInfoArray[indexPath.row - 1]
             }
             cell.textField.attributedPlaceholder = NSAttributedString(string: (headerDataSource[indexPath.section].data[0]),attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
             
@@ -688,6 +724,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             
         }
         
+       
         
     }
     
@@ -716,73 +753,74 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+       
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        if (headerDataSource[indexPath.section].data[0] == Headers.workInfo){
-            if(workInfoArray.isEmpty){
-                workInfoArray.append("")
+        if(indexPath.row == 0){
+            if (headerDataSource[indexPath.section].data[0] == Headers.workInfo){
+                if(workInfoArray.isEmpty){
+                    workInfoArray.append("")
+                    
+                }
+            }
+            else if (headerDataSource[indexPath.section].data[0] == Headers.phoneNumber ){
+                phoneNumModel.append(PhoneNumberModel(modelType: "mobile"))
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == Headers.email){
+                emailArray.append("")
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == Headers.address ){
+                addressModel.append(AddressModel(modelType: "home"))
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == Headers.socialProfile ) {
+                
+                socialProfileModel.append(SocialProfileModel(profileType: "Twitter"))
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == Headers.favourite){
+                if(isFavourite == 0){
+                    isFavourite = 1
+                }
+                else{
+                    isFavourite = 0
+                }
+                
+                
+            }
+            else if (headerDataSource[indexPath.section].data[0] == Headers.emergencyContact){
+                if(isEmergencyContact == 0){
+                    isEmergencyContact = 1}
+                else{
+                    isEmergencyContact = 0
+                }
+                
                 
             }
         }
-        else if (headerDataSource[indexPath.section].data[0] == Headers.phoneNumber ){
-            phoneNumModel.append(PhoneNumberModel(modelType: "mobile"))
-            
-        }
-        else if (headerDataSource[indexPath.section].data[0] == Headers.email){
-            emailArray.append("")
-            
-        }
-        else if (headerDataSource[indexPath.section].data[0] == Headers.address ){
-            addressModel.append(AddressModel(modelType: "home"))
-            
-        }
-        else if (headerDataSource[indexPath.section].data[0] == Headers.socialProfile ) {
-            
-            socialProfileModel.append(SocialProfileModel(profileType: "Twitter"))
-            
-        }
-        else if (headerDataSource[indexPath.section].data[0] == Headers.favourite){
-            if(isFavourite == 0){
-                isFavourite = 1
-            }
             else{
-                isFavourite = 0
-            }
-            
-            
-        }
-        else if (headerDataSource[indexPath.section].data[0] == Headers.emergencyContact){
-            if(isEmergencyContact == 0){
-                isEmergencyContact = 1}
-            else{
-                isEmergencyContact = 0
-            }
-            
-            
-        }
-        
-        else{
-            if (headerDataSource[indexPath.section].data[0] == Headers.groups  && indexPath.row > 0){
-                if(selectedGrpIndex.contains(indexPath.row)){
-                    for i in 0..<selectedGrpIndex.count{
-                        if selectedGrpIndex[i] == indexPath.row{
-                            selectedGrpIndex.remove(at: i)
+                if (headerDataSource[indexPath.section].data[0] == Headers.groups  && indexPath.row > 0){
+                    if(selectedGrpIndex.contains(indexPath.row)){
+                        for i in 0..<selectedGrpIndex.count{
+                            if selectedGrpIndex[i] == indexPath.row{
+                                selectedGrpIndex.remove(at: i)
+                            }
                         }
                     }
+                    
+                    else{
+                        selectedGrpIndex.append(indexPath.row)
+                    }
+                    
+                    groups.append(grpData[indexPath.row].groupName)
+                    
+                    
                 }
-                
-                else{
-                    selectedGrpIndex.append(indexPath.row)
-                }
-                
-                groups.append(grpData[indexPath.row].groupName)
-                
                 
             }
-            
-        }
-        tableView.reloadData()
+            tableView.reloadData()
+        
     }
     
     //               else if(headerDataSource[indexPath.section].data[0] != Headers.favourite && headerDataSource[indexPath.section].data[0] != Headers.emergencyContact){
@@ -822,16 +860,16 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     @objc func tapFavourite(sender:UIButton){
         if (isFavourite == 0){
             sender.setTitle("Added to favourite", for: .normal)
-            sender.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            sender.setTitleColor(.systemBlue, for: .normal)
             isFavourite = 1
         }
         else{
             sender.setTitle("Add to favourite", for: .normal)
-            sender.setImage(nil, for: .normal)
+            sender.setTitleColor(.label, for: .normal)
 //            sender.setImage(UIImage(systemName: "star"), for: .normal)
             isFavourite = 0
         }
-        sender.tintColor = .systemBlue
+        
         
         
     }
@@ -839,12 +877,14 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
         if (isEmergencyContact == 0){
             sender.setTitle("Added to emergency contact", for: .normal)
-            sender.setImage(UIImage(systemName: "staroflife.fill"), for: .normal)
+            sender.setTitleColor(.systemRed, for: .normal)
+//            sender.setImage(UIImage(systemName: "staroflife.fill"), for: .normal)
             isEmergencyContact = 1
         }
         else{
             sender.setTitle("Add to emergency contact", for: .normal)
-            sender.setImage(nil, for: .normal)
+            sender.setTitleColor(.label, for: .normal)
+//            sender.setImage(nil, for: .normal)
 //            sender.setImage(UIImage(systemName: "staroflife"), for: .normal)
             isEmergencyContact = 0
         }
@@ -853,49 +893,60 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
     }
     @objc func cancelButton(){
+        print("cancel ==> \(inputDict)")
+        if(isEdited){
+            let alertController = UIAlertController(title: nil, message: "Are you sure you want to discard this new contact", preferredStyle: .actionSheet)
+            
+        let discardAction = UIAlertAction(title: "Discard changes", style: .destructive){ _ in
+                
+                        self.dismiss(animated: true)
+            }
+            let editingAction = UIAlertAction(title: "Keep Editing", style: .cancel){ _ in
+                    
+    //                        self.dismiss(animated: true)
+                }
+            alertController.addAction(discardAction)
+            alertController.addAction(editingAction)
+            
+            present(alertController, animated: true)
+            
+            return
+        }
         if (info != nil){
             navigationController?.popViewController(animated: true)
-            
+            dismiss(animated: true)
         }
         dismiss(animated: true)
     }
     
     @objc func DoneButton(){
-//        view.endEditing(true)
+        view.endEditing(true)
+        print("inputDict in done button : \(inputDict)")
         //edit functionality
         if (info != nil){
+            let profimg = inputDict[Headers.profileImage] as? UIImage
             
-//            viewWillDisappear(true)
-            print(inputDict)
-            let newContact = Contacts(contactId: id!,profileImage: image?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: ((inputDict["phone"]) as? [PhoneNumberModel])!,email: (inputDict[Headers.email]) as? [String],address: (inputDict[Headers.address]) as? [AddressModel],socialProfile: (inputDict[Headers.socialProfile]) as? [SocialProfileModel],favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
+            let newContact = Contacts(contactId: id!,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: ((inputDict[Headers.phoneNumber]) as? [PhoneNumberModel])!,email: (inputDict[Headers.email]) as? [String],address: (inputDict[Headers.address]) as? [AddressModel],socialProfile: (inputDict[Headers.socialProfile]) as? [SocialProfileModel],favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
+            
             DBHelper.updateContact(contact: newContact)
             allContactsVc?.refreshDataSource()
             allContactsVc?.tableView.reloadData()
             editDelegate?.getUpdatedContact(newContact: newContact)
+            
             navigationController?.popViewController(animated: true)
             //            navigationController?.pushViewController(ProfilePageViewController(contact: newContact), animated: true)
             
         }
         // add functionality
         else{
-            if let firstName = inputDict[Headers.firstName] as? String{
-                guard (!firstName.isEmpty),
-                      !phoneNumModel.isEmpty else {
-                    return
-                }
-                let dateformat = DateFormatter()
-                dateformat.dateFormat = "ddmmss"
-                guard let myInt = Int(dateformat.string(from: Date()))  else {
-                    print("Conversion failed.")
-                    return
-                }
-                id = myInt
-                guard let firstName = inputDict[Headers.firstName] as? String else{
-                    let alertController = UIAlertController(title: nil, message: "Error in First Name", preferredStyle: .alert)
+//
+            guard let firstName = inputDict[Headers.firstName] as? String
+                else{
+                    let alertController = UIAlertController(title: nil, message: "First Name Field is Mandatory", preferredStyle: .alert)
                     
-                    let okAction = UIAlertAction(title: "OK", style: .default){ _ in
+                let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
                         
-                        self.dismiss(animated: true)
+//                        self.dismiss(animated: true)
                     }
                     
                     alertController.addAction(okAction)
@@ -903,14 +954,41 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     present(alertController, animated: true)
                     
                     return
+                
                 }
+            guard let _ = inputDict[Headers.phoneNumber] else{
+                let alertController = UIAlertController(title: nil, message: "Mobile Number Field is Mandatory", preferredStyle: .alert)
+                
+            let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
+                    
+//                        self.dismiss(animated: true)
+                }
+                
+                alertController.addAction(okAction)
+                
+                present(alertController, animated: true)
+                
+                return
+            
+            
+            }
+            
+                let dateformat = DateFormatter()
+                dateformat.dateFormat = "ddmmss"
+                guard let myInt = Int(dateformat.string(from: Date()))  else {
+                    print("Conversion failed.")
+                    return
+                }
+                id = myInt
+                print("input dict in add : \(inputDict)")
+            print(inputDict[Headers.lastName])
                 let newContact = Contacts(
                     contactId: id!,
                     profileImage: image?.pngData(),
-                    firstName: firstName,
+                    firstName:firstName,
                     lastName: inputDict[Headers.lastName] as? String,
                     workInfo:  inputDict[Headers.workInfo] as? String,
-                    phoneNumber: (inputDict["phone"]) as! [PhoneNumberModel],
+                    phoneNumber: (inputDict[Headers.phoneNumber]) as! [PhoneNumberModel],
                     email: (inputDict[Headers.email]) as? [String],
                     address: (inputDict[Headers.address]) as? [AddressModel],
                     socialProfile: (inputDict[Headers.socialProfile]) as? [SocialProfileModel],
@@ -956,174 +1034,173 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 }
             }
         }
-        func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesBegan(touches, with: event)
             view.endEditing(true)
         }
         
     }
 //    var textFieldValues:[Any] = []
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-            for cell in tableView.visibleCells {
-                guard let _ = tableView.indexPath(for: cell),
-                      let textField = cell.contentView.subviews.first(where: { $0 is UITextField }) as? UITextField,
-                      let _ = textField.text else {
-                    continue
-                }
-                print(inputDict)
-                switch textField.attributedPlaceholder?.string{
-
-                case Headers.firstName:
-                    if(inputDict[Headers.firstName]==nil){
-                        if let firstName = textField.text{
-                            if firstName != ""{
-                                inputDict[Headers.firstName] = firstName}
-                            else{
-                                inputDict[Headers.firstName] = nil
-                            }
-                        }
-                        else{
-                            inputDict[Headers.firstName] = nil
-                        }
-                    }
-
-                case Headers.lastName:
-                    if(inputDict[Headers.lastName]==nil){
-                        if let lastName = textField.text {
-
-                            if lastName != ""{
-                                inputDict[Headers.lastName] = lastName
-                            }
-                            else{
-                                inputDict[Headers.lastName] = nil
-                            }
-                        }
-                        else{
-                            inputDict[Headers.lastName] = nil
-                        }
-                    }
-                case Headers.workInfo:
-                    if(inputDict[Headers.workInfo]==nil){
-                        if let workInfo = textField.text{
-                            workInfoArray[textField.tag ] = workInfo
-
-                            inputDict[Headers.workInfo] = workInfoArray[0]}
-                        else{
-                            inputDict[Headers.workInfo] = nil
-                        }
-                    }
-                case Headers.email:
-                    if(inputDict[Headers.email]==nil){
-                        if let email = textField.text{
-
-                            emailArray[textField.tag ] = (email)
-                            inputDict[Headers.email] = emailArray}
-                        else{
-                            inputDict[Headers.email] = nil
-                        }
-                    }
-                case "phone":
-
-                    if(inputDict["phone"]==nil){
-                        if let phoneNumber = textField.text {
-                            phoneNumModel[textField.tag - 1 ].number = Int64(phoneNumber)
-                            inputDict["phone"] = phoneNumModel
-                            print(phoneNumModel)
-                        }
-                        else{
-                            inputDict["phone"] = nil
-                        }
-                    }
-                case "Door no." :
-                    if(inputDict[Headers.address]==nil){
-                        if let doorNo = textField.text{
-                            addressModel[textField.tag - 1].doorNo = doorNo
-                        }
-                        else{
-                            addressModel[textField.tag - 1].doorNo = nil
-                        }
-                    }
-
-
-                case "street":
-                    if(inputDict[Headers.address]==nil){
-                        if let street = textField.text {
-                            addressModel[textField.tag - 1].Street = street
-                        }
-                        else{
-                            addressModel[textField.tag - 1].Street = nil
-                        }
-                    }
-                case "City":
-                    if(inputDict[Headers.address]==nil){
-                        if let city = textField.text{
-                            addressModel[textField.tag - 1].city = city
-                        }
-                        else{
-                            addressModel[textField.tag - 1].city = nil
-                        }
-                    }
-                case "PostCode":
-                    if(inputDict[Headers.address]==nil){
-                        if let postcode = textField.text{
-                            addressModel[textField.tag - 1].postcode = postcode}
-                        else{
-                            addressModel[textField.tag - 1].postcode = nil
-                        }
-                    }
-                case "state":
-                    if(inputDict[Headers.address]==nil){
-                        if let state = textField.text{
-                            addressModel[textField.tag - 1].state = state
-                        }
-                        else{
-                            addressModel[textField.tag - 1].state = nil
-                        }
-                    }
-                case "Country":
-                    if(inputDict[Headers.address]==nil){
-                        if let country = textField.text{
-                            addressModel[textField.tag - 1].country = country
-                        }
-                        else{
-                            addressModel[textField.tag - 1].country = nil
-                        }
-                        inputDict[Headers.address] = addressModel
-                    }
-
-                case Headers.socialProfile:
-                    if(inputDict[Headers.address]==nil){
-                        if let socialProfile = textField.text{
-                            socialProfileModel[textField.tag - 1].link = socialProfile
-
-                        }
-                        else{
-                            socialProfileModel[textField.tag - 1].link = nil
-                        }
-                        inputDict[Headers.socialProfile] = socialProfileModel}
-
-                default:
-                   return
-
-                }
-
-            }
-            // Add the text value to an array for later use.
-//            textFieldValues.append(text)
-
-
-            // Do something with the array of text field values before the view is dismissed.
-           
-            print(inputDict)
-        }
-   
-    }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        super.viewWillDisappear(animated)
+//
+//            for cell in tableView.visibleCells {
+//                guard let _ = tableView.indexPath(for: cell),
+//                      let textField = cell.contentView.subviews.first(where: { $0 is UITextField }) as? UITextField,
+//                      let _ = textField.text else {
+//                    continue
+//                }
+//                print(inputDict)
+//                switch textField.attributedPlaceholder?.string{
+//
+//                case Headers.firstName:
+//                    if(inputDict[Headers.firstName]==nil){
+//                        if let firstName = textField.text{
+//                            if firstName != ""{
+//                                inputDict[Headers.firstName] = firstName}
+//                            else{
+//                                inputDict[Headers.firstName] = nil
+//                            }
+//                        }
+//                        else{
+//                            inputDict[Headers.firstName] = nil
+//                        }
+//                    }
+//
+//                case Headers.lastName:
+//                    if(inputDict[Headers.lastName]==nil){
+//                        if let lastName = textField.text {
+//
+//                            if lastName != ""{
+//                                inputDict[Headers.lastName] = lastName
+//                            }
+//                            else{
+//                                inputDict[Headers.lastName] = nil
+//                            }
+//                        }
+//                        else{
+//                            inputDict[Headers.lastName] = nil
+//                        }
+//                    }
+//                case Headers.workInfo:
+//                    if(inputDict[Headers.workInfo]==nil){
+//                        if let workInfo = textField.text{
+//                            workInfoArray[textField.tag ] = workInfo
+//
+//                            inputDict[Headers.workInfo] = workInfoArray[0]}
+//                        else{
+//                            inputDict[Headers.workInfo] = nil
+//                        }
+//                    }
+//                case Headers.email:
+//                    if(inputDict[Headers.email]==nil){
+//                        if let email = textField.text{
+//
+//                            emailArray[textField.tag ] = (email)
+//                            inputDict[Headers.email] = emailArray}
+//                        else{
+//                            inputDict[Headers.email] = nil
+//                        }
+//                    }
+//                case "phone":
+//
+//                    if(inputDict["phone"]==nil){
+//                        if let phoneNumber = textField.text {
+//                            phoneNumModel[textField.tag - 1 ].number = Int64(phoneNumber)
+//                            inputDict["phone"] = phoneNumModel
+//                            print(phoneNumModel)
+//                        }
+//                        else{
+//                            inputDict["phone"] = nil
+//                        }
+//                    }
+//                case "Door no." :
+//                    if(inputDict[Headers.address]==nil){
+//                        if let doorNo = textField.text{
+//                            addressModel[textField.tag - 1].doorNo = doorNo
+//                        }
+//                        else{
+//                            addressModel[textField.tag - 1].doorNo = nil
+//                        }
+//                    }
+//
+//
+//                case "street":
+//                    if(inputDict[Headers.address]==nil){
+//                        if let street = textField.text {
+//                            addressModel[textField.tag - 1].Street = street
+//                        }
+//                        else{
+//                            addressModel[textField.tag - 1].Street = nil
+//                        }
+//                    }
+//                case "City":
+//                    if(inputDict[Headers.address]==nil){
+//                        if let city = textField.text{
+//                            addressModel[textField.tag - 1].city = city
+//                        }
+//                        else{
+//                            addressModel[textField.tag - 1].city = nil
+//                        }
+//                    }
+//                case "PostCode":
+//                    if(inputDict[Headers.address]==nil){
+//                        if let postcode = textField.text{
+//                            addressModel[textField.tag - 1].postcode = postcode}
+//                        else{
+//                            addressModel[textField.tag - 1].postcode = nil
+//                        }
+//                    }
+//                case "state":
+//                    if(inputDict[Headers.address]==nil){
+//                        if let state = textField.text{
+//                            addressModel[textField.tag - 1].state = state
+//                        }
+//                        else{
+//                            addressModel[textField.tag - 1].state = nil
+//                        }
+//                    }
+//                case "Country":
+//                    if(inputDict[Headers.address]==nil){
+//                        if let country = textField.text{
+//                            addressModel[textField.tag - 1].country = country
+//                        }
+//                        else{
+//                            addressModel[textField.tag - 1].country = nil
+//                        }
+//                        inputDict[Headers.address] = addressModel
+//                    }
+//
+//                case Headers.socialProfile:
+//                    if(inputDict[Headers.address]==nil){
+//                        if let socialProfile = textField.text{
+//                            socialProfileModel[textField.tag - 1].link = socialProfile
+//
+//                        }
+//                        else{
+//                            socialProfileModel[textField.tag - 1].link = nil
+//                        }
+//                        inputDict[Headers.socialProfile] = socialProfileModel}
+//
+//                default:
+//                   return
+//
+//                }
+//
+//            }
+//
+//
+//            print(inputDict)
+//        }
+//
+    
 
 
 
 extension InfoSheetViewController:UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        isEdited = true
+    }
     func textFieldDidEndEditing(_ textField: UITextField) {
         
             switch textField.attributedPlaceholder?.string{
@@ -1136,9 +1213,9 @@ extension InfoSheetViewController:UITextFieldDelegate {
                         inputDict[Headers.firstName] = nil
                     }
                 }
-                else{
-                    inputDict[Headers.firstName] = nil
-                }
+//                else{
+//                    inputDict[Headers.firstName] = nil
+//                }
                 
                 
             case Headers.lastName:
@@ -1152,38 +1229,65 @@ extension InfoSheetViewController:UITextFieldDelegate {
                         inputDict[Headers.lastName] = nil
                     }
                 }
-                else{
-                    inputDict[Headers.lastName] = nil
-                }
+//                else{
+//                    inputDict[Headers.lastName] = nil
+//                }
                 
             case Headers.workInfo:
                 
                 if let workInfo = textField.text{
                     workInfoArray[textField.tag ] = workInfo
                     
-                    inputDict[Headers.workInfo] = workInfoArray[0]}
-                else{
-                    inputDict[Headers.workInfo] = nil
+                    inputDict[Headers.workInfo] = workInfoArray[0]
+                    
                 }
+//                else{
+//                    inputDict[Headers.workInfo] = nil
+//                }
                 
                 
             case Headers.email:
                 if let email = textField.text{
-                    
-                    emailArray[textField.tag ] = (email)
-                    inputDict[Headers.email] = emailArray}
-                else{
-                    inputDict[Headers.email] = nil
+                    if email != ""{
+                        emailArray[textField.tag ] = (email)
+                        inputDict[Headers.email] = emailArray}
                 }
+//                else{
+//                    inputDict[Headers.email] = nil
+//                }
                 
-            case "phone":
+            case Headers.phoneNumber:
                 if let phoneNumber = textField.text {
-                    phoneNumModel[textField.tag - 1 ].number = Int64(phoneNumber)
-                    inputDict["phone"] = phoneNumModel
+                   
+                    let result = String(phoneNumber).range(
+                        of: #"^\d{1,10}$"#,
+                        options: .regularExpression
+                    )
+                    if(result != nil){
+                        phoneNumModel[textField.tag - 1 ].number = Int64(phoneNumber)
+                        inputDict[Headers.phoneNumber] = phoneNumModel
+
+                    }
+                    else{
+                        let alertController = UIAlertController(title: "Invalid Phone Number", message: "Phone number should not contain alphabets!", preferredStyle: .alert)
+                        
+                    let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
+                            
+    //                        self.dismiss(animated: true)
+                        }
+                        
+                        alertController.addAction(okAction)
+                        
+                        present(alertController, animated: true)
+                        
+                        return
+                     
+                    }
+                   
                 }
-                else{
-                    inputDict["phone"] = nil
-                }
+//                else{
+//                    inputDict["phone"] = nil
+//                }
             case "Door no." :
                 if let doorNo = textField.text{
                     addressModel[textField.tag - 1].doorNo = doorNo
@@ -1280,22 +1384,39 @@ extension InfoSheetViewController:UITextViewDelegate{
         }
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        if textView.text == "" {
-            textView.text = Headers.notes
-            textView.textColor = UIColor.gray
-            textView.resignFirstResponder()
-        }
+//    func textViewDidChange(_ textView: UITextView) {
+//        if textView.text == "" {
+//            textView.text = Headers.notes
+//            textView.textColor = UIColor.gray
+//            textView.resignFirstResponder()
+//        }
+//        else{
+//            if(inputDict[Headers.notes] != nil){
+//                if let notes = textView.text{
+//                    inputDict[Headers.notes] = notes
+//                }
+//                else{
+//                    inputDict[Headers.notes] = nil
+//                }
+//            }
+//        }
+//    }
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        
+            let txt = textView.text as? NSString
+            let str = txt?.replacingCharacters(in: range , with: text)
+            if str == "" {
+                   textView.text = Headers.notes
+                   textView.textColor = UIColor.gray
+                   textView.resignFirstResponder()
+                inputDict[Headers.notes] = nil
+               }
         else{
-            if(inputDict[Headers.notes] != nil){
-                if let notes = textView.text{
-                    inputDict[Headers.notes] = notes
-                }
-                else{
-                    inputDict[Headers.notes] = nil
-                }
-            }
+            inputDict[Headers.notes] = str
         }
+        
+        return true
     }
     
 }
