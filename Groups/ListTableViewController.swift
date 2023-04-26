@@ -24,19 +24,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         let view = UIView()
         return view
     }()
-//    lazy var editImage:UIImageView = {
-//        let image = UIImage(named: "pencil")
-//        let bannerWidth = navigationController?.navigationBar.frame.size.width
-//              let bannerHeight = navigationController?.navigationBar.frame.size.height
-//        let bannerX = bannerWidth! / 2 - (image?.size.width)! / 2
-//              let bannerY = bannerHeight! / 2 - (image?.size.height)! / 2
-//
-//        let imgView = UIImageView(frame: CGRect(x: bannerX, y: bannerY, width: bannerWidth!, height: bannerHeight!))
-//        imgView.image = image
-//        imgView.tintColor = .systemBlue
-//        imgView.contentMode = .scaleAspectFit
-//        return imgView
-//    }()
+
     lazy var grpData:[GroupModel] = []
     lazy var grpNames:[[String:Any]] = []
     override func viewWillAppear(_ animated: Bool) {
@@ -203,8 +191,6 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
 
         view.endEditing(true)
         
-        
-    
         isEditButtonTapped = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(done))
@@ -212,20 +198,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     }
     @objc func add(){
         print("add")
-//        NotificationCenter.default.addObserver(self, selector: #selector(ListTableViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-      
-//        if let textField = self.view.viewWithTag(0) as? UITextField {
-//            if textField.isFirstResponder {
-//
-//                    textField.resignFirstResponder()
-//                    textField.becomeFirstResponder()
-//                } else {
-//
-//                    textField.becomeFirstResponder()
-//                }
-//
-//        }
-//
+
             isAddTapped = true
             temp = grpData.count
             tableView.reloadData()
@@ -239,15 +212,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(add))
     }
     
-//    @objc func keyboardWillShow(notification: Notification) {
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//
-//            if self.view.frame.origin.y == 0{
-//                self.view.frame.origin.y += keyboardSize.height
-//            }
-//        }
-//
-//    }
+
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0 && indexPath.row == 0){

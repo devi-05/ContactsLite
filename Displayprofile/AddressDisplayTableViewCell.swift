@@ -27,7 +27,7 @@ class AddressDisplayTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.backgroundColor = .secondarySystemBackground
 //        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
+//        contentView.layer.masksToBounds = true
         contentView.addSubview(header)
         contentView.addSubview(subHeader)
         configureConstraints()

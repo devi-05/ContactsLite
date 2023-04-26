@@ -445,7 +445,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     @objc func addButton(){
         let vc = InfoSheetViewController(contact: nil)
         vc.allContactsVc = self
-        vc.title = "New Contact"
+        vc.title  = "New Contact"
 
         let navVc = UINavigationController(rootViewController:  vc)
 //        navVc.modalPresentationStyle = .fullScreen

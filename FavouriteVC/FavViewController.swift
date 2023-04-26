@@ -49,7 +49,7 @@ class FavViewController: UITableViewController {
     }
     override func viewDidLoad() {
        
-       
+        tableView.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         containerView.addSubview(imageView)

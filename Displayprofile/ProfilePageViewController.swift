@@ -68,20 +68,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         view.isUserInteractionEnabled = true
         return view
     }()
-    //    lazy var deleteButton:UIButton = {
-    //        let button = UIButton(frame: CGRect(x: 115, y: 0, width: 170, height: 50))
-    //        button.setTitle("Delete Contact", for: .normal)
-    //        button.setTitleColor(.systemGray6, for: .normal)
-    //        //        button.setImage(UIImage(systemName: "trash.fill"), for: .normal)
-    //        //        button.tintColor = .white
-    //
-    //        button.layer.cornerRadius = 20 // 38, 33, 35
-    //        //        button.layer.borderColor = .init(red: 38/255, green: 33/255, blue: 35/255, alpha: 1) // 214, 40, 40
-    //        button.addTarget(self, action: #selector(del), for: .touchUpInside)
-    //        button.backgroundColor = UIColor(red: 270/255, green: 57/255, blue: 65/255, alpha: 1)
-    //
-    //        return button
-    //    }()
+   
     
     var menuItems: [UIAction] {
         return [
@@ -140,6 +127,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundColor = .systemBackground
 //        title = " "
 //        navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(photoView)
@@ -166,24 +154,12 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         //        tableView.tableFooterView = footerView
         tableView.backgroundColor = .systemBackground
         tableView.register(ProfPageTableViewCell.self, forCellReuseIdentifier: ProfPageTableViewCell.identifier)
-        tableView.register(EmailAndNotesTableViewCell.self, forCellReuseIdentifier: EmailAndNotesTableViewCell.identifier)
+        tableView.register(EmailTableViewCell.self, forCellReuseIdentifier: EmailTableViewCell.identifier)
         tableView.register(AddressDisplayTableViewCell.self, forCellReuseIdentifier: AddressDisplayTableViewCell.identifier)
-        
+        tableView.register(NotesDisplayTableViewCell.self, forCellReuseIdentifier: NotesDisplayTableViewCell.identifier)
     }
     
     
-    //    @objc func edit(){
-    //        print(contact)
-    //        let vc = InfoSheetViewController(contact: contact)
-    //        vc.editDelegate = self
-    //        navigationController?.pushViewController(vc, animated: true)
-    //
-    //    }
-    //    @objc func del(){
-    //        DBHelper.deleteContact(contactId: contact.contactId)
-    //        navigationController?.popViewController(animated: true)
-    //
-    //    }
     func configureConstraints(){
         photoLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -221,6 +197,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         
         if let image = contact.profileImage {
             photoLabel.image = UIImage(data:image)
+            photoLabel.tintColor = .gray
             photoLabel.layer.cornerRadius = 60
             photoLabel.clipsToBounds = true
 
@@ -228,7 +205,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         }
         else{
             photoLabel.image = UIImage(systemName: "person.circle.fill")
-
+            photoLabel.tintColor = .gray
         }
         
         if let workInfo = contact.workInfo{
@@ -238,7 +215,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         else{
             workInfoLabel.text = nil
         }
-        print("IMAGE : \(contact.profileImage)")
         setImage()
         setPhoneNumber()
         setEmail()
@@ -249,6 +225,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     func setImage(){
         if let imageData = contact.profileImage{
             photoLabel.image = UIImage(data: imageData)
+            photoLabel.tintColor = .gray
         }
     }
     
@@ -394,10 +371,21 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         return " "
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if sectionData[indexPath.section].sectionName == Headers.email || sectionData[indexPath.section].sectionName == Headers.notes{
-            return 40}
-        else if sectionData[indexPath.section].sectionName == Headers.address{
+        
+         if sectionData[indexPath.section].sectionName == Headers.address{
             return 170
+        }
+        else if sectionData[indexPath.section].sectionName == Headers.notes{
+            return 170
+//            if let notes = contact.notes {
+//                let font = UIFont.systemFont(ofSize: 17)
+//                let size = (notes as NSString).size(withAttributes: [.font: font])
+//                print(size.height)
+//                return size.height
+//            }
+//            else{
+//                return 0
+//            }
         }
         else{
             
@@ -406,11 +394,18 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if sectionData[indexPath.section].sectionName == "Email" || sectionData[indexPath.section].sectionName == "Notes"{
-            let cell = tableView.dequeueReusableCell(withIdentifier: EmailAndNotesTableViewCell.identifier) as! EmailAndNotesTableViewCell
+        if sectionData[indexPath.section].sectionName == "Email" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: EmailTableViewCell.identifier) as! EmailTableViewCell
             cell.header.text = sectionData[indexPath.section].rows[indexPath.row].value
             
             return cell
+        }
+        else if sectionData[indexPath.section].sectionName == "Notes"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: NotesDisplayTableViewCell.identifier) as! NotesDisplayTableViewCell
+            cell.subHeaders.text = sectionData[indexPath.section].rows[indexPath.row].value
+            return cell
+        
+            
         }
         else if  sectionData[indexPath.section].sectionName == Headers.address {
             let cell = tableView.dequeueReusableCell(withIdentifier: AddressDisplayTableViewCell.identifier) as! AddressDisplayTableViewCell
