@@ -254,8 +254,8 @@
             filePath = "ContactsViewController/AllContactsVc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "539"
-            endingLineNumber = "539"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
             landmarkName = "filterInput(input:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -286,8 +286,8 @@
             filePath = "ContactsViewController/AllContactsVc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "586"
+            endingLineNumber = "586"
             landmarkName = "tableView(_:commit:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1889,8 +1889,8 @@
             filePath = "ContactsViewController/AllContactsVc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "359"
-            endingLineNumber = "359"
+            startingLineNumber = "367"
+            endingLineNumber = "367"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -2833,8 +2833,8 @@
             filePath = "ContactsViewController/AllContactsVc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2849,72 +2849,10 @@
             filePath = "ContactsViewController/AllContactsVc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "131"
-            endingLineNumber = "131"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "refreshDataSource()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D6E93907-5ECE-4464-AD7F-E7A0763457FD - b1eaeb89964f7a0d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.refreshDataSource() -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "692">
-               </Location>
-               <Location
-                  uuid = "D6E93907-5ECE-4464-AD7F-E7A0763457FD - b1eaeb89964f7a0d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.refreshDataSource() -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "652">
-               </Location>
-               <Location
-                  uuid = "D6E93907-5ECE-4464-AD7F-E7A0763457FD - b1eaeb89964f7a0d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.refreshDataSource() -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "656">
-               </Location>
-               <Location
-                  uuid = "D6E93907-5ECE-4464-AD7F-E7A0763457FD - b1eaeb89964f7a0d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.refreshDataSource() -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "132"
-                  endingLineNumber = "132"
-                  offsetFromSymbolStart = "724">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

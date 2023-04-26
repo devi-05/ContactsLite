@@ -17,7 +17,7 @@ class TabBarViewController: UITabBarController{
         super.viewDidLoad()
 //        tabBar.isTranslucent = false
         UITabBar.appearance().backgroundColor = .systemGray5
-        let vc1 = UINavigationController(rootViewController: AllContactsVc(data: nil))
+        let vc1 = UINavigationController(rootViewController: AllContactsVc(grpName: "Contacts"))
         let vc2 = UINavigationController(rootViewController: FavViewController())
         let vc3 = UINavigationController(rootViewController: EmergencyContactViewController())
         let vc4 = UINavigationController(rootViewController: ListTableViewController())

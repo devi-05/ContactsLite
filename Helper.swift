@@ -83,11 +83,11 @@ class Helper{
                     }
                 }
         if (!localDbContactList.isEmpty){
-                groups.append(GroupModel(groupName: "All Contacts", data:
-                                            [SectionContent(sectionName: "All Contacts", rows: localDbContactList)]))
+                groups.append(GroupModel(groupName: "Contacts", data:
+                                            [SectionContent(sectionName: "Contacts", rows: localDbContactList)]))
                                }
         else{
-            groups.append(GroupModel(groupName: "All Contacts", data:
+            groups.append(GroupModel(groupName: "Contacts", data:
                                         []))
                            }
         
@@ -197,6 +197,22 @@ class Helper{
         } else {
             print("error")
         }
+    }
+    
+    static func getGroupListWithData() -> [String:[SectionContent]]{
+        
+        var grpListWithData:[String:[SectionContent]] = [:]
+        grpListWithData["Contacts"] = Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC")))))
+        let groupDict = DBHelper.fetchGrpNames(colName: "GROUP_NAME")
+        
+        let grpNames = Helper.getGrpNames(grpName: groupDict)
+        
+        for i in grpNames{
+            grpListWithData[i] = Helper.extractNamesFromFetchedData(lists: DBHelper.fetchGroupMembers(groupName: i))
+        }
+        return grpListWithData
+//        print(grpListWithData)
+        
     }
 }
 

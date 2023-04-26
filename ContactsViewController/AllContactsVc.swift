@@ -106,9 +106,9 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         button.addTarget(self, action: #selector(addButton), for: .touchUpInside)
         return button
     }()
-    var localDataSource:GroupModel?
-    lazy var dbContactList:[Contacts] = []
-    
+     var localDataSource:[SectionContent]?
+//    lazy var dbContactList:[Contacts] = []
+//
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         totalContacts = 0
@@ -125,13 +125,15 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     }
     
     func refreshDataSource(){
-        lazy  var fetchedData = DBHelper.fetchData()
-        print("fetched data: \(fetchedData)")
-        dbContactList = Helper.decodeToContact(list: fetchedData)
-        
-         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC"))))))
-        
-        if (localDataSource?.data.count == 0){
+        let data =  Helper.getGroupListWithData()
+        localDataSource = data[title!]
+//        lazy  var fetchedData = DBHelper.fetchData()
+//
+//        dbContactList = Helper.decodeToContact(list: fetchedData)
+//
+//         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC"))))))
+//
+        if (localDataSource?.count == 0){
             addContactView.isHidden = false
         }
 
@@ -145,13 +147,18 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         tableView.reloadData()
     }
     
-    var passedData:GroupModel?
-    
-    init(data:GroupModel?){
-        self.passedData = data
+    var passedData:[SectionContent]?
+    init(grpName:String){
+        
         super.init(nibName: nil, bundle: nil)
+        self.title = grpName
     }
     
+//    init(data:GroupModel?){
+//        self.passedData = data
+//        super.init(nibName: nil, bundle: nil)
+//    }
+//
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -159,18 +166,19 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
      
         
         super.viewDidLoad()
+      
         
         if(passedData == nil){
             refreshDataSource()
             passedData = localDataSource
-            title = "Contacts"
+//            title = "Contacts"
         }
         else{
-            title = passedData?.groupName
+//            title = passedData?.groupName
             updateTotalContacts()
         }
        
-        if (passedData?.data.count == 0){
+        if (passedData?.count == 0){
             tableView.backgroundView = addContactView
         }
 
@@ -212,8 +220,8 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     
     
     func  updateTotalContacts(){
-        for i in 0..<(passedData?.data.count)!{
-                   totalContacts+=(passedData?.data[i].rows.count)!
+        for i in 0..<(passedData?.count)!{
+            totalContacts+=(passedData?[i].rows.count)!
         }
     }
 
@@ -324,7 +332,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     override func numberOfSections(in tableView: UITableView) -> Int {
        
         if(!bool){
-            return filteredData.isEmpty ? (passedData!.data.count) : 1
+            return filteredData.isEmpty ? (passedData!.count) : 1
             
         }
         
@@ -337,7 +345,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         if(!bool){
             
             if filteredData.isEmpty {
-                                return  passedData!.data[section].rows.count
+                return  (passedData?[section].rows.count)!
             }
             else{
                 return  filteredData.count
@@ -354,9 +362,9 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
        
             if (filteredData.isEmpty){
                 print(passedData)
-                name = (passedData!.data[indexPath.section].rows[indexPath.row].firstName)
-                if (passedData!.data[indexPath.section].rows[indexPath.row].lastName) != "nil" {
-                    if let passedData = passedData,let lastName =  (passedData.data[indexPath.section].rows[indexPath.row].lastName){
+                name = (passedData?[indexPath.section].rows[indexPath.row].firstName)!
+                if (passedData?[indexPath.section].rows[indexPath.row].lastName) != "nil" {
+                    if let passedData = passedData,let lastName =  (passedData[indexPath.section].rows[indexPath.row].lastName){
                         name += " \(lastName)"
                     }
                     
@@ -382,7 +390,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
 //        let letters = Array(CharacterSet.uppercaseLetters)
 //        let c = letters.map({$0})
         
-        if dbContactList.count < 6 {
+        if passedData!.count < 6 {
             return nil
         }
         else{
@@ -392,16 +400,16 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
   
         
-        let sectionHeaders = passedData!.data.map({$0.sectionName})
+        let sectionHeaders = passedData?.map({$0.sectionName})
         
-        if let ind = sectionHeaders.firstIndex(of: title){
+        if let ind = sectionHeaders?.firstIndex(of: title){
             print(ind)
             return ind
         }
         else{
             var ind = 0
-            for i in 0..<sectionHeaders.count{
-                if sectionHeaders[i] < title {
+            for i in 0..<sectionHeaders!.count{
+                if sectionHeaders![i] < title {
                     ind = i
                 }
             }
@@ -413,7 +421,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         if filteredData.isEmpty{
-            return passedData!.data[section].sectionName
+            return passedData?[section].sectionName
         }
         else{
             return ""
@@ -429,7 +437,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filteredData.isEmpty{
           
-            let vc = ProfilePageViewController(contact: (passedData?.data[indexPath.section].rows[indexPath.row])!)
+            let vc = ProfilePageViewController(contact: (passedData?[indexPath.section].rows[indexPath.row])!)
             
             navigationController?.pushViewController(vc, animated: true)
         }
@@ -510,9 +518,9 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         
         filteredData.removeAll()
         var rows:[Contacts] = []
-        for i in 0..<passedData!.data.count{
+        for i in 0..<(passedData?.count)!{
            
-            for string in passedData!.data[i].rows{
+            for string in passedData![i].rows{
                 var name = string.firstName
                 if string.lastName != nil{
                     name += " \( string.lastName!)"
@@ -554,18 +562,18 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         
         func addToDataSource(contact:Contacts){
             var bool = false
-            if(passedData!.data.isEmpty){
-                passedData!.data.append(SectionContent(sectionName: String(contact.firstName.first!), rows: [contact]))
+            if((passedData?.isEmpty) != nil){
+                passedData?.append(SectionContent(sectionName: String(contact.firstName.first!), rows: [contact]))
             }
             else{
-                for i in 0..<passedData!.data.count{
-                    if passedData!.data[i].sectionName == String(contact.firstName.first!){
-                        passedData!.data[i].rows.append(contact)
+                for i in 0..<(passedData?.count)!{
+                    if passedData?[i].sectionName == String(contact.firstName.first!){
+                        passedData?[i].rows.append(contact)
                         bool = true
                     }
                 }
                 if(!bool){
-                    passedData!.data.append(SectionContent(sectionName: String(contact.firstName.first!), rows: [contact]))
+                    passedData?.append(SectionContent(sectionName: String(contact.firstName.first!), rows: [contact]))
                 }
             }
             
@@ -575,7 +583,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            DBHelper.deleteContact(contactId: passedData?.data[indexPath.section].rows[indexPath.row ].contactId ?? 0)
+            DBHelper.deleteContact(contactId: passedData?[indexPath.section].rows[indexPath.row ].contactId ?? 0)
             refreshDataSource()
            
             tableView.reloadData()
@@ -591,7 +599,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
                 
                 if self.filteredData.isEmpty{
                   
-                    let vc = ProfilePageViewController(contact: (self.passedData?.data[indexPath.section].rows[indexPath.row])!)
+                    let vc = ProfilePageViewController(contact: (self.passedData?[indexPath.section].rows[indexPath.row])!)
                     
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -605,8 +613,8 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
                 let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
                 
             let callAction = UIAlertAction(title: "Call", style: .default){ _ in
-                print(self.passedData?.data[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number)
-                if let number = self.passedData?.data[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number as? String{
+                print(self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number)
+                if let number = self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number as? String{
                     Helper.makeACall(number: String(number))
                 }
                 else{

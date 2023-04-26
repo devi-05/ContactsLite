@@ -216,9 +216,9 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 0 && indexPath.row == 0){
-            navigationController?.pushViewController(AllContactsVc(data: nil), animated: true)}
+            navigationController?.pushViewController(AllContactsVc(grpName: "Contacts"), animated: true)}
         else{
-            let vc = AllContactsVc(data: grpData[indexPath.row])
+            let vc = AllContactsVc(grpName: grpData[indexPath.row].groupName)
             vc.isgroupPresent = true
             navigationController?.pushViewController(vc, animated: true)
         }

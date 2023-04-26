@@ -1078,7 +1078,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let newContact = Contacts(contactId: id!,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: phoneNumArr,email: inputDict[Headers.email] as? [String],address: addArr,socialProfile: socprofArr,favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
             
             DBHelper.updateContact(contact: newContact)
-//            allContactsVc?.refreshDataSource()
+            allContactsVc?.refreshDataSource()
             allContactsVc?.tableView.reloadData()
             editDelegate?.getUpdatedContact(newContact: newContact)
             let profVc = ProfilePageViewController(contact: newContact)
@@ -1151,7 +1151,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 
                 DBHelper.assignDb(contactList: newContact)
                 //        tabvc?.refreshFavData()
-//                allContactsVc?.refreshDataSource()
+                allContactsVc?.refreshDataSource()
                 allContactsVc?.tableView.reloadData()
                 
 //                addtoLocalGrpDataSource(grpName:groups,contact:newContact)
