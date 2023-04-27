@@ -38,6 +38,11 @@ class EmergencyContactViewController: UITableViewController
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "Emergency Contacts"
+       refreshEmergencyData()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tableView.reloadData()
+    }
+    func refreshEmergencyData(){
         emergencyContacts = DBHelper.fetchEmergencyContact(conditions: "IS_EMERGENCYCONTACT = 1")
         sortedEmergencyContacts = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: Helper.decodeToContact(list: (emergencyContacts))))
         if(sortedEmergencyContacts.isEmpty){
@@ -46,8 +51,6 @@ class EmergencyContactViewController: UITableViewController
         else{
             tableView.backgroundView = nil
         }
-        navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.reloadData()
     }
     override func viewDidLoad() {
         
@@ -70,6 +73,36 @@ class EmergencyContactViewController: UITableViewController
             msgLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -50),
             msgLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
+            let edit = UIAction(title:"Remove from Emergency Contacts",image: UIImage(systemName: "multiply.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+
+                self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row].emergencyContact = 0
+                DBHelper.updateContact(contact: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
+                self.refreshEmergencyData()
+                tableView.reloadData()
+            }
+            let delete = UIAction(title:"Delete Contact",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){ _ in
+                self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row].emergencyContact = 0
+                DBHelper.updateContact(contact: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
+               
+                DBHelper.deleteContact(contactId: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row].contactId)
+                self.refreshEmergencyData()
+                tableView.reloadData()
+
+            }
+            let view = UIAction(title:"View Profile",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+                
+                let vc = ProfilePageViewController(contact: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
+                self.navigationController?.pushViewController(vc, animated: true)
+
+            }
+            
+            return UIMenu(title: "",image: nil,identifier: nil,children: [edit,view,delete])
+        }
+        return config
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sortedEmergencyContacts.count

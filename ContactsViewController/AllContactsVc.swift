@@ -166,6 +166,8 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         if(passedData == nil){
             refreshDataSource()
             passedData = localDataSource
+            
+            //Contact List - [SectionCont]
 //            title = "Contacts"
         }
         else{
@@ -588,7 +590,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
             let delAction = UIAlertAction(title: "Delete", style: .destructive){ _ in
                 DBHelper.deleteContact(contactId: self.passedData?[indexPath.section].rows[indexPath.row ].contactId ?? 0)
                 self.refreshDataSource()
-                                    self.dismiss(animated: true)
+                self.dismiss(animated: true)
             }
             let cancelAction = UIAlertAction(title: "Cancel", style: .default){_ in
                 
@@ -630,7 +632,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
                     
                     let callAction = UIAlertAction(title: "Call", style: .default){ _ in
                         print(self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number)
-                        if let number = self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number as? String{
+                        if let number = self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number{
                             Helper.makeACall(number: String(number))
                         }
                         else{

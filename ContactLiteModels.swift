@@ -40,6 +40,12 @@ struct Contacts{
     var emergencyContact:Int?
     var notes:String?
     var groups:[String]?
+    
+    
+    func fullName() -> String {
+        return firstName + (lastName ?? "")
+    }
+    
 }
 
 struct SectionContent{

@@ -36,6 +36,12 @@ class FavViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "Favourites"
+       refreshFavData()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tableView.reloadData()
+    }
+    func refreshFavData(){
         favContacts = DBHelper.fetchEmergencyContact(conditions: "IS_FAVOURITE = 1")
         sortedFavContacts = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: Helper.decodeToContact(list: (favContacts))))
         if(sortedFavContacts.isEmpty){
@@ -44,8 +50,6 @@ class FavViewController: UITableViewController {
         else{
             tableView.backgroundView = nil
         }
-        navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.reloadData()
     }
     override func viewDidLoad() {
        
@@ -68,6 +72,36 @@ class FavViewController: UITableViewController {
             msgLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -50),
             msgLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        
+        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
+            let edit = UIAction(title:"Remove from Favourites",image: UIImage(systemName: "multiply.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+
+                self.sortedFavContacts[indexPath.section].rows[indexPath.row].favourite = 0
+                DBHelper.updateContact(contact: self.sortedFavContacts[indexPath.section].rows[indexPath.row])
+                self.refreshFavData()
+                tableView.reloadData()
+            }
+            let delete = UIAction(title:"Delete Contact",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){ _ in
+                self.sortedFavContacts[indexPath.section].rows[indexPath.row].favourite = 0
+                DBHelper.updateContact(contact: self.sortedFavContacts[indexPath.section].rows[indexPath.row])
+               
+                DBHelper.deleteContact(contactId: self.sortedFavContacts[indexPath.section].rows[indexPath.row].contactId)
+                self.refreshFavData()
+                tableView.reloadData()
+
+            }
+            let view = UIAction(title:"View Profile",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+                print("view")
+                let vc = ProfilePageViewController(contact: self.sortedFavContacts[indexPath.section].rows[indexPath.row])
+                self.navigationController?.pushViewController(vc, animated: true)
+
+            }
+            
+            return UIMenu(title: "",image: nil,identifier: nil,children: [edit,view,delete])
+        }
+        return config
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sortedFavContacts.count

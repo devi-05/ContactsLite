@@ -790,6 +790,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
                 cell.leftSideButton.tintColor = .systemGreen
             }
+            let current = groupNames[indexPath.row - 1]
+            let isUserSelected = info?.groups?.contains(current)
             cell.label.text = groupNames[indexPath.row - 1]
             cell.label.textColor = .label
             return cell
@@ -1067,6 +1069,18 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     addArr.append(i)
                 }
             }
+            if workInfoArray.isEmpty{
+                inputDict[Headers.workInfo] = nil
+            }
+            else{
+                inputDict[Headers.workInfo] = workInfoArray
+            }
+            if addArr.isEmpty {
+                inputDict[ Headers.address] = nil
+            }
+            else{
+                inputDict[Headers.address] = addArr
+            }
             for i in inputDict[Headers.phoneNumber] as! [PhoneNumberModel] {
                 if i.number != nil{
                     phoneNumArr.append(i)
@@ -1077,6 +1091,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 if i.link != nil {
                     socprofArr.append(i)
                 }
+            }
+            if socprofArr.isEmpty {
+                inputDict[Headers.socialProfile] = nil
+            }
+            else{
+                inputDict[Headers.socialProfile] = socprofArr
             }
             var emailArr:[String] = []
             if let email = inputDict[Headers.email] as? [String]{
@@ -1094,7 +1114,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.email] = emailArr
             }
             
-            let newContact = Contacts(contactId: id!,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: phoneNumArr,email: inputDict[Headers.email] as? [String],address: addArr,socialProfile: socprofArr,favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
+            let newContact = Contacts(contactId: id!,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: phoneNumArr,email: inputDict[Headers.email] as? [String],address: inputDict[Headers.address] as? [AddressModel],socialProfile: inputDict[Headers.socialProfile] as?[SocialProfileModel],favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
             
             DBHelper.updateContact(contact: newContact)
             allContactsVc?.refreshDataSource()
