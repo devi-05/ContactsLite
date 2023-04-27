@@ -92,16 +92,35 @@ struct DBHelper {
                 
               
                 for i in groups{
-                    
-                    
                     let grpId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(i)'")
-                    for j in grpId{
-                        for k in j{
-                            dbManager.update(tableName: "CONTACTS_AND_GROUPS", colListWithVal: ["GROUP_ID":Int(String(describing:k.value))! ], criteria: "CONTACT_ID = \(contact.contactId)")
-                            
+                    let contactIdInList = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["CONTACT_ID"], conditions: nil)
+                    var idList:[Int] = []
+                    for i in contactIdInList{
+                        for j in i{
+                            idList.append(Int(String(describing:j.value))!)
+                        }
+                    }
+                    if idList.contains(contact.contactId){
+                        for j in grpId{
+                            for k in j{
+                                dbManager.update(tableName: "CONTACTS_AND_GROUPS", colListWithVal: ["GROUP_ID":Int(String(describing:k.value))! ], criteria: "CONTACT_ID = \(contact.contactId)")
+                                
+                            }
+                        }
+                    }
+                    else{
+                        for j in grpId{
+                            for k in j{
+                                dbManager.Insert(tableName: "CONTACTS_AND_GROUPS", listOfValToBeAppended: [["CONTACT_ID":contact.contactId,"GROUP_ID":Int(String(describing:k.value))!]])
+                                
+                            }
                         }
                     }
                 }
+                        
+                    
+                    
+                    
                 
             }
         }
@@ -180,7 +199,7 @@ struct DBHelper {
     
     static func phoneNumDecoder(str:String)->[PhoneNumberModel] {
         var temp:[PhoneNumberModel] = []
-        let separatedStr = str.split(separator: ";")
+        let separatedStr = str.split(separator: "§")
         for i in separatedStr{
             let encodedData = Data(i.utf8)
             let decodedData = try! JSONDecoder().decode(PhoneNumberModel.self, from: encodedData)
@@ -191,7 +210,7 @@ struct DBHelper {
     }
     static func addressDecoder(str:String)->[AddressModel] {
         var temp:[AddressModel] = []
-        let separatedStr = str.split(separator: ";")
+        let separatedStr = str.split(separator: "§")
         for i in separatedStr{
             let encodedData = Data(i.utf8)
             let decodedData = try! JSONDecoder().decode(AddressModel.self, from: encodedData)
@@ -201,7 +220,7 @@ struct DBHelper {
     }
     static func socialProfileDecoder(str:String)->[SocialProfileModel] {
         var temp:[SocialProfileModel] = []
-        let separatedStr = str.split(separator: ";")
+        let separatedStr = str.split(separator: "§")
         for i in separatedStr{
             
             let encodedData = Data(i.utf8)
@@ -224,6 +243,31 @@ struct DBHelper {
         prepare()
         
        return dbManager.fetch(tableName: "GROUPS", colList: [colName], conditions:nil)
+    }
+    static func fetchContactGrpInfo(contactId:Int)->[String]{
+        prepare()
+        let grpId = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["GROUP_ID"], conditions: "CONTACT_ID = \(contactId)")
+//        var grpIdStr:[Int] = []
+//        for i in grpId{
+//            for j in i{
+//                grpIdStr.append(Int(String(describing:j.value))!)
+//            }
+//        }
+        var temp:[String] = []
+        for i in grpId{
+            for j in i{
+                
+                
+                let grpNames = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_NAME"], conditions: "GROUP_ID = \(j.value)" )
+                
+                for i in grpNames{
+                    for j in i{
+                        temp.append(j.value as! String)
+                    }
+                }
+            }
+        }
+        return temp
     }
     
     static func fetchGroupMembers(groupName:String)->[Contacts]{
@@ -261,10 +305,10 @@ struct DBHelper {
     }
     static func convertListToString(list:[String])->String {
         
-        return list.joined(separator: ";")
+        return list.joined(separator: "§")
     }
     static func convertStringToList(str:String)->[String] {
-        return str.components(separatedBy: ";")
+        return str.components(separatedBy: "§")
     }
     
     static func deleteGroup(grpName:String){
@@ -286,5 +330,16 @@ struct DBHelper {
     static func fetchSortedData(tableName:String,colName:[String]?,criteria:[String],sortPreference:String)->[[String : Any]]{
         prepare()
         return dbManager.orderBy(tableName: tableName, colNames: colName, criteria: criteria, sortPreference: sortPreference)
+    }
+    static func removeContactFromGrp(grpName:String,contactId:Int){
+        prepare()
+        let grpIdList = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(grpName)'")
+        var grpId :Int = 0
+        for i in grpIdList{
+            for j in i{
+                grpId = Int(String(describing: j.value))!
+            }
+        }
+        dbManager.deleteRow(tableName: "CONTACTS_AND_GROUPS", criteria: "GROUP_ID = \(grpId) AND CONTACT_ID = \(contactId)")
     }
 }

@@ -127,12 +127,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     func refreshDataSource(){
         let data =  Helper.getGroupListWithData()
         localDataSource = data[title!]
-//        lazy  var fetchedData = DBHelper.fetchData()
-//
-//        dbContactList = Helper.decodeToContact(list: fetchedData)
-//
-//         localDataSource = GroupModel(groupName: "Contacts", data: Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC"))))))
-//
+
         if (localDataSource?.count == 0){
             addContactView.isHidden = false
         }
@@ -220,8 +215,10 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     
     
     func  updateTotalContacts(){
-        for i in 0..<(passedData?.count)!{
-            totalContacts+=(passedData?[i].rows.count)!
+        if let passedDataCount = passedData{
+            for i in 0..<passedDataCount.count{
+                totalContacts+=(passedData?[i].rows.count)!
+            }
         }
     }
 
@@ -332,8 +329,9 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
     override func numberOfSections(in tableView: UITableView) -> Int {
        
         if(!bool){
-            return filteredData.isEmpty ? (passedData!.count) : 1
-            
+            if let passedData = passedData{
+                return filteredData.isEmpty ? (passedData.count) : 1
+            }
         }
         
             return 0
@@ -361,7 +359,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell",for: indexPath)
        
             if (filteredData.isEmpty){
-                print(passedData)
+                
                 name = (passedData?[indexPath.section].rows[indexPath.row].firstName)!
                 if (passedData?[indexPath.section].rows[indexPath.row].lastName) != "nil" {
                     if let passedData = passedData,let lastName =  (passedData[indexPath.section].rows[indexPath.row].lastName){
@@ -454,7 +452,9 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         let vc = InfoSheetViewController(contact: nil)
         vc.allContactsVc = self
         vc.title  = "New Contact"
-
+        if (title != "Contacts"){
+            vc.isAddedByGrp = title
+        }
         let navVc = UINavigationController(rootViewController:  vc)
 //        navVc.modalPresentationStyle = .fullScreen
         present(navVc, animated: true)

@@ -112,7 +112,7 @@ class Helper{
         var grp:[String] = []
         for i in grpName{
             for j in i {
-                groups.append(String(describing: j.value).components(separatedBy: ";"))
+                groups.append(String(describing: j.value).components(separatedBy: "§"))
             }
         }
         print("groups:\(groups)")
@@ -141,7 +141,7 @@ class Helper{
             var isFavourite:Int = 0
             var isEmergencyContact:Int = 0
             var notes:String?
-            var groups:[String] = []
+            
             var phoneNum:[PhoneNumberModel] = []
             var address:[AddressModel] = []
             var socialProfile:[SocialProfileModel] = []
@@ -169,14 +169,15 @@ class Helper{
                     isFavourite = Int(String(describing: j.value))!
                 case "IS_EMERGENCYCONTACT":
                     isEmergencyContact = Int(String(describing: j.value))!
-                case "NOTES":
-                    notes = String(describing: j.value)
                 default:
-                    groups = DBHelper.convertStringToList(str:String(describing: j.value))
+                    notes = String(describing: j.value)
+                
+//                  DBHelper.fetchContactGrpInfo(contactId: id)
+//                    groups = DBHelper.convertStringToList(str:String(describing: j.value))
                 }
                 
             }
-            ds.append(Contacts(contactId: id,profileImage: image, firstName: firstName,lastName: lastName,workInfo: workInfo, phoneNumber: phoneNum,email: emailArray,address: address,socialProfile: socialProfile,favourite: isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: groups))
+            ds.append(Contacts(contactId: id,profileImage: image, firstName: firstName,lastName: lastName,workInfo: workInfo, phoneNumber: phoneNum,email: emailArray,address: address,socialProfile: socialProfile,favourite: isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: DBHelper.fetchContactGrpInfo(contactId: id)))
             
         }
         
@@ -214,6 +215,7 @@ class Helper{
 //        print(grpListWithData)
         
     }
+   
 }
 
 

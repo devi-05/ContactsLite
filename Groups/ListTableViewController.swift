@@ -121,7 +121,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
                     cell?.label1.text = grpData[indexPath.row].groupName
                     
                     
-                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[indexPath.row].rows.count)):String(grpData[indexPath.row].data.count)
+                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[indexPath.row].rows.count)):grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.row].data.count)) : String(grpData[indexPath.row].data[indexPath.section].rows.count)
                 }
             }
 
@@ -220,6 +220,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
         else{
             let vc = AllContactsVc(grpName: grpData[indexPath.row].groupName)
             vc.isgroupPresent = true
+            
             navigationController?.pushViewController(vc, animated: true)
         }
 

@@ -14,7 +14,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         title = string
     }
     
-    
+    var isAddedByGrp:String?
     lazy var groupNames:[String] = []
     var editDelegate:editDelegate?
     var selectedGrpIndex:[Int] = []
@@ -46,9 +46,10 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     var isFavourite:Int = 0
     var isEmergencyContact:Int = 0
     
+    
     var groups:[String] = []
     
-    
+   
     var phoneNumRowIndex:Int?
     
     var addressRowIndex:Int?
@@ -145,8 +146,27 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         if (groupNames.count == 0){
             headerDataSource.remove(at: 7)
         }
-//        grpData = Helper.getGroupsData(locDS:localDataSource , grpName: groupNames)
-        
+
+        for i in 0..<groupNames.count{
+            if let grpName = isAddedByGrp{
+                if groupNames[i] == grpName{
+                    selectedGrpIndex.append(i+1)
+                }
+            }
+        }
+        if (info != nil){
+            inputDict[Headers.groups] = groupNames
+            if let grps = info?.groups{
+                for i in grps{
+                    for j in 0..<groupNames.count{
+                        if i == groupNames[j]{
+                            selectedGrpIndex.append(j+1)
+                        }
+                    }
+                }
+            }
+        }
+        inputDict[Headers.contactId] = info?.contactId
         tableView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -175,7 +195,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         } else {
             // Fallback on earlier versions
         }
-//
+        if let grpName = isAddedByGrp {
+            groups.append(grpName)
+            
+        }
+
         guard (info == nil) else{
             //Edit functionality
             id = info?.contactId
@@ -261,9 +285,13 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 socialProfileModel = socialProfile
                 inputDict[Headers.socialProfile]=socialProfile
             }
+           
             if let grps = info?.groups{
-                groups = grps
-                inputDict[Headers.groups] = groups
+                for i in grps{
+                    groups.append(i)
+
+                }
+
             }
             if let fav = info?.favourite{
                 isFavourite = fav
@@ -389,7 +417,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 return (socialProfileModel.count)+1
             }
             else if headerDataSource[section].data[0] == Headers.groups{
-                return (groups.count)+1
+                return (groupNames.count)+1
             }
             
             else{
@@ -710,21 +738,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             else{
                 cell.textView.text = Headers.notes
             }
-//            if info != nil{
-//                if let notes = info?.notes{
-//                    cell.textView.text = notes
-//
-////                    inputDict[Headers.notes] = info?.notes
-//                }
-//
-//                else{
-//                    cell.textView.text = inputDict[Hea]
-//                }
-//            }
-//            else{
-//                cell.textView.text = Headers.notes
-//            }
-            
+
             cell.textView.delegate = self
             return cell
             
@@ -765,11 +779,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         else if (headerDataSource[indexPath.section].data[0] == Headers.groups && indexPath.row > 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.identifier) as! GroupsTableViewCell
             cell.selectionStyle = .blue
+
             if (selectedGrpIndex.contains(indexPath.row)){
-                
+
                     cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
                     cell.leftSideButton.tintColor = .systemGreen
-                
+
             }
             else{
                 cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
@@ -916,19 +931,23 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
             else{
                 if (headerDataSource[indexPath.section].data[0] == Headers.groups  && indexPath.row > 0){
+                    
                     if(selectedGrpIndex.contains(indexPath.row)){
                         for i in 0..<selectedGrpIndex.count{
+                            DBHelper.removeContactFromGrp(grpName:groups[i],contactId: (inputDict[Headers.contactId] as? Int)!)
+                            groups.remove(at: i)
                             if selectedGrpIndex[i] == indexPath.row{
                                 selectedGrpIndex.remove(at: i)
                             }
                         }
                     }
-                    
+
                     else{
+                        groups.append(groupNames[indexPath.row - 1])
                         selectedGrpIndex.append(indexPath.row)
                     }
                     
-                    groups.append(groupNames[indexPath.row - 1])
+                   
                     
                     
                 }
