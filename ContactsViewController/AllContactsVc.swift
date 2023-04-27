@@ -583,69 +583,104 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate,UISearchBa
         }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            DBHelper.deleteContact(contactId: passedData?[indexPath.section].rows[indexPath.row ].contactId ?? 0)
-            refreshDataSource()
+          let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete this contact?", preferredStyle: .alert)
+            
+            let delAction = UIAlertAction(title: "Delete", style: .destructive){ _ in
+                DBHelper.deleteContact(contactId: self.passedData?[indexPath.section].rows[indexPath.row ].contactId ?? 0)
+                self.refreshDataSource()
+                                    self.dismiss(animated: true)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .default){_ in
+                
+            }
+            
+            alertController.addAction(delAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true)
+            
+            return
+        }
+           
            
             tableView.reloadData()
         }
-    }
-        
+    
        
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-
-        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
-            let viewProfile = UIAction(title:"View",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off)
-            { _ in
-                
-                if self.filteredData.isEmpty{
-                  
-                    let vc = ProfilePageViewController(contact: (self.passedData?[indexPath.section].rows[indexPath.row])!)
+        if (title == "Contacts"){
+            let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
+                let viewProfile = UIAction(title:"View",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off)
+                { _ in
                     
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    if self.filteredData.isEmpty{
+                        
+                        let vc = ProfilePageViewController(contact: (self.passedData?[indexPath.section].rows[indexPath.row])!)
+                        
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
+                    else{
+                        
+                        let vc = ProfilePageViewController(contact: self.filteredData[indexPath.row])
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
-                else{
-                   
-                    let vc = ProfilePageViewController(contact: self.filteredData[indexPath.row])
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }
-            let call = UIAction(title:"Call",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
-                let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
-                
-            let callAction = UIAlertAction(title: "Call", style: .default){ _ in
-                print(self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number)
-                if let number = self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number as? String{
-                    Helper.makeACall(number: String(number))
-                }
-                else{
-                    let alertController = UIAlertController(title: nil, message: "Call Failed", preferredStyle: .alert)
+                let call = UIAction(title:"Call",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+                    let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
                     
-                let okAction = UIAlertAction(title: "Ok", style: .default){ _ in
-                   
-        //                        self.dismiss(animated: true)
+                    let callAction = UIAlertAction(title: "Call", style: .default){ _ in
+                        print(self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number)
+                        if let number = self.passedData?[indexPath.section].rows[indexPath.row].phoneNumber[indexPath.row].number as? String{
+                            Helper.makeACall(number: String(number))
+                        }
+                        else{
+                            let alertController = UIAlertController(title: nil, message: "Call Failed", preferredStyle: .alert)
+                            
+                            let okAction = UIAlertAction(title: "Ok", style: .default){ _ in
+                                
+                                //                        self.dismiss(animated: true)
+                            }
+                            
+                            alertController.addAction(okAction)
+                            
+                            self.present(alertController, animated: true)
+                            
+                            return
+                        }
+                        
                     }
                     
-                    alertController.addAction(okAction)
+                    alertController.addAction(callAction)
                     
                     self.present(alertController, animated: true)
                     
                     return
+                    
                 }
                 
-                }
-                
-                alertController.addAction(callAction)
-                
-                self.present(alertController, animated: true)
-                
-                return
-                
+                return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
             }
-            
-            return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
+            return config
         }
-        return config
+        else{
+            let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
+                let viewProfile = UIAction(title:"Remove From Group",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off)
+                { _ in
+                    
+                    print("remove")
+                }
+                let call = UIAction(title:"Delete Contact",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+                    
+                    
+                    print("delete")
+                    
+                }
+                return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
+            }
+            return config
+        }
     }
+    
         
     }
     

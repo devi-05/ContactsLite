@@ -425,7 +425,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if(sectionData[indexPath.section].rows[indexPath.row].key == "mobile"){
+        if(indexPath.section == 0){
             let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
             
             let callAction = UIAlertAction(title: "Call", style: .default){ _ in

@@ -51,7 +51,9 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
    
         title = "Lists"
         navigationController?.navigationBar.prefersLargeTitles = true
-
+        
+//        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 60
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),style: .plain, target: self, action: #selector(add))
         tableView.tableFooterView = nil
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -69,7 +71,7 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
     
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return 50
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,8 +122,9 @@ class ListTableViewController: UITableViewController,UITextFieldDelegate {
                 if (!grpData[indexPath.row].groupName.isEmpty){
                     cell?.label1.text = grpData[indexPath.row].groupName
                     
-                    
-                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[indexPath.row].rows.count)):grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.row].data.count)) : String(grpData[indexPath.row].data[indexPath.section].rows.count)
+//                    cell?.label2.text = grpData[indexPath.row].data.count == 0 ?
+//                    String(grpData[indexPath.row].data.count) : String(grpData[indexPath.row].data[indexPath.row].count)
+                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[0].rows.count)):(String(grpData[indexPath.row].data.count))
                 }
             }
 

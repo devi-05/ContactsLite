@@ -13,6 +13,7 @@ class NotesDisplayTableViewCell: UITableViewCell {
          let label = UILabel()
          label.text = "Notes"
          label.textColor = .label
+         label.textAlignment = .justified
          return label
      }()
 

@@ -13,12 +13,16 @@ class CustomListTableViewCell1: UITableViewCell {
      lazy var label1:UILabel = {
         let label = UILabel()
          label.textColor = .label
+         label.numberOfLines = 0
+         label.lineBreakMode = .byWordWrapping
          label.tag = 100
          return label
      }()
      lazy var label2:UILabel = {
          let label = UILabel()
          label.textColor = .gray
+         label.numberOfLines = 0
+         label.textAlignment = .center
          label.tag = 200
          label.resignFirstResponder()
          return label
@@ -40,7 +44,7 @@ class CustomListTableViewCell1: UITableViewCell {
          NSLayoutConstraint.activate([
              label1.topAnchor.constraint(equalTo: contentView.topAnchor),
              label1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
-             label1.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -10),
+             label1.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -70),
              label1.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
              
              label2.topAnchor.constraint(equalTo: contentView.topAnchor),

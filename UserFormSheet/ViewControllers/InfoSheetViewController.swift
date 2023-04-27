@@ -934,8 +934,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     
                     if(selectedGrpIndex.contains(indexPath.row)){
                         for i in 0..<selectedGrpIndex.count{
-                            DBHelper.removeContactFromGrp(grpName:groups[i],contactId: (inputDict[Headers.contactId] as? Int)!)
-                            groups.remove(at: i)
+                            DBHelper.removeContactFromGrp(grpName:groupNames[i],contactId: (inputDict[Headers.contactId] as? Int)!)
+//                            groups.remove(at: i)
                             if selectedGrpIndex[i] == indexPath.row{
                                 selectedGrpIndex.remove(at: i)
                             }
