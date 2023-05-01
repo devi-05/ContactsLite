@@ -247,22 +247,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4D6D639C-D0C9-4EB3-A40D-B6E746C8B7D4"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "549"
-            endingLineNumber = "549"
-            landmarkName = "filterInput(input:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E36829FA-B286-4251-8563-04FF6721F773"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -270,74 +254,10 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1458"
-            endingLineNumber = "1458"
+            startingLineNumber = "1436"
+            endingLineNumber = "1436"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "ACE171D5-40A2-464A-9C4F-9D6D3D8A6FCF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "606"
-            endingLineNumber = "606"
-            landmarkName = "tableView(_:commit:forRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D78325FA-3F15-4898-A6CB-2D492A318286"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Groups/ListTableViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D78325FA-3F15-4898-A6CB-2D492A318286 - 84dc77ededee1d69"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231"
-                  offsetFromSymbolStart = "932">
-               </Location>
-               <Location
-                  uuid = "D78325FA-3F15-4898-A6CB-2D492A318286 - 84dc77ededee1d69"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "231"
-                  endingLineNumber = "231"
-                  offsetFromSymbolStart = "780">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -350,8 +270,8 @@
             filePath = "Groups/ListTableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -537,10 +457,57 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "949"
-            endingLineNumber = "949"
+            startingLineNumber = "943"
+            endingLineNumber = "943"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "95A1077F-717F-406A-BA93-7E98CB89CB88 - da1ffeeded21caab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "949"
+                  endingLineNumber = "949"
+                  offsetFromSymbolStart = "5640">
+               </Location>
+               <Location
+                  uuid = "95A1077F-717F-406A-BA93-7E98CB89CB88 - da1ffeeded21caab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "949"
+                  endingLineNumber = "949"
+                  offsetFromSymbolStart = "5688">
+               </Location>
+               <Location
+                  uuid = "95A1077F-717F-406A-BA93-7E98CB89CB88 - da1ffeeded21c9f1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "943"
+                  endingLineNumber = "943"
+                  offsetFromSymbolStart = "5640">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -553,10 +520,57 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "938"
-            endingLineNumber = "938"
+            startingLineNumber = "932"
+            endingLineNumber = "932"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7398A904-7AF9-4A40-9403-638E96836236 - da1ffeeded21c85e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "938"
+                  endingLineNumber = "938"
+                  offsetFromSymbolStart = "4464">
+               </Location>
+               <Location
+                  uuid = "7398A904-7AF9-4A40-9403-638E96836236 - da1ffeeded21c85e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "938"
+                  endingLineNumber = "938"
+                  offsetFromSymbolStart = "4512">
+               </Location>
+               <Location
+                  uuid = "7398A904-7AF9-4A40-9403-638E96836236 - da1ffeeded21c764"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "932"
+                  endingLineNumber = "932"
+                  offsetFromSymbolStart = "4464">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -647,10 +661,57 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1495"
-            endingLineNumber = "1495"
+            startingLineNumber = "1473"
+            endingLineNumber = "1473"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4D36B54C-169E-4483-8917-F200DDEC1EDF - 5239650c513990ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1479"
+                  endingLineNumber = "1479"
+                  offsetFromSymbolStart = "7056">
+               </Location>
+               <Location
+                  uuid = "4D36B54C-169E-4483-8917-F200DDEC1EDF - 5239650c513990ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1479"
+                  endingLineNumber = "1479"
+                  offsetFromSymbolStart = "7092">
+               </Location>
+               <Location
+                  uuid = "4D36B54C-169E-4483-8917-F200DDEC1EDF - 5239650c51399392"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1473"
+                  endingLineNumber = "1473"
+                  offsetFromSymbolStart = "7056">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -663,10 +724,57 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1503"
-            endingLineNumber = "1503"
+            startingLineNumber = "1481"
+            endingLineNumber = "1481"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "087CA638-1FE3-4734-9AC0-5F576D788E85 - 5239650c513991a4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1487"
+                  endingLineNumber = "1487"
+                  offsetFromSymbolStart = "7896">
+               </Location>
+               <Location
+                  uuid = "087CA638-1FE3-4734-9AC0-5F576D788E85 - 5239650c513991a4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1487"
+                  endingLineNumber = "1487"
+                  offsetFromSymbolStart = "7932">
+               </Location>
+               <Location
+                  uuid = "087CA638-1FE3-4734-9AC0-5F576D788E85 - 5239650c513990ea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1481"
+                  endingLineNumber = "1481"
+                  offsetFromSymbolStart = "7896">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -679,10 +787,102 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1508"
-            endingLineNumber = "1508"
+            startingLineNumber = "1486"
+            endingLineNumber = "1486"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F1CC3F64-A9B2-4719-935B-264BFF7C917C - 5239650c51366e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1492"
+                  endingLineNumber = "1492"
+                  offsetFromSymbolStart = "8532">
+               </Location>
+               <Location
+                  uuid = "F1CC3F64-A9B2-4719-935B-264BFF7C917C - 5239650c51366e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1492"
+                  endingLineNumber = "1492"
+                  offsetFromSymbolStart = "8588">
+               </Location>
+               <Location
+                  uuid = "F1CC3F64-A9B2-4719-935B-264BFF7C917C - 5239650c51366e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1492"
+                  endingLineNumber = "1492"
+                  offsetFromSymbolStart = "8568">
+               </Location>
+               <Location
+                  uuid = "F1CC3F64-A9B2-4719-935B-264BFF7C917C - 5239650c51366e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1492"
+                  endingLineNumber = "1492"
+                  offsetFromSymbolStart = "8624">
+               </Location>
+               <Location
+                  uuid = "F1CC3F64-A9B2-4719-935B-264BFF7C917C - 5239650c51399147"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1486"
+                  endingLineNumber = "1486"
+                  offsetFromSymbolStart = "8532">
+               </Location>
+               <Location
+                  uuid = "F1CC3F64-A9B2-4719-935B-264BFF7C917C - 5239650c51399147"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1486"
+                  endingLineNumber = "1486"
+                  offsetFromSymbolStart = "8588">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -695,10 +895,102 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1514"
-            endingLineNumber = "1514"
+            startingLineNumber = "1492"
+            endingLineNumber = "1492"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B8836EEE-2F90-4161-BA80-D5E4B4FD51F2 - 5239650c51366edb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1498"
+                  endingLineNumber = "1498"
+                  offsetFromSymbolStart = "9372">
+               </Location>
+               <Location
+                  uuid = "B8836EEE-2F90-4161-BA80-D5E4B4FD51F2 - 5239650c51366edb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1498"
+                  endingLineNumber = "1498"
+                  offsetFromSymbolStart = "9428">
+               </Location>
+               <Location
+                  uuid = "B8836EEE-2F90-4161-BA80-D5E4B4FD51F2 - 5239650c51366edb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1498"
+                  endingLineNumber = "1498"
+                  offsetFromSymbolStart = "9408">
+               </Location>
+               <Location
+                  uuid = "B8836EEE-2F90-4161-BA80-D5E4B4FD51F2 - 5239650c51366edb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1498"
+                  endingLineNumber = "1498"
+                  offsetFromSymbolStart = "9464">
+               </Location>
+               <Location
+                  uuid = "B8836EEE-2F90-4161-BA80-D5E4B4FD51F2 - 5239650c51366e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1492"
+                  endingLineNumber = "1492"
+                  offsetFromSymbolStart = "9372">
+               </Location>
+               <Location
+                  uuid = "B8836EEE-2F90-4161-BA80-D5E4B4FD51F2 - 5239650c51366e01"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1492"
+                  endingLineNumber = "1492"
+                  offsetFromSymbolStart = "9428">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -711,10 +1003,102 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1520"
-            endingLineNumber = "1520"
+            startingLineNumber = "1498"
+            endingLineNumber = "1498"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ABBF98CD-5CA1-4E40-8356-30198D84D184 - 5239650c51366f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1504"
+                  endingLineNumber = "1504"
+                  offsetFromSymbolStart = "10212">
+               </Location>
+               <Location
+                  uuid = "ABBF98CD-5CA1-4E40-8356-30198D84D184 - 5239650c51366f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1504"
+                  endingLineNumber = "1504"
+                  offsetFromSymbolStart = "10268">
+               </Location>
+               <Location
+                  uuid = "ABBF98CD-5CA1-4E40-8356-30198D84D184 - 5239650c51366f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1504"
+                  endingLineNumber = "1504"
+                  offsetFromSymbolStart = "10248">
+               </Location>
+               <Location
+                  uuid = "ABBF98CD-5CA1-4E40-8356-30198D84D184 - 5239650c51366f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1504"
+                  endingLineNumber = "1504"
+                  offsetFromSymbolStart = "10304">
+               </Location>
+               <Location
+                  uuid = "ABBF98CD-5CA1-4E40-8356-30198D84D184 - 5239650c51366edb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1498"
+                  endingLineNumber = "1498"
+                  offsetFromSymbolStart = "10212">
+               </Location>
+               <Location
+                  uuid = "ABBF98CD-5CA1-4E40-8356-30198D84D184 - 5239650c51366edb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1498"
+                  endingLineNumber = "1498"
+                  offsetFromSymbolStart = "10268">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -727,10 +1111,102 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1526"
-            endingLineNumber = "1526"
+            startingLineNumber = "1504"
+            endingLineNumber = "1504"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "423317EA-5AEF-40CB-855D-ECEC3C598166 - 5239650c51366caf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1510"
+                  endingLineNumber = "1510"
+                  offsetFromSymbolStart = "11052">
+               </Location>
+               <Location
+                  uuid = "423317EA-5AEF-40CB-855D-ECEC3C598166 - 5239650c51366caf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1510"
+                  endingLineNumber = "1510"
+                  offsetFromSymbolStart = "11108">
+               </Location>
+               <Location
+                  uuid = "423317EA-5AEF-40CB-855D-ECEC3C598166 - 5239650c51366caf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1510"
+                  endingLineNumber = "1510"
+                  offsetFromSymbolStart = "11088">
+               </Location>
+               <Location
+                  uuid = "423317EA-5AEF-40CB-855D-ECEC3C598166 - 5239650c51366caf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1510"
+                  endingLineNumber = "1510"
+                  offsetFromSymbolStart = "11144">
+               </Location>
+               <Location
+                  uuid = "423317EA-5AEF-40CB-855D-ECEC3C598166 - 5239650c51366f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1504"
+                  endingLineNumber = "1504"
+                  offsetFromSymbolStart = "11052">
+               </Location>
+               <Location
+                  uuid = "423317EA-5AEF-40CB-855D-ECEC3C598166 - 5239650c51366f95"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1504"
+                  endingLineNumber = "1504"
+                  offsetFromSymbolStart = "11108">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -743,8 +1219,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1336"
-            endingLineNumber = "1336"
+            startingLineNumber = "1304"
+            endingLineNumber = "1304"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -759,8 +1235,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1347"
-            endingLineNumber = "1347"
+            startingLineNumber = "1315"
+            endingLineNumber = "1315"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -775,8 +1251,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1356"
-            endingLineNumber = "1356"
+            startingLineNumber = "1324"
+            endingLineNumber = "1324"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -791,8 +1267,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1362"
-            endingLineNumber = "1362"
+            startingLineNumber = "1330"
+            endingLineNumber = "1330"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -807,8 +1283,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1384"
-            endingLineNumber = "1384"
+            startingLineNumber = "1352"
+            endingLineNumber = "1352"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -823,10 +1299,42 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1609"
-            endingLineNumber = "1609"
+            startingLineNumber = "1587"
+            endingLineNumber = "1587"
             landmarkName = "getOptions(option:type:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1E7246C6-199D-40DE-BFDD-6F901F7D90D7 - cc666263f7548ae9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.getOptions(option: Swift.String, type: Swift.String) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1593"
+                  endingLineNumber = "1593"
+                  offsetFromSymbolStart = "696">
+               </Location>
+               <Location
+                  uuid = "1E7246C6-199D-40DE-BFDD-6F901F7D90D7 - cc666263f7548bb3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.getOptions(option: Swift.String, type: Swift.String) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1587"
+                  endingLineNumber = "1587"
+                  offsetFromSymbolStart = "696">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -839,8 +1347,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1274"
-            endingLineNumber = "1274"
+            startingLineNumber = "1242"
+            endingLineNumber = "1242"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -855,9 +1363,9 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1061"
-            endingLineNumber = "1061"
-            landmarkName = "DoneButton()"
+            startingLineNumber = "1056"
+            endingLineNumber = "1056"
+            landmarkName = "cancelButton()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -871,8 +1379,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
+            startingLineNumber = "596"
+            endingLineNumber = "596"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -887,8 +1395,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -903,8 +1411,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "633"
-            endingLineNumber = "633"
+            startingLineNumber = "627"
+            endingLineNumber = "627"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -919,8 +1427,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "818"
-            endingLineNumber = "818"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -935,10 +1443,42 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1034"
-            endingLineNumber = "1034"
-            landmarkName = "cancelButton()"
+            startingLineNumber = "1028"
+            endingLineNumber = "1028"
+            landmarkName = "tapEmergency(sender:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "541D2CEB-C833-44D0-928A-44B6D7E78608 - 5880b5a6dcd75129"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.cancelButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1034"
+                  endingLineNumber = "1034"
+                  offsetFromSymbolStart = "548">
+               </Location>
+               <Location
+                  uuid = "541D2CEB-C833-44D0-928A-44B6D7E78608 - 5880b5a6dcd75053"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.cancelButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1028"
+                  endingLineNumber = "1028"
+                  offsetFromSymbolStart = "548">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -951,10 +1491,72 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1038"
-            endingLineNumber = "1038"
+            startingLineNumber = "1032"
+            endingLineNumber = "1032"
             landmarkName = "cancelButton()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "47104AA7-10CC-4B0D-BC1B-D81A1C73D7D2 - 213e805a651ac560"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in ContactsLite.InfoSheetViewController.cancelButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1038"
+                  endingLineNumber = "1038"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "47104AA7-10CC-4B0D-BC1B-D81A1C73D7D2 - 213e805a651ac560"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in ContactsLite.InfoSheetViewController.cancelButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1038"
+                  endingLineNumber = "1038"
+                  offsetFromSymbolStart = "212">
+               </Location>
+               <Location
+                  uuid = "47104AA7-10CC-4B0D-BC1B-D81A1C73D7D2 - 5880b5a6dcd751e7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.cancelButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1040"
+                  endingLineNumber = "1040"
+                  offsetFromSymbolStart = "788">
+               </Location>
+               <Location
+                  uuid = "47104AA7-10CC-4B0D-BC1B-D81A1C73D7D2 - 213e805a651ac42a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.UIAlertAction) -&gt; () in ContactsLite.InfoSheetViewController.cancelButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1032"
+                  endingLineNumber = "1032"
+                  offsetFromSymbolStart = "212">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -967,10 +1569,42 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "976"
-            endingLineNumber = "976"
-            landmarkName = "showOptions(sender:)"
-            landmarkType = "7">
+            startingLineNumber = "970"
+            endingLineNumber = "970"
+            landmarkName = "InfoSheetViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "4BD2BCE8-04D6-4E61-B411-2EC07434F644 - cb772d67b12aeba5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.showOptions(sender: __C.UIButton) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "976"
+                  endingLineNumber = "976"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "4BD2BCE8-04D6-4E61-B411-2EC07434F644 - cb772d67b12aeaeb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.showOptions(sender: __C.UIButton) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "970"
+                  endingLineNumber = "970"
+                  offsetFromSymbolStart = "52">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -983,8 +1617,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "488"
+            endingLineNumber = "488"
             landmarkName = "tableView(_:commit:forRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -1018,6 +1652,21 @@
                   endingLineNumber = "494"
                   offsetFromSymbolStart = "1460">
                </Location>
+               <Location
+                  uuid = "0A403379-FED2-46CB-A4CD-D7D49B9AD6FC - 95dd9a7a4524f8a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, commit: __C.UITableViewCellEditingStyle, forRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "488"
+                  endingLineNumber = "488"
+                  offsetFromSymbolStart = "1440">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1031,196 +1680,10 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "817"
-            endingLineNumber = "817"
+            startingLineNumber = "811"
+            endingLineNumber = "811"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C91FFB07-AC7C-4EAF-9E6B-E9FB8F568D8E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Groups/ListTableViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C91FFB07-AC7C-4EAF-9E6B-E9FB8F568D8E - e1377625151410a4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "106"
-                  endingLineNumber = "106"
-                  offsetFromSymbolStart = "264">
-               </Location>
-               <Location
-                  uuid = "C91FFB07-AC7C-4EAF-9E6B-E9FB8F568D8E - e1377625151410c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "105"
-                  endingLineNumber = "105"
-                  offsetFromSymbolStart = "340">
-               </Location>
-               <Location
-                  uuid = "C91FFB07-AC7C-4EAF-9E6B-E9FB8F568D8E - e1377625151410c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "105"
-                  endingLineNumber = "105"
-                  offsetFromSymbolStart = "380">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "409E61E4-1488-4568-828A-EE4374D735C3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "2948">
-               </Location>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "2560">
-               </Location>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "2636">
-               </Location>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "3108">
-               </Location>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "2772">
-               </Location>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "2848">
-               </Location>
-               <Location
-                  uuid = "409E61E4-1488-4568-828A-EE4374D735C3 - ff35c2e9ca20d48a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "361"
-                  endingLineNumber = "361"
-                  offsetFromSymbolStart = "3320">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1297,9 +1760,9 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485"
-            landmarkName = "tableView(_:commit:forRowAt:)"
+            startingLineNumber = "479"
+            endingLineNumber = "479"
+            landmarkName = "tableView(_:editingStyleForRowAt:)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -1331,6 +1794,21 @@
                   startingLineNumber = "485"
                   endingLineNumber = "485"
                   offsetFromSymbolStart = "300">
+               </Location>
+               <Location
+                  uuid = "1DA438C6-BBED-46D1-958B-DB301E775E5F - 95dd9a7a4524fbff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, commit: __C.UITableViewCellEditingStyle, forRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "479"
+                  endingLineNumber = "479"
+                  offsetFromSymbolStart = "280">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1386,114 +1864,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "637CB756-377C-4C8C-94D1-51719D390FC6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "18"
-            endingLineNumber = "18"
-            landmarkName = "AllContactsVc"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "637CB756-377C-4C8C-94D1-51719D390FC6 - 4795ec4329693327"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.totalContacts.getter : Swift.Int"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "84">
-               </Location>
-               <Location
-                  uuid = "637CB756-377C-4C8C-94D1-51719D390FC6 - 461a3e6fe3ca0f2b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.totalContacts.setter : Swift.Int"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "92">
-               </Location>
-               <Location
-                  uuid = "637CB756-377C-4C8C-94D1-51719D390FC6 - 4c600b7362ec1c38"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.totalContacts.modify : Swift.Int"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "0">
-               </Location>
-               <Location
-                  uuid = "637CB756-377C-4C8C-94D1-51719D390FC6 - 47959852fbd5962b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.totalContacts.modify : Swift.Int with unmangled suffix &quot;.resume.0&quot;"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "637CB756-377C-4C8C-94D1-51719D390FC6 - 22d0e52594b215a3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.init(data: Swift.Optional&lt;ContactsLite.GroupModel&gt;) -&gt; ContactsLite.AllContactsVc"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "416">
-               </Location>
-               <Location
-                  uuid = "637CB756-377C-4C8C-94D1-51719D390FC6 - ac363f9e528771"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;ContactsLite.AllContactsVc&gt;"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "18"
-                  endingLineNumber = "18"
-                  offsetFromSymbolStart = "412">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "59F92731-F8C8-4B21-A921-DB28C207695B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -1536,6 +1906,21 @@
                   endingLineNumber = "24"
                   offsetFromSymbolStart = "120">
                </Location>
+               <Location
+                  uuid = "59F92731-F8C8-4B21-A921-DB28C207695B - 7b0c6c59028f05cd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.ProfilePageViewController.getUpdatedContact(newContact: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Displayprofile/ProfilePageViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "120">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -1549,10 +1934,42 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1236"
-            endingLineNumber = "1236"
-            landmarkName = "getImage(images:)"
+            startingLineNumber = "1204"
+            endingLineNumber = "1204"
+            landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E5435BC3-E85C-4213-86BD-05F94DBFA44D - 7c4758c24b891da9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.getImage(images: __C.UIImage) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1210"
+                  endingLineNumber = "1210"
+                  offsetFromSymbolStart = "476">
+               </Location>
+               <Location
+                  uuid = "E5435BC3-E85C-4213-86BD-05F94DBFA44D - 7c4758c24b891d73"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.getImage(images: __C.UIImage) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1204"
+                  endingLineNumber = "1204"
+                  offsetFromSymbolStart = "476">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1565,10 +1982,102 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1532"
-            endingLineNumber = "1532"
+            startingLineNumber = "1510"
+            endingLineNumber = "1510"
             landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "01B9344E-4410-440A-9509-72A97041FC40 - 5239650c51366a23"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1522"
+                  endingLineNumber = "1522"
+                  offsetFromSymbolStart = "11924">
+               </Location>
+               <Location
+                  uuid = "01B9344E-4410-440A-9509-72A97041FC40 - 5239650c51366a23"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1522"
+                  endingLineNumber = "1522"
+                  offsetFromSymbolStart = "11980">
+               </Location>
+               <Location
+                  uuid = "01B9344E-4410-440A-9509-72A97041FC40 - 5239650c51366a23"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1522"
+                  endingLineNumber = "1522"
+                  offsetFromSymbolStart = "11960">
+               </Location>
+               <Location
+                  uuid = "01B9344E-4410-440A-9509-72A97041FC40 - 5239650c51366a23"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1522"
+                  endingLineNumber = "1522"
+                  offsetFromSymbolStart = "12016">
+               </Location>
+               <Location
+                  uuid = "01B9344E-4410-440A-9509-72A97041FC40 - 5239650c51366d69"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1516"
+                  endingLineNumber = "1516"
+                  offsetFromSymbolStart = "11924">
+               </Location>
+               <Location
+                  uuid = "01B9344E-4410-440A-9509-72A97041FC40 - 5239650c51366d69"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1516"
+                  endingLineNumber = "1516"
+                  offsetFromSymbolStart = "11980">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1581,8 +2090,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "520"
-            endingLineNumber = "520"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "tableView(_:commit:forRowAt:)"
             landmarkType = "7">
             <Locations>
@@ -1702,14 +2211,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "FC61E75E-430D-43C1-9E15-EA25AFA67DBA"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "452"
-            endingLineNumber = "452"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1843,70 +2352,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BBEADAE5-6F38-4948-9D22-C49DB6AA4242"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "viewWillAppear(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "69828114-EF8B-40A2-9E24-6F44141B6C49"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "69828114-EF8B-40A2-9E24-6F44141B6C49 - 7d4c790a5b660473"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.viewDidLoad() -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "174"
-                  endingLineNumber = "174"
-                  offsetFromSymbolStart = "372">
-               </Location>
-               <Location
-                  uuid = "69828114-EF8B-40A2-9E24-6F44141B6C49 - 7d4c790a5b660414"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.AllContactsVc.viewDidLoad() -&gt; ()"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "175"
-                  endingLineNumber = "175"
-                  offsetFromSymbolStart = "352">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D56E1159-481A-4AAC-9DD1-52DFDC5F9276"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1914,8 +2359,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "785"
-            endingLineNumber = "785"
+            startingLineNumber = "779"
+            endingLineNumber = "779"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1930,8 +2375,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "790"
-            endingLineNumber = "790"
+            startingLineNumber = "784"
+            endingLineNumber = "784"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1946,8 +2391,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "795"
-            endingLineNumber = "795"
+            startingLineNumber = "789"
+            endingLineNumber = "789"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2070,8 +2515,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2086,8 +2531,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
             <Locations>
@@ -2120,6 +2565,21 @@
                   startingLineNumber = "199"
                   endingLineNumber = "199"
                   offsetFromSymbolStart = "1700">
+               </Location>
+               <Location
+                  uuid = "488E09A2-2D7D-4DA6-970E-B8FD3451D9E4 - 4f83da32e44baf5b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "193"
+                  endingLineNumber = "193"
+                  offsetFromSymbolStart = "1728">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -2191,14 +2651,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "6C793D27-7562-4107-9404-22F1A5EE1347"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1189"
-            endingLineNumber = "1189"
+            startingLineNumber = "1182"
+            endingLineNumber = "1182"
             landmarkName = "DoneButton()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2239,6 +2699,36 @@
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "static ContactsLite.DBHelper.assignDb(contactList: ContactsLite.Contacts) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "5432">
+               </Location>
+               <Location
+                  uuid = "83B86548-D236-4958-9AFE-72454D740B3C - 10a4dd8df01d42bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.assignDb(contactList: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "62"
+                  endingLineNumber = "62"
+                  offsetFromSymbolStart = "5412">
+               </Location>
+               <Location
+                  uuid = "83B86548-D236-4958-9AFE-72454D740B3C - 10a4dd8df01d42bf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.assignDb(contactList: ContactsLite.Contact) -&gt; ()"
                   moduleName = "ContactsLite"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
@@ -2296,6 +2786,36 @@
                   endingLineNumber = "63"
                   offsetFromSymbolStart = "5904">
                </Location>
+               <Location
+                  uuid = "141C364D-73FC-4B94-9314-B559A66BA9DB - 10a4dd8df01d429e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.assignDb(contactList: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "5884">
+               </Location>
+               <Location
+                  uuid = "141C364D-73FC-4B94-9314-B559A66BA9DB - 10a4dd8df01d429e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.assignDb(contactList: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "5904">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -2303,7 +2823,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "AE87A6D1-D343-4C12-AAEF-B7D37BD41CEF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
@@ -2360,22 +2880,6 @@
                   offsetFromSymbolStart = "1444">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8A42DA69-8804-4FCF-8570-8F8E8D40EC04"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
-            landmarkName = "addButton()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2562,9 +3066,9 @@
             filePath = "DatabaseManager/DBHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
-            landmarkName = "fetchContactGrpInfo(contactId:)"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "socialProfileDecoder(str:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2578,8 +3082,8 @@
             filePath = "DatabaseManager/DBHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "261"
-            endingLineNumber = "261"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "fetchContactGrpInfo(contactId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2594,8 +3098,8 @@
             filePath = "DatabaseManager/DBHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "fetchContactGrpInfo(contactId:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2610,8 +3114,8 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2691,6 +3195,36 @@
                   endingLineNumber = "86"
                   offsetFromSymbolStart = "3392">
                </Location>
+               <Location
+                  uuid = "AEACFDEB-A995-4703-B613-273D7B93AFDF - acfad3340b05632e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "296">
+               </Location>
+               <Location
+                  uuid = "AEACFDEB-A995-4703-B613-273D7B93AFDF - acfad3340b05632e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "86"
+                  endingLineNumber = "86"
+                  offsetFromSymbolStart = "3392">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -2739,6 +3273,21 @@
                   endingLineNumber = "126"
                   offsetFromSymbolStart = "7628">
                </Location>
+               <Location
+                  uuid = "69813D08-9B37-4BB1-A67F-6FBF32791013 - acfad3340b057ef6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "7628">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -2756,6 +3305,38 @@
             endingLineNumber = "105"
             landmarkName = "updateContact(contact:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "7CD9030F-E8C7-48DA-A2D0-AB005C5B7514 - 1e081a58c87ffd31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contacts) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "5688">
+               </Location>
+               <Location
+                  uuid = "7CD9030F-E8C7-48DA-A2D0-AB005C5B7514 - acfad3340b057dbd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contact) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "105"
+                  endingLineNumber = "105"
+                  offsetFromSymbolStart = "5688">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2772,112 +3353,36 @@
             endingLineNumber = "114"
             landmarkName = "updateContact(contact:)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Groups/ListTableViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "tableView(_:cellForRowAt:)"
-            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C - e137762515142d56"
+                  uuid = "32480529-19FB-4791-857B-7ECC1C084EB1 - 1e081a58c87ffc0e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contacts) -&gt; ()"
                   moduleName = "ContactsLite"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "124"
-                  endingLineNumber = "124"
-                  offsetFromSymbolStart = "3060">
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "6924">
                </Location>
                <Location
-                  uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C - e137762515142d18"
+                  uuid = "32480529-19FB-4791-857B-7ECC1C084EB1 - acfad3340b057c82"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
+                  symbolName = "static ContactsLite.DBHelper.updateContact(contact: ContactsLite.Contact) -&gt; ()"
                   moduleName = "ContactsLite"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "126"
-                  endingLineNumber = "126"
-                  offsetFromSymbolStart = "3100">
-               </Location>
-               <Location
-                  uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C - e137762515142d37"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "125"
-                  endingLineNumber = "125"
-                  offsetFromSymbolStart = "3076">
-               </Location>
-               <Location
-                  uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C - e137762515142df9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "3100">
-               </Location>
-               <Location
-                  uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C - e137762515142df9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "3052">
-               </Location>
-               <Location
-                  uuid = "AEBC8B62-1E22-4BB4-8996-703AE7DC7E3C - e137762515142df9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ContactsLite.ListTableViewController.tableView(_: __C.UITableView, cellForRowAt: Foundation.IndexPath) -&gt; __C.UITableViewCell"
-                  moduleName = "ContactsLite"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "127"
-                  endingLineNumber = "127"
-                  offsetFromSymbolStart = "3032">
+                  startingLineNumber = "114"
+                  endingLineNumber = "114"
+                  offsetFromSymbolStart = "6924">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -2892,10 +3397,57 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "936"
-            endingLineNumber = "936"
+            startingLineNumber = "930"
+            endingLineNumber = "930"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ECF291E2-5A8C-4E96-8E60-B080358BA51F - da1ffeeded21c83f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "937"
+                  endingLineNumber = "937"
+                  offsetFromSymbolStart = "4280">
+               </Location>
+               <Location
+                  uuid = "ECF291E2-5A8C-4E96-8E60-B080358BA51F - da1ffeeded21c83f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "937"
+                  endingLineNumber = "937"
+                  offsetFromSymbolStart = "4328">
+               </Location>
+               <Location
+                  uuid = "ECF291E2-5A8C-4E96-8E60-B080358BA51F - da1ffeeded21c745"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "931"
+                  endingLineNumber = "931"
+                  offsetFromSymbolStart = "4280">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2908,10 +3460,57 @@
             filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "941"
-            endingLineNumber = "941"
+            startingLineNumber = "935"
+            endingLineNumber = "935"
             landmarkName = "tableView(_:didSelectRowAt:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CDB13814-657E-45EE-BF29-667F7213A1DC - da1ffeeded21c9b3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "941"
+                  endingLineNumber = "941"
+                  offsetFromSymbolStart = "5128">
+               </Location>
+               <Location
+                  uuid = "CDB13814-657E-45EE-BF29-667F7213A1DC - da1ffeeded21c9b3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "941"
+                  endingLineNumber = "941"
+                  offsetFromSymbolStart = "5176">
+               </Location>
+               <Location
+                  uuid = "CDB13814-657E-45EE-BF29-667F7213A1DC - da1ffeeded21c8f9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.tableView(_: __C.UITableView, didSelectRowAt: Foundation.IndexPath) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "935"
+                  endingLineNumber = "935"
+                  offsetFromSymbolStart = "5128">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2924,10 +3523,42 @@
             filePath = "DatabaseManager/DBHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "removeContactFromGrp(grpName:contactId:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2CFD8778-7799-4BFF-A67B-35BF613B2B06 - cc02af03cbdebcea"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.convertStringToList(str: Swift.String) -&gt; Swift.Array&lt;Swift.String&gt;"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "311"
+                  endingLineNumber = "311"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "2CFD8778-7799-4BFF-A67B-35BF613B2B06 - a62a46ab882431fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ContactsLite.DBHelper.removeContactFromGrp(grpName: Swift.String, contactId: Swift.Int) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "310"
+                  endingLineNumber = "310"
+                  offsetFromSymbolStart = "228">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2940,28 +3571,28 @@
             filePath = "DatabaseManager/DBHelper.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
             landmarkName = "removeContactFromGrp(grpName:contactId:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "6F32FF16-EF31-4709-BA97-45CABE912424 - a62a46ab882435bf"
+                  uuid = "6F32FF16-EF31-4709-BA97-45CABE912424 - 76c190c4f3ca7fb9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "static ContactsLite.DBHelper.removeContactFromGrp(grpName: Swift.String, contactId: Swift.Int) -&gt; ()"
+                  symbolName = "static ContactsLite.DBHelper.deleteGroup(grpName: Swift.String) -&gt; ()"
                   moduleName = "ContactsLite"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "343"
-                  endingLineNumber = "343"
-                  offsetFromSymbolStart = "1296">
+                  startingLineNumber = "317"
+                  endingLineNumber = "317"
+                  offsetFromSymbolStart = "684">
                </Location>
                <Location
-                  uuid = "6F32FF16-EF31-4709-BA97-45CABE912424 - a62a46ab882435bf"
+                  uuid = "6F32FF16-EF31-4709-BA97-45CABE912424 - a62a46ab882436d9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -2971,8 +3602,8 @@
                   urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/DatabaseManager/DBHelper.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "343"
-                  endingLineNumber = "343"
+                  startingLineNumber = "317"
+                  endingLineNumber = "317"
                   offsetFromSymbolStart = "1292">
                </Location>
             </Locations>
@@ -3104,49 +3735,331 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "335B24AE-0734-4351-ACA3-93F390C94FC4"
+            uuid = "1D0FA250-6245-4388-96F1-91AACFEC8421"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
+            filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "634"
-            endingLineNumber = "634"
-            landmarkName = "tableView(_:contextMenuConfigurationForRowAt:point:)"
+            startingLineNumber = "1065"
+            endingLineNumber = "1065"
+            landmarkName = "DoneButton()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1D0FA250-6245-4388-96F1-91AACFEC8421 - f1c782b25c6908c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.DoneButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1071"
+                  endingLineNumber = "1071"
+                  offsetFromSymbolStart = "3972">
+               </Location>
+               <Location
+                  uuid = "1D0FA250-6245-4388-96F1-91AACFEC8421 - f1c782b25c6908c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.DoneButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1071"
+                  endingLineNumber = "1071"
+                  offsetFromSymbolStart = "3784">
+               </Location>
+               <Location
+                  uuid = "1D0FA250-6245-4388-96F1-91AACFEC8421 - f1c782b25c6908c0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.DoneButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1071"
+                  endingLineNumber = "1071"
+                  offsetFromSymbolStart = "3820">
+               </Location>
+               <Location
+                  uuid = "1D0FA250-6245-4388-96F1-91AACFEC8421 - f1c782b25c69080e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.DoneButton() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1065"
+                  endingLineNumber = "1065"
+                  offsetFromSymbolStart = "3784">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7B5DCC7C-D3CC-493E-B5A1-3ACBA25D7D34"
+            uuid = "5EF8443B-A64F-4679-88FB-50D871D88EC9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ContactsViewController/AllContactsVc.swift"
+            filePath = "UserFormSheet/ViewControllers/InfoSheetViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "166"
-            endingLineNumber = "166"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "1414"
+            endingLineNumber = "1414"
+            landmarkName = "textFieldDidEndEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5EF8443B-A64F-4679-88FB-50D871D88EC9 - 5239650c513998c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1420"
+                  endingLineNumber = "1420"
+                  offsetFromSymbolStart = "2692">
+               </Location>
+               <Location
+                  uuid = "5EF8443B-A64F-4679-88FB-50D871D88EC9 - 5239650c513998c9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1420"
+                  endingLineNumber = "1420"
+                  offsetFromSymbolStart = "2728">
+               </Location>
+               <Location
+                  uuid = "5EF8443B-A64F-4679-88FB-50D871D88EC9 - 5239650c5139980f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.InfoSheetViewController.textFieldDidEndEditing(__C.UITextField) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/UserFormSheet/ViewControllers/InfoSheetViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1414"
+                  endingLineNumber = "1414"
+                  offsetFromSymbolStart = "2692">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6C7A1409-5346-4687-8E0D-570CA03B6EE3"
+            uuid = "EBC284B8-5C2A-48A1-A71A-64A7234718F0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Groups/ListTableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "edit()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EBC284B8-5C2A-48A1-A71A-64A7234718F0 - 7f12780d34a46266"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.ListTableViewController.edit() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "EBC284B8-5C2A-48A1-A71A-64A7234718F0 - 7f12780d34a46219"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.ListTableViewController.edit() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "EBC284B8-5C2A-48A1-A71A-64A7234718F0 - 7f12780d34a46266"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.ListTableViewController.edit() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  uuid = "EBC284B8-5C2A-48A1-A71A-64A7234718F0 - 7f12780d34a46266"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.ListTableViewController.edit() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "324">
+               </Location>
+               <Location
+                  uuid = "EBC284B8-5C2A-48A1-A71A-64A7234718F0 - 7f12780d34a462db"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.ListTableViewController.edit() -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/Groups/ListTableViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "116">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2EF30B21-7D43-468A-B100-2026C20D84FF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ContactsViewController/AllContactsVc.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "405"
-            endingLineNumber = "405"
-            landmarkName = "tableView(_:sectionForSectionIndexTitle:at:)"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
+            landmarkName = "searchBarTextDidBeginEditing(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2EF30B21-7D43-468A-B100-2026C20D84FF - ff424215e53b0314"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.AllContactsVc.searchBarTextDidBeginEditing(__C.UISearchBar) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "605"
+                  endingLineNumber = "605"
+                  offsetFromSymbolStart = "156">
+               </Location>
+               <Location
+                  uuid = "2EF30B21-7D43-468A-B100-2026C20D84FF - ff424215e53b0314"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.AllContactsVc.searchBarTextDidBeginEditing(__C.UISearchBar) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "605"
+                  endingLineNumber = "605"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DA0441EB-0822-4554-B5C7-D4C825002128"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ContactsViewController/AllContactsVc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "624"
+            endingLineNumber = "624"
+            landmarkName = "searchBarCancelButtonClicked(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DA0441EB-0822-4554-B5C7-D4C825002128 - dd2e580ee937cc7d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.AllContactsVc.searchBarCancelButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "624"
+                  endingLineNumber = "624"
+                  offsetFromSymbolStart = "516">
+               </Location>
+               <Location
+                  uuid = "DA0441EB-0822-4554-B5C7-D4C825002128 - dd2e580ee937cc7d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ContactsLite.AllContactsVc.searchBarCancelButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "ContactsLite"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/devi-pt6261/Downloads/Devi/Swift/ContactsLite/ContactsViewController/AllContactsVc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "624"
+                  endingLineNumber = "624"
+                  offsetFromSymbolStart = "268">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

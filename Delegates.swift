@@ -17,5 +17,5 @@ protocol ImageDelegate{
 }
 
 protocol editDelegate{
-    func getUpdatedContact(newContact:Contacts)
+    func getUpdatedContact(newContact:Contact)
 }

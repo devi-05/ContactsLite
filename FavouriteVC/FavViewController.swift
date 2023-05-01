@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FavDeleagte{
-    func addToFav(contact:Contacts)
+    func addToFav(contact:Contact)
 }
 class FavViewController: UITableViewController {
     

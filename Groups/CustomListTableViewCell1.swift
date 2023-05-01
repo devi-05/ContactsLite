@@ -35,6 +35,7 @@ class CustomListTableViewCell1: UITableViewCell {
      }()
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: style, reuseIdentifier: reuseIdentifier)
+         contentView.backgroundColor = .tertiarySystemGroupedBackground
          contentView.addSubview(label1)
          contentView.addSubview(label2)
          contentView.addSubview(disclosureIndicator)

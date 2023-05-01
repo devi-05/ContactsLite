@@ -16,7 +16,7 @@ struct Datas{
     var rows:[Dict]
 }
 class ProfilePageViewController: UITableViewController,editDelegate {
-    func getUpdatedContact(newContact: Contacts) {
+    func getUpdatedContact(newContact: Contact) {
         self.contact = newContact
 //        if let imageData = newContact.profileImage{
 //            photoLabel.image = UIImage(data: imageData)
@@ -25,8 +25,8 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     
     var sectionData :[Datas]=[]
-    var contact:Contacts
-    init(contact:Contacts){
+    var contact:Contact
+    init(contact:Contact){
         self.contact = contact
         super.init(style: .insetGrouped)
         

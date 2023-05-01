@@ -20,7 +20,7 @@ class TabBarViewController: UITabBarController{
         let vc1 = UINavigationController(rootViewController: AllContactsVc(grpName: "Contacts"))
         let vc2 = UINavigationController(rootViewController: FavViewController())
         let vc3 = UINavigationController(rootViewController: EmergencyContactViewController())
-        let vc4 = UINavigationController(rootViewController: ListTableViewController())
+        let vc4 = UINavigationController(rootViewController: ListTableViewController(style: .insetGrouped))
         
        
         vc2.title = "Favourites"

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol EmergencyContactDelegate{
-    func addToEmergency(contact:Contacts)
+    func addToEmergency(contact:Contact)
 }
 class EmergencyContactViewController: UITableViewController
 {
@@ -54,7 +54,8 @@ class EmergencyContactViewController: UITableViewController
     }
     override func viewDidLoad() {
         
-        
+        super.viewDidLoad()
+        tableView.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         containerView.addSubview(imageView)

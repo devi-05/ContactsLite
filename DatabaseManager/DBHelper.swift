@@ -38,7 +38,7 @@ struct DBHelper {
         
         UserDefaults.standard.set("YES", forKey: "IS_TABLECOLUMNS_CREATED")
     }
-    static func assignDb(contactList:Contacts){
+    static func assignDb(contactList:Contact){
         prepare()
         
         dbManager.Insert(tableName: "CONTACTS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"PROFILE_PHOTO":(contactList.profileImage) ,"FIRST_NAME":contactList.firstName,"LAST_NAME":(contactList.lastName == nil) ? nil : (contactList.lastName!) ,"WORK_INFO":((contactList.workInfo == nil) ? nil : contactList.workInfo!),"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contactList.phoneNumber)),"EMAIL": contactList.email == nil ? nil : convertListToString(list: (contactList.email)!),"ADDRESS":contactList.address == nil ? nil : convertListToString(list: addressEncoder(addressList: (contactList.address)!)),"SOCIAL_PROFILE":contactList.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contactList.socialProfile)!)),"IS_FAVOURITE":(contactList.favourite)!,"IS_EMERGENCYCONTACT":(contactList.emergencyContact)!,"NOTES":contactList.notes == nil ? nil : (contactList.notes)! ]])
@@ -81,7 +81,7 @@ struct DBHelper {
         prepare()
         dbManager.deleteRow(tableName: "CONTACTS", criteria: criteria)
     }
-    static func updateContact(contact:Contacts){
+    static func updateContact(contact:Contact){
         prepare()
         dbManager.update(tableName: "Contacts", colListWithVal: ["PROFILE_PHOTO":contact.profileImage,"FIRST_NAME":contact.firstName,"LAST_NAME":contact.lastName,"WORK_INFO":contact.workInfo,"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contact.phoneNumber)),"EMAIL":(contact.email == nil) ? nil : convertListToString(list: (contact.email)!),"ADDRESS": (contact.address == nil) ? nil : convertListToString(list: addressEncoder(addressList: (contact.address)!)),"SOCIAL_PROFILE":contact.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contact.socialProfile)!)),"IS_FAVOURITE":(contact.favourite)!,"IS_EMERGENCYCONTACT":(contact.emergencyContact)!,"NOTES": (contact.notes == nil) ? nil : (contact.notes)! ], criteria: "CONTACT_ID = \(contact.contactId)")
         if let groups = contact.groups{
@@ -173,30 +173,7 @@ struct DBHelper {
         return temp
     }
     
-//    func encoderrr<T:Phone,U:Address>(listOfObj:([T],[U]))->[[String]] {
-//        var arrList:[[String]] = []
-//        var temp:[String] = []
-//        var temp2:[String] = []
-//        for i in listOfObj.0 {
-//
-//                let encodedData = try! JSONEncoder().encode(i)
-//
-//                let string = String(data: encodedData, encoding: .utf8)
-//            temp.append(string!)
-//
-//            }
-//        arrList.append(temp)
-//        for j in listOfObj.1 {
-//            let encodedData = try! JSONEncoder().encode(j)
-//
-//            let string = String(data: encodedData, encoding: .utf8)
-//            temp2.append(string!)
-//
-//        }
-//        arrList.append(temp2)
-//        return arrList
-//    }
-    
+
     static func phoneNumDecoder(str:String)->[PhoneNumberModel] {
         var temp:[PhoneNumberModel] = []
         let separatedStr = str.split(separator: "§")
@@ -247,12 +224,7 @@ struct DBHelper {
     static func fetchContactGrpInfo(contactId:Int)->[String]{
         prepare()
         let grpId = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["GROUP_ID"], conditions: "CONTACT_ID = \(contactId)")
-//        var grpIdStr:[Int] = []
-//        for i in grpId{
-//            for j in i{
-//                grpIdStr.append(Int(String(describing:j.value))!)
-//            }
-//        }
+
         var temp:[String] = []
         for i in grpId{
             for j in i{
@@ -270,9 +242,9 @@ struct DBHelper {
         return temp
     }
     
-    static func fetchGroupMembers(groupName:String)->[Contacts]{
-        print("grpname; \(groupName)")
-        var contactLists:[[Contacts]] = []
+    static func fetchGroupMembers(groupName:String)->[Contact]{
+            
+        var contactLists:[[Contact]] = []
         prepare()
         let groupId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(groupName)'")
         print("groupId:\(groupId)")
@@ -321,7 +293,9 @@ struct DBHelper {
             }
         }
         dbManager.deleteRow(tableName: "GROUPS", criteria: "GROUP_NAME = '\(grpName)'")
-        dbManager.deleteRow(tableName: "CONTACTS_AND_GROUPS", criteria: "GROUP_ID = \(grpId!)")
+        if let grpId = grpId{
+            dbManager.deleteRow(tableName: "CONTACTS_AND_GROUPS", criteria: "GROUP_ID = \(grpId)")
+        }
     }
     static func updateGrpName(existingGrpName:String,newGrpName:String){
         prepare()

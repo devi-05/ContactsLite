@@ -20,14 +20,14 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     var selectedGrpIndex:[Int] = []
     weak var allContactsVc:AllContactsVc?
     var isEdited = false
-    var info:Contacts?
+    var info:Contact?
     var inputDict:[String:Any] = [:]{
         didSet{
             print(inputDict)
         }
     }
     
-    init(contact:Contacts?){
+    init(contact:Contact?){
         super.init(nibName: nil, bundle: nil)
         self.info = contact
     }
@@ -62,9 +62,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     var socialProfileModel:[SocialProfileModel] = []
     
-    var contactsList:[Contacts] = []
+    var contactsList:[Contact] = []
     
-    var contact:Contacts?
+    var contact:Contact?
     
     
     
@@ -169,19 +169,13 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         inputDict[Headers.contactId] = info?.contactId
         tableView.reloadData()
     }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-        print("inputdict in viewdidappear : \(inputDict)")
-        print("did appear")
-    }
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         
       
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DoneButton))
         
@@ -1034,7 +1028,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let alertController = UIAlertController(title: nil, message: "Are you sure you want to discard this new contact", preferredStyle: .actionSheet)
             
         let discardAction = UIAlertAction(title: "Discard changes", style: .destructive){ _ in
-                
+            self.navigationController?.popViewController(animated: true)
                         self.dismiss(animated: true)
             }
             let editingAction = UIAlertAction(title: "Keep Editing", style: .cancel){ _ in
@@ -1052,6 +1046,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             navigationController?.popViewController(animated: true)
             dismiss(animated: true)
         }
+        
         dismiss(animated: true)
     }
     
@@ -1063,10 +1058,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let profimg = inputDict[Headers.profileImage] as? UIImage
             var addArr:[AddressModel] = []
             var phoneNumArr:[PhoneNumberModel] = []
-            for i in inputDict[Headers.address] as! [AddressModel]{
-                if i.doorNo != nil && i.Street != nil && i.city != nil && i.postcode != nil && i.state != nil && i.country != nil {
-                    
-                    addArr.append(i)
+            if let address = inputDict[Headers.address] as? [AddressModel]{
+                for i in address{
+                    if i.doorNo != nil || i.Street != nil || i.city != nil || i.postcode != nil || i.state != nil || i.country != nil {
+                        
+                        addArr.append(i)
+                    }
                 }
             }
             if workInfoArray.isEmpty{
@@ -1087,9 +1084,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 }
             }
             var socprofArr:[SocialProfileModel] = []
-            for i in inputDict[Headers.socialProfile] as! [SocialProfileModel]{
-                if i.link != nil {
-                    socprofArr.append(i)
+            if let socialProfile =  inputDict[Headers.socialProfile] as? [SocialProfileModel]{
+                for i in socialProfile{
+                    if i.link != nil {
+                        socprofArr.append(i)
+                    }
                 }
             }
             if socprofArr.isEmpty {
@@ -1114,7 +1113,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.email] = emailArr
             }
             
-            let newContact = Contacts(contactId: id!,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: phoneNumArr,email: inputDict[Headers.email] as? [String],address: inputDict[Headers.address] as? [AddressModel],socialProfile: inputDict[Headers.socialProfile] as?[SocialProfileModel],favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
+            let newContact = Contact(contactId: id!,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: phoneNumArr,email: inputDict[Headers.email] as? [String],address: inputDict[Headers.address] as? [AddressModel],socialProfile: inputDict[Headers.socialProfile] as?[SocialProfileModel],favourite:isFavourite,emergencyContact: isEmergencyContact,notes: inputDict[Headers.notes] as? String ,groups: groups)
             
             DBHelper.updateContact(contact: newContact)
             allContactsVc?.refreshDataSource()
@@ -1134,10 +1133,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 else{
                     let alertController = UIAlertController(title: nil, message: "First Name Field is Mandatory", preferredStyle: .alert)
                     
-                let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
-                        return
-//                        self.dismiss(animated: true)
-                    }
+                let okAction = UIAlertAction(title: "OK", style: .cancel)
                     
                     alertController.addAction(okAction)
                     
@@ -1150,10 +1146,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             guard let _ = inputDict[Headers.phoneNumber] else{
                 let alertController = UIAlertController(title: nil, message: "Mobile Number Field is Mandatory", preferredStyle: .alert)
                 
-            let okAction = UIAlertAction(title: "OK", style: .cancel){ _ in
-                    return
-//                        self.dismiss(animated: true)
-                }
+            let okAction = UIAlertAction(title: "OK", style: .cancel)
                 
                 alertController.addAction(okAction)
                 
@@ -1173,7 +1166,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 id = myInt
                 print("input dict in add : \(inputDict)")
             
-                let newContact = Contacts(
+                let newContact = Contact(
                     contactId: id!,
                     profileImage: image?.pngData(),
                     firstName:firstName,
@@ -1189,42 +1182,17 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     groups: groups)
                 
                 DBHelper.assignDb(contactList: newContact)
-                //        tabvc?.refreshFavData()
+               
                 allContactsVc?.refreshDataSource()
-                allContactsVc?.tableView.reloadData()
-                
-//                addtoLocalGrpDataSource(grpName:groups,contact:newContact)
+                                
+
                 
                 dismiss(animated: true)
             }
             
         }
         
-//        func addtoLocalGrpDataSource(grpName:[String],contact:Contacts){
-//            for i in grpName{
-//                if grpData.isEmpty {
-//                    grpData.append(GroupModel(groupName: i, data: [SectionContent(sectionName: String(contact.firstName.first!), rows: [contact])]))
-//                }
-//                else{
-//                    var bool = false
-//                    for j in 0..<grpData.count{
-//                        if (grpData[j].groupName == i){
-//                            for k in 0..<grpData[j].data.count{
-//                                if(grpData[j].data[k].sectionName == String(contact.firstName.first!)){
-//                                    grpData[j].data[k].rows.append(contact)
-//                                    bool = true
-//                                }
-//                            }
-//                            if (!bool){
-//
-//                                grpData.append(GroupModel(groupName: i, data: [SectionContent(sectionName: String(contact.firstName.first!), rows: [contact])]))
-//                            }
-//                        }
-//                        tableView.reloadData()
-//                    }
-//                }
-//            }
-//        }
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             super.touchesBegan(touches, with: event)
             view.endEditing(true)
@@ -1416,7 +1384,17 @@ extension InfoSheetViewController:UITextFieldDelegate {
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
         
-            switch textField.attributedPlaceholder?.string{
+        guard let field = textField.attributedPlaceholder?.string else {
+            return
+        }
+            switch field{
+                
+                
+            case Headers.firstName, Headers.lastName:
+                if let value = textField.text{
+                    inputDict[field] = value.isEmpty ? nil: value
+                }
+                
                 
             case Headers.firstName:
                 

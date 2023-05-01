@@ -8,17 +8,17 @@
 import Foundation
 import UIKit
 class Helper{
-    static func sort(data:[Contacts])->[Contacts]{
+    static func sort(data:[Contact])->[Contact]{
         
         
         
-        var contacts:[Contacts] = []
+        var contacts:[Contact] = []
         
         contacts += (data.sorted(by: {$0.firstName < $1.firstName}))
         return contacts
         
     }
-    static func extractNamesFromFetchedData(lists:[Contacts])->[SectionContent]{
+    static func extractNamesFromFetchedData(lists:[Contact])->[SectionContent]{
         
         var sectionData:[SectionContent] = []
         var data:[SectionContent] = []
@@ -76,7 +76,7 @@ class Helper{
     
     static func getGroupsData(locDS:[SectionContent],grpName:[String])->[GroupModel]{
         var groups:[GroupModel]=[]
-        var localDbContactList:[Contacts] = []
+        var localDbContactList:[Contact] = []
         for i in locDS{
                     for j in i.rows{
                         localDbContactList.append(j)
@@ -126,10 +126,10 @@ class Helper{
         print("grp\(grp)")
         return grp
     }
-    static func decodeToContact(list:[[String:Any]])->[Contacts]{
+    static func decodeToContact(list:[[String:Any]])->[Contact]{
         
        
-        var ds:[Contacts] = []
+        var ds:[Contact] = []
         
         for i in list{
             var id:Int = 0
@@ -177,7 +177,7 @@ class Helper{
                 }
                 
             }
-            ds.append(Contacts(contactId: id,profileImage: image, firstName: firstName,lastName: lastName,workInfo: workInfo, phoneNumber: phoneNum,email: emailArray,address: address,socialProfile: socialProfile,favourite: isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: DBHelper.fetchContactGrpInfo(contactId: id)))
+            ds.append(Contact(contactId: id,profileImage: image, firstName: firstName,lastName: lastName,workInfo: workInfo, phoneNumber: phoneNum,email: emailArray,address: address,socialProfile: socialProfile,favourite: isFavourite,emergencyContact: isEmergencyContact,notes: notes,groups: DBHelper.fetchContactGrpInfo(contactId: id)))
             
         }
         

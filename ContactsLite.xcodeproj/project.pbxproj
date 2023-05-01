@@ -34,6 +34,7 @@
 		336A8F7A29E2FD0A002B9F1F /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A8F7929E2FD0A002B9F1F /* ListTableViewController.swift */; };
 		3372206829F584DB004FD026 /* AddressDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3372206729F584DB004FD026 /* AddressDisplayTableViewCell.swift */; };
 		337220A529F902F9004FD026 /* NotesDisplayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337220A429F902F9004FD026 /* NotesDisplayTableViewCell.swift */; };
+		337F060429FBAD6B00EA3A15 /* AllContactsVcExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337F060329FBAD6B00EA3A15 /* AllContactsVcExtensions.swift */; };
 		3391AB4E29E988060040A41B /* FavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3391AB4D29E988060040A41B /* FavViewController.swift */; };
 		3391AB5129E9C6780040A41B /* EmergencyContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3391AB5029E9C6780040A41B /* EmergencyContactViewController.swift */; };
 		3391AB5429EA58F20040A41B /* ProfilePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3391AB5329EA58F20040A41B /* ProfilePageViewController.swift */; };
@@ -77,6 +78,7 @@
 		336A8F7929E2FD0A002B9F1F /* ListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewController.swift; sourceTree = "<group>"; };
 		3372206729F584DB004FD026 /* AddressDisplayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDisplayTableViewCell.swift; sourceTree = "<group>"; };
 		337220A429F902F9004FD026 /* NotesDisplayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesDisplayTableViewCell.swift; sourceTree = "<group>"; };
+		337F060329FBAD6B00EA3A15 /* AllContactsVcExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsVcExtensions.swift; sourceTree = "<group>"; };
 		3391AB4D29E988060040A41B /* FavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavViewController.swift; sourceTree = "<group>"; };
 		3391AB5029E9C6780040A41B /* EmergencyContactViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmergencyContactViewController.swift; sourceTree = "<group>"; };
 		3391AB5329EA58F20040A41B /* ProfilePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePageViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		3323A02629D2AFE700BF193B = {
 			isa = PBXGroup;
 			children = (
+				337F060229FBAD4C00EA3A15 /* Extensions */,
 				33D045FD29F396460058EE62 /* Delegates.swift */,
 				33C289CD29EE5593007FAAAD /* Helper.swift */,
 				336A8F7429E2FBDC002B9F1F /* ContactLiteModels.swift */,
@@ -181,6 +184,14 @@
 				337220A429F902F9004FD026 /* NotesDisplayTableViewCell.swift */,
 			);
 			path = Displayprofile;
+			sourceTree = "<group>";
+		};
+		337F060229FBAD4C00EA3A15 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				337F060329FBAD6B00EA3A15 /* AllContactsVcExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3391AB4C29E987E80040A41B /* FavouriteVC */ = {
@@ -317,6 +328,7 @@
 				3391AB4E29E988060040A41B /* FavViewController.swift in Sources */,
 				336A8F7A29E2FD0A002B9F1F /* ListTableViewController.swift in Sources */,
 				336A8F6B29DFF0E1002B9F1F /* SocialProfileTableViewController.swift in Sources */,
+				337F060429FBAD6B00EA3A15 /* AllContactsVcExtensions.swift in Sources */,
 				3323A05F29D3FD6400BF193B /* DatabaseManager.swift in Sources */,
 				3323A06B29D6BCDE00BF193B /* InfoTableViewCell.swift in Sources */,
 				3391AB5829EA8C2B0040A41B /* EmailTableViewCell.swift in Sources */,

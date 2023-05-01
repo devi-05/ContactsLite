@@ -26,7 +26,7 @@ enum Headers{
     static var groups = "Groups"
 }
 
-struct Contacts{
+struct Contact{
     var contactId:Int
     var profileImage:Data?
     var firstName:String
@@ -43,14 +43,14 @@ struct Contacts{
     
     
     func fullName() -> String {
-        return firstName + (lastName ?? "")
+        return firstName + " " + (lastName ?? "")
     }
     
 }
 
 struct SectionContent{
     let sectionName : String
-    var rows: [Contacts]
+    var rows: [Contact]
 }
 struct GroupModel{
     var groupName:String
