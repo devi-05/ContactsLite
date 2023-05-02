@@ -7,11 +7,10 @@
 
 import UIKit
 
-protocol EmergencyContactDelegate{
-    func addToEmergency(contact:Contact)
-}
 class EmergencyContactViewController: UITableViewController
 {
+    
+    lazy var sortedEmergencyContacts:[SectionContent] = []
     lazy var containerView:UIView = {
         let view = UIView()
         return view
@@ -32,18 +31,26 @@ class EmergencyContactViewController: UITableViewController
         return label
     }()
    
-    var temp:[String] = []
-    lazy var emergencyContacts:[[String : Any]] = []
-    lazy var sortedEmergencyContacts:[SectionContent] = []
+  
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "Emergency Contacts"
-       refreshEmergencyData()
+        refreshEmergencyData()
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.reloadData()
     }
+    
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        tableView.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        configureBackgroundLabel()
+    }
     func refreshEmergencyData(){
-        emergencyContacts = DBHelper.fetchEmergencyContact(conditions: "IS_EMERGENCYCONTACT = 1")
+        let emergencyContacts = DBHelper.fetchEmergencyContact(conditions: "IS_EMERGENCYCONTACT = 1")
         sortedEmergencyContacts = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: Helper.decodeToContact(list: (emergencyContacts))))
         if(sortedEmergencyContacts.isEmpty){
             tableView.backgroundView = containerView
@@ -52,12 +59,7 @@ class EmergencyContactViewController: UITableViewController
             tableView.backgroundView = nil
         }
     }
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        tableView.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    func configureBackgroundLabel(){
         containerView.addSubview(imageView)
         containerView.addSubview(msgLabel)
         
@@ -113,19 +115,15 @@ class EmergencyContactViewController: UITableViewController
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        var name:String = sortedEmergencyContacts[indexPath.section].rows[indexPath.row].firstName
-        if(sortedEmergencyContacts[indexPath.section].rows[indexPath.row].lastName != nil){
-            name += " \( (sortedEmergencyContacts[indexPath.section].rows[indexPath.row].lastName)!)"
-        }
+        var name:String = sortedEmergencyContacts.getContact(indexPath: indexPath).fullName()
         cell?.textLabel?.text = name
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        title = ""
-        print("\(sortedEmergencyContacts[indexPath.section].rows[indexPath.row].firstName) is selected" )
-        let vc = ProfilePageViewController(contact: sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
+
+        let vc = ProfilePageViewController(contact: sortedEmergencyContacts.getContact(indexPath: indexPath))
         navigationController?.pushViewController(vc, animated: true)
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -153,7 +151,7 @@ class EmergencyContactViewController: UITableViewController
         let sectionHeaders = sortedEmergencyContacts.map({$0.sectionName})
         
         if let ind = sectionHeaders.firstIndex(of: title){
-            print(ind)
+            
             return ind
         }
         else{
@@ -163,7 +161,6 @@ class EmergencyContactViewController: UITableViewController
                     ind = i
                 }
             }
-            print(ind)
             return ind
         }
         

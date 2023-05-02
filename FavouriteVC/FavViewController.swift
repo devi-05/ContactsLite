@@ -7,12 +7,11 @@
 
 import UIKit
 
-protocol FavDeleagte{
-    func addToFav(contact:Contact)
-}
+
 class FavViewController: UITableViewController {
     
-    var temp:[String] = []
+    lazy var sortedFavContacts:[SectionContent] = []
+    
     lazy var containerView:UIView = {
         let view = UIView()
         return view
@@ -31,18 +30,24 @@ class FavViewController: UITableViewController {
         label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
-    lazy var favContacts:[[String : Any]] = []
-    lazy var sortedFavContacts:[SectionContent] = []
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         title = "Favourites"
-       refreshFavData()
-        
+        refreshFavData()
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.reloadData()
     }
+    
+    override func viewDidLoad() {
+       
+        tableView.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        configureBackgroundLabel()
+    }
     func refreshFavData(){
-        favContacts = DBHelper.fetchEmergencyContact(conditions: "IS_FAVOURITE = 1")
+       let favContacts = DBHelper.fetchEmergencyContact(conditions: "IS_FAVOURITE = 1")
         sortedFavContacts = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: Helper.decodeToContact(list: (favContacts))))
         if(sortedFavContacts.isEmpty){
             tableView.backgroundView = containerView
@@ -51,11 +56,7 @@ class FavViewController: UITableViewController {
             tableView.backgroundView = nil
         }
     }
-    override func viewDidLoad() {
-       
-        tableView.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+    func configureBackgroundLabel(){
         containerView.addSubview(imageView)
         containerView.addSubview(msgLabel)
         
@@ -79,22 +80,21 @@ class FavViewController: UITableViewController {
             let edit = UIAction(title:"Remove from Favourites",image: UIImage(systemName: "multiply.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
 
                 self.sortedFavContacts[indexPath.section].rows[indexPath.row].favourite = 0
-                DBHelper.updateContact(contact: self.sortedFavContacts[indexPath.section].rows[indexPath.row])
+                DBHelper.updateContact(contact: self.sortedFavContacts.getContact(indexPath: indexPath))
                 self.refreshFavData()
                 tableView.reloadData()
             }
             let delete = UIAction(title:"Delete Contact",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){ _ in
                 self.sortedFavContacts[indexPath.section].rows[indexPath.row].favourite = 0
-                DBHelper.updateContact(contact: self.sortedFavContacts[indexPath.section].rows[indexPath.row])
+                DBHelper.updateContact(contact: self.sortedFavContacts.getContact(indexPath: indexPath))
                
-                DBHelper.deleteContact(contactId: self.sortedFavContacts[indexPath.section].rows[indexPath.row].contactId)
+                DBHelper.deleteContact(contactId: self.sortedFavContacts.getContact(indexPath: indexPath).contactId)
                 self.refreshFavData()
                 tableView.reloadData()
 
             }
             let view = UIAction(title:"View Profile",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
-                print("view")
-                let vc = ProfilePageViewController(contact: self.sortedFavContacts[indexPath.section].rows[indexPath.row])
+                let vc = ProfilePageViewController(contact: self.sortedFavContacts.getContact(indexPath: indexPath))
                 self.navigationController?.pushViewController(vc, animated: true)
 
             }
@@ -111,19 +111,14 @@ class FavViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        var name:String = sortedFavContacts[indexPath.section].rows[indexPath.row].firstName
-        if(sortedFavContacts[indexPath.section].rows[indexPath.row].lastName != nil){
-            name += " \( (sortedFavContacts[indexPath.section].rows[indexPath.row].lastName)!)"
-        }
+        var name:String = sortedFavContacts.getContact(indexPath: indexPath).fullName()
         cell?.textLabel?.text = name
         return cell!
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-//        title = ""
-        print("\(sortedFavContacts[indexPath.section].rows[indexPath.row].firstName) is selected" )
-        let vc = ProfilePageViewController(contact: sortedFavContacts[indexPath.section].rows[indexPath.row])
+        let vc = ProfilePageViewController(contact: sortedFavContacts.getContact(indexPath: indexPath))
         navigationController?.pushViewController(vc, animated: true)
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -150,7 +145,7 @@ class FavViewController: UITableViewController {
     
         
         if let ind = sectionHeaders.firstIndex(of: title){
-            print(ind)
+            
             return ind
         }
         else{
@@ -160,7 +155,7 @@ class FavViewController: UITableViewController {
                     ind = i
                 }
             }
-            print(ind)
+            
             return ind
         }
         

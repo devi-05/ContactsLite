@@ -171,6 +171,9 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
                 if (passedData.getTotalContacts() > 5){
                     dataCountLabel.isHidden = false
                 }
+                else{
+                    dataCountLabel.isHidden = true
+                }
             }
             else{
                 dataCountLabel.isHidden = true
@@ -221,7 +224,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
             
             label.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 10),
             label.leadingAnchor.constraint(equalTo: addContactView.leadingAnchor, constant: 65),
-            label.trailingAnchor.constraint(equalTo: addContactView.trailingAnchor, constant: -65),
+            label.trailingAnchor.constraint(equalTo: addContactView.trailingAnchor, constant: -55),
             label.heightAnchor.constraint(equalToConstant: 20),
             
             createTextButton.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),
@@ -336,7 +339,6 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
     @objc func addButton(){
         let vc = InfoSheetViewController(contact: nil)
         vc.allContactsVc = self
-        vc.title  = "New Contact"
         if (title != "Contacts"){
             vc.isAddedByGrp = title
         }
@@ -621,7 +623,7 @@ extension AllContactsVc:UISearchBarDelegate{
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         print("cancel button")
-        tableView.backgroundView = addContactView
+//        tableView.backgroundView = addContactView
         tableView.sectionIndexColor = .systemBlue
         tableView.tableHeaderView = profileCardLabel
 //        tableView.tableFooterView = dataCountLabel

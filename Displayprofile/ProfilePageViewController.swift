@@ -15,14 +15,8 @@ struct Datas{
     var sectionName:String
     var rows:[Dict]
 }
-class ProfilePageViewController: UITableViewController,editDelegate {
-    func getUpdatedContact(newContact: Contact) {
-        self.contact = newContact
-//        if let imageData = newContact.profileImage{
-//            photoLabel.image = UIImage(data: imageData)
-//        }
-        tableView.reloadData()
-    }
+class ProfilePageViewController: UITableViewController {
+   
     
     var sectionData :[Datas]=[]
     var contact:Contact
@@ -31,7 +25,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         super.init(style: .insetGrouped)
         
     }
-    var titleDelegate:TitleDelegate?
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -76,8 +70,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
                 
                 let vc = InfoSheetViewController(contact: self.contact)
                 vc.editDelegate = self
-                vc.title = "Edit Contact"
-//                self.titleDelegate?.setTitle(string: "Edit Contact")
                 self.navigationController?.pushViewController(vc, animated: true)
         
             }),
@@ -118,18 +110,10 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         tableView.reloadData()
         
     }
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionData.count
-        
-    }
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sectionData[section].rows.count
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .systemBackground
-//        title = " "
-//        navigationController?.navigationBar.prefersLargeTitles = true
+
         view.addSubview(photoView)
         view.addSubview(footerView)
         tableView.contentInset = .init(top: 0, left: 0, bottom: 70, right: 0)
@@ -138,7 +122,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         photoView.addSubview(workInfoLabel)
         configureConstraints()
         setUpContents()
-        //        let menuButton = UIBarButtonItem(barButtonSystemItem: .action, target: nil, action: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis"), style: .plain, target: self, action: nil)
         if #available(iOS 14.0, *) {
             navigationItem.rightBarButtonItem?.menu = buttonMenu
@@ -150,8 +133,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         
         navigationController?.navigationBar.prefersLargeTitles = false
         tableView.tableHeaderView = photoView
-        //        footerView.addSubview(deleteButton)
-        //        tableView.tableFooterView = footerView
         tableView.backgroundColor = .systemBackground
         tableView.register(ProfPageTableViewCell.self, forCellReuseIdentifier: ProfPageTableViewCell.identifier)
         tableView.register(EmailTableViewCell.self, forCellReuseIdentifier: EmailTableViewCell.identifier)
@@ -180,8 +161,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             workInfoLabel.centerXAnchor.constraint(equalTo: photoView.centerXAnchor),
             workInfoLabel.trailingAnchor.constraint(equalTo: photoView.trailingAnchor, constant: -20),
             workInfoLabel.heightAnchor.constraint(equalToConstant: 50),
-            
-            
             
         ])
         
@@ -289,7 +268,7 @@ class ProfilePageViewController: UITableViewController,editDelegate {
     }
     func setSocialprofile(){
         var temp:[Dict] = []
-        if(contact.email?.count != 0){
+        if(contact.socialProfile?.count != 0){
             if let socialProfile = contact.socialProfile{
                 for i in socialProfile{
                     if i.link != nil{
@@ -311,7 +290,13 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         }
     }
     
-    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return sectionData.count
+        
+    }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return sectionData[section].rows.count
+    }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(sectionData[section].sectionName == Headers.phoneNumber){
@@ -322,51 +307,6 @@ class ProfilePageViewController: UITableViewController,editDelegate {
         }
     }
     
-    //    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //        let header = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width-10, height: 50))
-    //        header.layer.cornerRadius = 20
-    //        header.tag = section
-    //        let mylabel = UILabel(frame: CGRect(x: 0, y: 0, width: header.frame.size.width-10, height: 50))
-    //        mylabel.text = sectionData[section].sectionName
-    //        mylabel.textColor = .label.withAlphaComponent(0.5)
-    //        mylabel.textAlignment = .center
-    //        mylabel.font = .systemFont(ofSize: 20, weight: .medium)
-    //        let myImage = UIImageView(frame:CGRect(x: 70, y: 12, width: 25, height: 25))
-    //        switch sectionData[section].sectionName {
-    //
-    //        case "Phone Number":
-    //            myImage.image =  UIImage(systemName: "phone.down.circle")
-    //        case "Email":
-    //            myImage.image = UIImage(systemName: "envelope.fill")
-    //        case "Address":
-    //            myImage.image = UIImage(systemName: "house.fill")
-    //        case "Social Profile":
-    //            myImage.image =  UIImage(systemName: "person.crop.circle.dashed")
-    //        default:
-    //            myImage.image = UIImage(systemName: "doc.text")
-    //        }
-    //        myImage.tintColor = .label.withAlphaComponent(0.4)
-    //        header.addSubview(mylabel)
-    //        header.addSubview(myImage)
-    //        return header
-    //    }
-    //    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    //        switch sectionData[section].sectionName{
-    //        case Headers.phoneNumber:
-    //            return Headers.phoneNumber
-    //        case Headers.email:
-    //            return Headers.email
-    //        case Headers.address:
-    //            return Headers.address
-    //        case Headers.socialProfile:
-    //            return Headers.socialProfile
-    //        case Headers.notes:
-    //            return Headers.notes
-    //        default:
-    //            return " "
-    //        }
-    //
-    //    }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return " "
     }
@@ -447,25 +387,11 @@ class ProfilePageViewController: UITableViewController,editDelegate {
             
             
         }
-        
-        //        else{
-        //            let alertController = UIAlertController(title: nil, message: "Couldn't make a call", preferredStyle: .alert)
-        //
-        //        let okAction = UIAlertAction(title: "Ok", style: .default){ _ in
-        //            Helper.makeACall(number: self.sectionData[indexPath.section].rows[indexPath.row].value)
-        ////                        self.dismiss(animated: true)
-        //            }
-        //
-        //            alertController.addAction(okAction)
-        //
-        //            present(alertController, animated: true)
-        //
-        //            return
-        //        }
-        //
-        //    }
-        
-        
-        //}
+    }
+}
+extension ProfilePageViewController:EditDelegate{
+    func getUpdatedContact(newContact: Contact) {
+        self.contact = newContact
+        tableView.reloadData()
     }
 }

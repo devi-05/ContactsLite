@@ -16,6 +16,8 @@ protocol ImageDelegate{
     func getImage(images:UIImage)
 }
 
-protocol editDelegate{
+protocol EditDelegate{
     func getUpdatedContact(newContact:Contact)
 }
+
+
