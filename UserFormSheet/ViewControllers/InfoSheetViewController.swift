@@ -8,29 +8,16 @@ import UIKit
 
 class InfoSheetViewController: UITableViewController, UINavigationControllerDelegate {
     
-    var isEditMode = false
+    lazy var isEditMode = false
     var isAddedByGrp:String?
     lazy var groupNames:[String] = []
-    var selectedGrpIndex:[Int] = []
     var editDelegate:EditDelegate?
     weak var allContactsVc:AllContactsVc?
     var isEdited = false
     var info:Contact?
-    var inputDict:[String:Any] = [:]{
-        didSet{
-            print(inputDict)
-        }
-    }
+    lazy var inputDict:[String:Any] = [:]
     
-    
-    
-    
-    
-   
-    
-    
-    var groups:[String] = []
-    
+ 
     
     var phoneNumRowIndex:Int?
     
@@ -39,12 +26,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     var socialProfileRowIndex:Int?
     
     var contact:Contact?
-    
-    
-    
-    
-    
-    
     
     var headerDataSource:[DataSource] = [
         DataSource(data: [Headers.firstName,Headers.lastName]),
@@ -103,7 +84,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     var buttonMenu: UIMenu {
         return UIMenu(children: menuItems)
     }
-     var editMenu : UIMenu {
+    var editMenu : UIMenu {
         
         return UIMenu(title: "", children: [
             
@@ -166,26 +147,25 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             headerDataSource.remove(at: 7)
         }
         
-        for i in 0..<groupNames.count{
-            if let grpName = isAddedByGrp{
-                if groupNames[i] == grpName{
-                    selectedGrpIndex.append(i+1)
-                }
-            }
-        }
+//        for i in 0..<groupNames.count{
+//            if let grpName = isAddedByGrp{
+//                if groupNames[i] == grpName{
+//                    selectedGrpIndex.append(i+1)
+//                }
+//            }
+//        }
         if (isEditMode){
             inputDict[Headers.groups] = groupNames
-            if let grps = info?.groups{
-                for i in grps{
-                    for j in 0..<groupNames.count{
-                        if i == groupNames[j]{
-                            selectedGrpIndex.append(j+1)
-                        }
-                    }
-                }
-            }
+//            if let grps = info?.groups{
+//                for i in grps{
+//                    for j in 0..<groupNames.count{
+//                        if i == groupNames[j]{
+//                            selectedGrpIndex.append(j+1)
+//                        }
+//                    }
+//                }
+//            }
         }
-        inputDict[Headers.contactId] = info?.contactId
         tableView.reloadData()
     }
     
@@ -209,13 +189,22 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             // Fallback on earlier versions
         }
         if let grpName = isAddedByGrp {
-            groups.append(grpName)
+            if var groups = info?.groups{
+                groups.append(grpName)
+                inputDict[Headers.groups] = groups
+            }
+            else{
+                var tempGrpArr:[String] = []
+                tempGrpArr.append(grpName)
+                inputDict[Headers.groups] = tempGrpArr
+            }
+//            groups.append(grpName)
             
         }
         
         guard (isEditMode) else{
             //Edit functionality
-           
+            
             
             if let id = info?.contactId{
                 inputDict[Headers.contactId] = id
@@ -224,9 +213,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.profileImage] = image
                 photoLabel.image = UIImage(data: image)
                 addPhotoButton.setTitle("Edit Photo", for: .normal)
-               
-                       
-                       
+                
+                
+                
                 if #available(iOS 14.0, *) {
                     addPhotoButton.menu = editMenu
                 } else {
@@ -249,27 +238,28 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.phoneNumber] = phoneNumber
             }
             if let email = info?.email{
-
+                
                 inputDict[Headers.email] = email
                 
             }
             if let address = info?.address{
-
+                
                 inputDict[Headers.address]=address
             }
             if let socialProfile = info?.socialProfile{
                 inputDict[Headers.socialProfile]=socialProfile
             }
             
-            if let grps = info?.groups{
-                for i in grps{
-                    groups.append(i)
-                    
-                }
+//            if let grps = info?.groups{
+//                inputDict[Headers.groups] = grps
+//                for i in grps{
+//                    groups.append(i)
+//
+//                }
                 
-            }
+//            }
             if let fav = info?.favourite{
-               
+                
                 inputDict[Headers.favourite] = fav
             }
             if let emergencyContact = info?.emergencyContact{
@@ -278,6 +268,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             }
             if let notes = info?.notes{
                 inputDict[Headers.notes] = notes
+            }
+            if let groups = info?.groups{
+                inputDict[Headers.groups] = groups
             }
             return
         }
@@ -310,10 +303,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
     }
     
-    
-    
-    
-    
     func addSubviewsToPhotoView() {
         photoView.addSubview(photoLabel)
         photoView.addSubview(addPhotoButton)
@@ -337,7 +326,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
     }
     
-    
     func setUpTableView(){
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
@@ -356,10 +344,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         tableView.register(GroupsTableViewCell.self, forCellReuseIdentifier: GroupsTableViewCell.identifier)
         
     }
-    
-    
-    
-    
     
     @objc func showOptions(sender:UIButton){
         phoneNumRowIndex = sender.tag
@@ -412,12 +396,12 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 sender.setTitleColor(.label, for: .normal)
                 inputDict[Headers.emergencyContact] = 0
             }
-           
+            
         }
         
     }
     @objc func cancelButton(){
-
+        
         if(isEdited){
             let alertController = UIAlertController(title: nil, message: "Are you sure you want to discard this new contact", preferredStyle: .actionSheet)
             
@@ -469,7 +453,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.address] = addArr
             }
             
-           
+            
             for i in inputDict[Headers.phoneNumber] as! [PhoneNumberModel] {
                 if i.number != nil{
                     phoneNumArr.append(i)
@@ -505,7 +489,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.email] = emailArr
             }
             
-            let newContact = Contact(contactId: inputDict[Headers.contactId] as! Int,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: (inputDict[Headers.phoneNumber] as! [PhoneNumberModel]),email: inputDict[Headers.email] as? [String],address: inputDict[Headers.address] as? [AddressModel],socialProfile: inputDict[Headers.socialProfile] as?[SocialProfileModel],favourite:inputDict[Headers.favourite] as? Int,emergencyContact: inputDict[Headers.emergencyContact] as? Int,notes: inputDict[Headers.notes] as? String ,groups: groups)
+            let newContact = Contact(contactId: inputDict[Headers.contactId] as! Int,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: (inputDict[Headers.phoneNumber] as! [PhoneNumberModel]),email: inputDict[Headers.email] as? [String],address: inputDict[Headers.address] as? [AddressModel],socialProfile: inputDict[Headers.socialProfile] as?[SocialProfileModel],favourite:inputDict[Headers.favourite] as? Int,emergencyContact: inputDict[Headers.emergencyContact] as? Int,notes: inputDict[Headers.notes] as? String ,groups: inputDict[Headers.groups] as? [String])
             
             DBHelper.updateContact(contact: newContact)
             allContactsVc?.refreshDataSource()
@@ -559,8 +543,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             if let workInfo = inputDict[Headers.workInfo] as? [String]{
                 inputDict[Headers.workInfo] = workInfo[0]
             }
-             let image = inputDict[Headers.profileImage] as? UIImage
-                
+            let image = inputDict[Headers.profileImage] as? UIImage
+            
             
             let newContact = Contact(
                 contactId: inputDict[Headers.contactId] as! Int,
@@ -575,7 +559,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 favourite:(inputDict[Headers.favourite] ) == nil ? 0:inputDict[Headers.favourite] as? Int ,
                 emergencyContact:(inputDict[Headers.emergencyContact]) == nil ? 0: inputDict[Headers.emergencyContact] as? Int,
                 notes: (inputDict[Headers.notes]) as? String  ,
-                groups: groups)
+                groups: inputDict[Headers.groups] as? [String])
             
             DBHelper.assignDb(contactList: newContact)
             
@@ -632,7 +616,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 else{
                     return 1
                 }
-
+                
             }
             else if headerDataSource[section].data[0] == Headers.socialProfile{
                 if let socialProfile = inputDict[Headers.socialProfile] as? [SocialProfileModel]{
@@ -665,7 +649,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     else{
                         return 1
                     }
-
+                    
                 case Headers.phoneNumber:
                     if let number = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
                         return  (number.count+1)
@@ -696,7 +680,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     }
                 case Headers.groups:
                     return groupNames.count+1
-               
+                    
                 default:
                     return 1
                 }
@@ -734,8 +718,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     var tempWorkInfoArr:[String] = []
                     tempWorkInfoArr.append("")
                     inputDict[Headers.workInfo] = tempWorkInfoArr
-
-                
+                    
+                    
                 }
                 else if (headerDataSource[indexPath.section].data[0] == Headers.phoneNumber ){
                     var tempPhoneArr:[PhoneNumberModel] = []
@@ -763,7 +747,10 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             }
             // if sec header is equal to groups
             else{
-                groups.append(groupNames[indexPath.row])
+                if var groups = info?.groups{
+                    groups.append(groupNames[indexPath.row])
+                    inputDict[Headers.groups] = groups
+                }
                 
             }
         }
@@ -785,9 +772,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             }
             else if (headerDataSource[indexPath.section].data[0] == Headers.address ){
                 var addressToBeEdited:[AddressModel] = inputDict[Headers.address] as! [AddressModel]
-               addressToBeEdited.remove(at: indexPath.row - 1)
+                addressToBeEdited.remove(at: indexPath.row - 1)
                 inputDict[Headers.address] = addressToBeEdited
-
+                
             }
             else if (headerDataSource[indexPath.section].data[0] == Headers.socialProfile){
                 var socialProfileToBeEdited:[SocialProfileModel] = inputDict[Headers.socialProfile] as! [SocialProfileModel]
@@ -838,7 +825,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     
                     if let lastName = inputDict[Headers.lastName] as? String{
                         cell?.textField.text = lastName
-                       
+                        
                     }
                     else{
                         cell?.textField.text = nil
@@ -887,18 +874,18 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             if let phoneNumber = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
                 cell?.optionLabel.text = phoneNumber[indexPath.row-1].modelType
             }
-                     
-                cell?.cellView.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
-                cell?.cellView.tag = indexPath.row
-                cell?.numInput.delegate = self
-                cell?.numInput.tag = indexPath.row
-                
+            
+            cell?.cellView.addTarget(self, action: #selector(showOptions), for: .touchUpInside)
+            cell?.cellView.tag = indexPath.row
+            cell?.numInput.delegate = self
+            cell?.numInput.tag = indexPath.row
+            
             if let number = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
                 if let numInInt = number[indexPath.row - 1].number{
                     cell?.numInput.text = String(numInInt)
                 }
             }
-
+            
             
             cell?.numInput.attributedPlaceholder = NSAttributedString(string:Headers.phoneNumber,attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray.withAlphaComponent(0.5)])
             return cell!
@@ -925,30 +912,30 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 cell?.postCodeTf.tag = indexPath.row
                 cell?.stateTf.tag = indexPath.row
                 cell?.CountryTf.tag = indexPath.row
-
+                
                 if let doorNo = address[indexPath.row - 1].doorNo{
                     cell?.doorNumTf.text = String(doorNo)
-
+                    
                 }
                 if let street = address[indexPath.row - 1].Street{
                     cell?.streetTf.text = street
-
+                    
                 }
                 if let city = address[indexPath.row - 1].city{
                     cell?.cityTf.text = city
-
+                    
                 }
                 if let postcode = address[indexPath.row - 1].postcode{
                     cell?.postCodeTf.text = String(postcode)
-
+                    
                 }
                 if let state = address[indexPath.row - 1].state{
                     cell?.stateTf.text = state
-
+                    
                 }
                 if let country = address[indexPath.row - 1].country{
                     cell?.CountryTf.text = country
-
+                    
                 }
                 
             }
@@ -961,14 +948,14 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let cell = tableView.dequeueReusableCell(withIdentifier: SocialProfileTableViewCell.identifier, for: indexPath) as? SocialProfileTableViewCell
             if let socialProfile = inputDict[Headers.socialProfile] as? [SocialProfileModel]{
                 cell?.optionLabel.text = socialProfile[indexPath.row-1].profileType
- 
+                
                 cell?.cellView.tag = indexPath.row
                 cell?.numInput.keyboardType = .emailAddress
                 cell?.numInput.delegate = self
                 cell?.numInput.tag = indexPath.row
                 
                 cell?.cellView.addTarget(self, action: #selector(socialProfileOptions), for: .touchUpInside)
-            
+                
                 if let link = socialProfile[indexPath.row - 1].link{
                     cell?.numInput.text = String(link)
                 }
@@ -992,7 +979,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
         else if (headerDataSource[indexPath.section].data[0] == Headers.favourite){
             let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier) as! FavouriteAndEmergencyContactTableViewCell
-            inputDict[Headers.favourite] = 0
+            if (inputDict[Headers.favourite] == nil){
+                inputDict[Headers.favourite] = 0
+            }
             cell.textButton.addTarget(self, action: #selector(tapFavourite), for: .touchUpInside)
             if let isFavourite = inputDict[Headers.favourite] as? Int{
                 if (isFavourite == 0){
@@ -1011,7 +1000,9 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
         else if (headerDataSource[indexPath.section].data[0] == Headers.emergencyContact ){
             let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier) as! FavouriteAndEmergencyContactTableViewCell
-            inputDict[Headers.emergencyContact] = 0
+            if (inputDict[Headers.emergencyContact] == nil){
+                inputDict[Headers.emergencyContact] = 0
+            }
             cell.textButton.addTarget(self, action: #selector(tapEmergency), for: .touchUpInside)
             if let isEmergencyContact = inputDict[Headers.emergencyContact] as? Int{
                 if(isEmergencyContact == 0){
@@ -1030,18 +1021,34 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.identifier) as! GroupsTableViewCell
             cell.selectionStyle = .blue
             
-            if (selectedGrpIndex.contains(indexPath.row)){
-                
-                cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-                cell.leftSideButton.tintColor = .systemGreen
-                
+//            if (selectedGrpIndex.contains(indexPath.row)){
+//
+//                cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+//                cell.leftSideButton.tintColor = .systemGreen
+//
+//            }
+//            else{
+//                cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
+//                cell.leftSideButton.tintColor = .systemGreen
+//            }
+            let current = groupNames[indexPath.row - 1]
+            if let groups = inputDict[Headers.groups] as? [String]{
+                let isUserSelected = groups.contains(current)
+                if (isUserSelected){
+                    cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+                    cell.leftSideButton.tintColor = .systemGreen
+                }
+                else{
+                    cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
+                    cell.leftSideButton.tintColor = .systemGreen
+                }
             }
             else{
                 cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
                 cell.leftSideButton.tintColor = .systemGreen
             }
-            let current = groupNames[indexPath.row - 1]
-            let isUserSelected = info?.groups?.contains(current)
+            
+//            let isUserSelected = info?.groups!.contains(current)
             cell.label.text = groupNames[indexPath.row - 1]
             cell.label.textColor = .label
             return cell
@@ -1128,18 +1135,18 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 }
                 else{
                     let alertController = UIAlertController(title: nil, message: "Work Info Field should have only one value", preferredStyle: .alert)
-                   
-                                           let okAction = UIAlertAction(title: "Ok", style: .default)
-                   
-                                           alertController.addAction(okAction)
-                   
-                                           present(alertController, animated: true)
-                   
-                                           return
-                                       }
-                                   
+                    
+                    let okAction = UIAlertAction(title: "Ok", style: .default)
+                    
+                    alertController.addAction(okAction)
+                    
+                    present(alertController, animated: true)
+                    
+                    return
                 }
-
+                
+            }
+            
             
             else if (headerDataSource[indexPath.section].data[0] == Headers.phoneNumber ){
                 var tempPhoneArr:[PhoneNumberModel] = []
@@ -1172,7 +1179,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 
                 tempAddArr.append(AddressModel(modelType: "home"))
                 inputDict[Headers.address] = tempAddArr
-              
+                
                 
             }
             else if (headerDataSource[indexPath.section].data[0] == Headers.socialProfile ) {
@@ -1191,7 +1198,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 
                 if let isFavourite = inputDict[Headers.favourite] as? Int{
                     if(isFavourite == 0){
-                         inputDict[Headers.favourite] = 1
+                        inputDict[Headers.favourite] = 1
                     }
                     else{
                         inputDict[Headers.favourite]  = 0
@@ -1216,19 +1223,34 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         else{
             if (headerDataSource[indexPath.section].data[0] == Headers.groups  && indexPath.row > 0){
                 
-                if(selectedGrpIndex.contains(indexPath.row)){
-                    for i in 0..<selectedGrpIndex.count{
-                        DBHelper.removeContactFromGrp(grpName:groupNames[i],contactId: (inputDict[Headers.contactId] as? Int)!)
-                        //                            groups.remove(at: i)
-                        if selectedGrpIndex[i] == indexPath.row{
-                            selectedGrpIndex.remove(at: i)
-                        }
+                let userClicked = groupNames[indexPath.row - 1]
+                
+                if var groups = inputDict[Headers.groups] as? [String]{
+                    if (groups.contains(userClicked)){
+                        groups.remove(at: indexPath.row - 1)
+                        inputDict[Headers.groups] = groups
+                    }
+                    else{
+                        var tempGrpArr:[String] = groups
+                        tempGrpArr.append(groupNames[indexPath.row - 1])
+                        inputDict[Headers.groups] = tempGrpArr
                     }
                 }
-                
-                else{
-                    groups.append(groupNames[indexPath.row - 1])
-                    selectedGrpIndex.append(indexPath.row)
+                    
+                 
+                    else{
+                        if var groups = info?.groups{
+                            groups.append(groupNames[indexPath.row - 1])
+                            inputDict[Headers.groups] = groups
+                        }
+                        else{
+                            var tempGrpArr:[String] = []
+                            tempGrpArr.append(groupNames[indexPath.row - 1])
+                            inputDict[Headers.groups] = tempGrpArr
+                            
+                        }
+
+                    
                 }
                 
                 
@@ -1241,7 +1263,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
     }
     
-
+    
     
     
     
@@ -1304,9 +1326,9 @@ extension InfoSheetViewController:UITextFieldDelegate {
                     workInfoArr[textField.tag] = workInfo
                     inputDict[Headers.workInfo] = workInfoArr
                 }
-//                workInfoArray[textField.tag ] = workInfo
-//
-//                inputDict[Headers.workInfo] = workInfoArray[0]
+                //                workInfoArray[textField.tag ] = workInfo
+                //
+                //                inputDict[Headers.workInfo] = workInfoArray[0]
                 
             }
             
@@ -1356,55 +1378,55 @@ extension InfoSheetViewController:UITextFieldDelegate {
             
             if var address = inputDict[Headers.address] as? [AddressModel]{
                 if let doorNo = textField.text{
-                address[textField.tag - 1].doorNo = doorNo
-                inputDict[Headers.address] = address
-            }
+                    address[textField.tag - 1].doorNo = doorNo
+                    inputDict[Headers.address] = address
+                }
             }
             
             
         case "Street":
             if var address = inputDict[Headers.address] as? [AddressModel]{
                 if let street = textField.text{
-                address[textField.tag - 1].Street = street
-                inputDict[Headers.address] = address
+                    address[textField.tag - 1].Street = street
+                    inputDict[Headers.address] = address
+                }
             }
-            }
-
+            
             
         case "City":
             if var address = inputDict[Headers.address] as? [AddressModel]{
                 if let city = textField.text{
-                address[textField.tag - 1].city = city
-                inputDict[Headers.address] = address
+                    address[textField.tag - 1].city = city
+                    inputDict[Headers.address] = address
+                }
             }
-            }
-
+            
             
         case "PostCode":
             if var address = inputDict[Headers.address] as? [AddressModel]{
                 if let postCode = textField.text{
-                address[textField.tag - 1].postcode = postCode
-                inputDict[Headers.address] = address
+                    address[textField.tag - 1].postcode = postCode
+                    inputDict[Headers.address] = address
+                }
             }
-            }
-
+            
         case "State":
             if var address = inputDict[Headers.address] as? [AddressModel]{
                 if let state = textField.text{
-                address[textField.tag - 1].state = state
-                inputDict[Headers.address] = address
+                    address[textField.tag - 1].state = state
+                    inputDict[Headers.address] = address
+                }
             }
-            }
-
+            
             
         case "Country":
             if var address = inputDict[Headers.address] as? [AddressModel]{
                 if let country = textField.text{
-                address[textField.tag - 1].country = country
-                inputDict[Headers.address] = address
+                    address[textField.tag - 1].country = country
+                    inputDict[Headers.address] = address
+                }
             }
-            }
- 
+            
         case Headers.socialProfile:
             
             if let socialProfile = textField.text{
@@ -1413,7 +1435,7 @@ extension InfoSheetViewController:UITextFieldDelegate {
                     inputDict[Headers.socialProfile] = socialProfileArr
                 }
             }
-        
+            
         default:
             return
         }
@@ -1485,7 +1507,7 @@ extension InfoSheetViewController:Delegate{
                     inputDict[Headers.address] = address
                 }
             }
-//            addressModel[addressRowIndex! - 1].modelType = option
+            //            addressModel[addressRowIndex! - 1].modelType = option
             
         }
         
@@ -1504,7 +1526,7 @@ extension InfoSheetViewController:Delegate{
 }
 extension InfoSheetViewController:ImageDelegate{
     func getImage(images: UIImage) {
-       
+        
         photoLabel.image = images
         inputDict[Headers.profileImage] = images
         photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
@@ -1512,7 +1534,7 @@ extension InfoSheetViewController:ImageDelegate{
         
     }
 }
-extension InfoSheetViewController:UIImagePickerControllerDelegate{
+extension InfoSheetViewController: UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let images = info[.editedImage] as? UIImage{
             photoLabel.image = images

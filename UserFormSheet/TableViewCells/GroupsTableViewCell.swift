@@ -8,6 +8,7 @@
 import UIKit
 
 class GroupsTableViewCell: UITableViewCell {
+    
     static var identifier = "GroupsTableViewCell"
     lazy var label:UILabel = {
         let label = UILabel()
@@ -27,8 +28,6 @@ class GroupsTableViewCell: UITableViewCell {
         leftSideButton.translatesAutoresizingMaskIntoConstraints = false
       
         NSLayoutConstraint.activate([
-           
-            
             leftSideButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             leftSideButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             leftSideButton.widthAnchor.constraint(equalToConstant: 40),
@@ -48,7 +47,6 @@ class GroupsTableViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         label.text = nil
-
     }
 
 }

@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-
-
 enum Headers{
     static var contactId = "Contact Id"
     static var profileImage = "Profile Image"
@@ -83,17 +80,3 @@ struct AddressModel:Codable{
 var dbPointer:OpaquePointer?
 
 
-
-
-
-
-//struct Section{
-//    var title:String
-//    var rows:[Row]
-//}
-//struct Row{
-//    var rowTitle:String
-//    var cellType:UITableViewCell.Type
-//}
-//
-//var Ds:[Section] = [Section(title: "", rows:[ Row(rowTitle: Headers.firstName,cellType: ContactNameTableViewCell.self),Row(rowTitle: Headers.lastName, cellType: ContactNameTableViewCell.self)]),Section(title: Headers.workInfo, rows: [Row(rowTitle: Headers.workInfo, cellType: AddTableViewCell.self)]),Section(title: Headers.phoneNumber, rows: [Row(rowTitle:"phone", cellType: PhoneNumberTableViewCell.self)]),Section(title: Headers.email, rows: [Row(rowTitle: Headers.email, cellType: AddTableViewCell.self)]),Section(title: Headers.address, rows: [Row(rowTitle: "", cellType: AddressTableViewCell.self)]),Section(title: Headers.socialProfile, rows: [Row(rowTitle: Headers.socialProfile, cellType: AddTableViewCell.self)]),Section(title: Headers.favourite, rows: [Row(rowTitle: "", cellType: FavouriteAndEmergencyContactTableViewCell.self)]),Section(title: Headers.emergencyContact, rows: [Row(rowTitle: "", cellType: FavouriteAndEmergencyContactTableViewCell.self)]),Section(title: Headers.notes, rows: [Row(rowTitle: Headers.notes, cellType: NotesTableViewCell.self)]),Section(title: Headers.groups, rows: [Row(rowTitle: "", cellType: GroupsTableViewCell.self)])

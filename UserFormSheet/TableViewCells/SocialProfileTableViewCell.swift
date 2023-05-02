@@ -13,7 +13,7 @@ class SocialProfileTableViewCell: UITableViewCell {
         
         var myString:String = ""
         
-         var size: CGSize = CGSize(width: 0, height: 0)
+        var size: CGSize = CGSize(width: 0, height: 0)
         
         var tempSize:CGSize = CGSize(width: 0, height: 0)
         
