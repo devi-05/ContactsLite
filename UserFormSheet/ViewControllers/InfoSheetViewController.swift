@@ -26,10 +26,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     
     
-    var id:Int?
-    var image:UIImage?
-  
-
+   
     
     
     var groups:[String] = []
@@ -557,12 +554,16 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 print("Conversion failed.")
                 return
             }
-            id = myInt
+            inputDict[Headers.contactId] = myInt
+            
             if let workInfo = inputDict[Headers.workInfo] as? [String]{
                 inputDict[Headers.workInfo] = workInfo[0]
             }
+             let image = inputDict[Headers.profileImage] as? UIImage
+                
+            
             let newContact = Contact(
-                contactId: id!,
+                contactId: inputDict[Headers.contactId] as! Int,
                 profileImage: image?.pngData(),
                 firstName:firstName,
                 lastName: inputDict[Headers.lastName] as? String,
@@ -571,8 +572,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 email: (inputDict[Headers.email]) as? [String],
                 address: (inputDict[Headers.address]) as? [AddressModel],
                 socialProfile: (inputDict[Headers.socialProfile]) as? [SocialProfileModel],
-                favourite:inputDict[Headers.favourite] as? Int,
-                emergencyContact: inputDict[Headers.emergencyContact] as? Int,
+                favourite:(inputDict[Headers.favourite] ) == nil ? 0:inputDict[Headers.favourite] as? Int ,
+                emergencyContact:(inputDict[Headers.emergencyContact]) == nil ? 0: inputDict[Headers.emergencyContact] as? Int,
                 notes: (inputDict[Headers.notes]) as? String  ,
                 groups: groups)
             
@@ -664,7 +665,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     else{
                         return 1
                     }
-//                    return  (workInfoArray.count+1)
+
                 case Headers.phoneNumber:
                     if let number = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
                         return  (number.count+1)
@@ -695,6 +696,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     }
                 case Headers.groups:
                     return groupNames.count+1
+               
                 default:
                     return 1
                 }
@@ -990,7 +992,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
         else if (headerDataSource[indexPath.section].data[0] == Headers.favourite){
             let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier) as! FavouriteAndEmergencyContactTableViewCell
-            
+            inputDict[Headers.favourite] = 0
             cell.textButton.addTarget(self, action: #selector(tapFavourite), for: .touchUpInside)
             if let isFavourite = inputDict[Headers.favourite] as? Int{
                 if (isFavourite == 0){
@@ -1009,7 +1011,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         }
         else if (headerDataSource[indexPath.section].data[0] == Headers.emergencyContact ){
             let cell = tableView.dequeueReusableCell(withIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier) as! FavouriteAndEmergencyContactTableViewCell
-            
+            inputDict[Headers.emergencyContact] = 0
             cell.textButton.addTarget(self, action: #selector(tapEmergency), for: .touchUpInside)
             if let isEmergencyContact = inputDict[Headers.emergencyContact] as? Int{
                 if(isEmergencyContact == 0){
@@ -1502,10 +1504,9 @@ extension InfoSheetViewController:Delegate{
 }
 extension InfoSheetViewController:ImageDelegate{
     func getImage(images: UIImage) {
-        image = images
-        photoLabel.image = image
-        inputDict[Headers.profileImage] = image
-//        addPhotoButton.menu = editButton
+       
+        photoLabel.image = images
+        inputDict[Headers.profileImage] = images
         photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
         photoLabel.layer.masksToBounds = true
         
@@ -1518,7 +1519,7 @@ extension InfoSheetViewController:UIImagePickerControllerDelegate{
             inputDict[Headers.profileImage] = images
             photoLabel.layer.cornerRadius = 75
             photoLabel.layer.masksToBounds = true
-            image = images
+            
         }
         
         
