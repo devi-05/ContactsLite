@@ -23,7 +23,7 @@ class SocialProfileTableViewCell: UITableViewCell {
         
         lazy var cellView : UIButton = {
             let view = UIButton()
-            view.backgroundColor = .systemBackground
+//            view.backgroundColor = .systemBackground
             return view
         }()
         

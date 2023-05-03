@@ -7,6 +7,7 @@
 
 import UIKit
 import Foundation
+
 struct Dict{
     var key:String
     var value:String
@@ -15,21 +16,12 @@ struct Datas{
     var sectionName:String
     var rows:[Dict]
 }
+
 class ProfilePageViewController: UITableViewController {
    
     
     var sectionData :[Datas]=[]
     var contact:Contact
-    init(contact:Contact){
-        self.contact = contact
-        super.init(style: .insetGrouped)
-        
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     lazy var photoView:UIView = {
         let view = UIView(frame: CGRect(x: 10, y: 0, width: view.frame.size.width, height: 200))
         return view
@@ -102,6 +94,15 @@ class ProfilePageViewController: UITableViewController {
     var buttonMenu: UIMenu {
         return UIMenu(children: menuItems)
     }
+    init(contact:Contact){
+        self.contact = contact
+        super.init(style: .insetGrouped)
+        
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -116,7 +117,6 @@ class ProfilePageViewController: UITableViewController {
 
         view.addSubview(photoView)
         view.addSubview(footerView)
-        tableView.contentInset = .init(top: 0, left: 0, bottom: 70, right: 0)
         photoView.addSubview(photoLabel)
         photoView.addSubview(nameLabel)
         photoView.addSubview(workInfoLabel)
@@ -128,16 +128,8 @@ class ProfilePageViewController: UITableViewController {
         } else {
             // Fallback on earlier versions
         }
-        
-        
-        
         navigationController?.navigationBar.prefersLargeTitles = false
-        tableView.tableHeaderView = photoView
-        tableView.backgroundColor = .systemBackground
-        tableView.register(ProfPageTableViewCell.self, forCellReuseIdentifier: ProfPageTableViewCell.identifier)
-        tableView.register(EmailTableViewCell.self, forCellReuseIdentifier: EmailTableViewCell.identifier)
-        tableView.register(AddressDisplayTableViewCell.self, forCellReuseIdentifier: AddressDisplayTableViewCell.identifier)
-        tableView.register(NotesDisplayTableViewCell.self, forCellReuseIdentifier: NotesDisplayTableViewCell.identifier)
+       configureTableView()
     }
     
     
@@ -164,6 +156,15 @@ class ProfilePageViewController: UITableViewController {
             
         ])
         
+    }
+    func configureTableView(){
+        tableView.backgroundColor = .systemBackground
+        tableView.tableHeaderView = photoView
+        tableView.contentInset = .init(top: 0, left: 0, bottom: 70, right: 0)
+        tableView.register(ProfPageTableViewCell.self, forCellReuseIdentifier: ProfPageTableViewCell.identifier)
+        tableView.register(EmailTableViewCell.self, forCellReuseIdentifier: EmailTableViewCell.identifier)
+        tableView.register(AddressDisplayTableViewCell.self, forCellReuseIdentifier: AddressDisplayTableViewCell.identifier)
+        tableView.register(NotesDisplayTableViewCell.self, forCellReuseIdentifier: NotesDisplayTableViewCell.identifier)
     }
     func setUpContents(){
         if let lastName = contact.lastName
@@ -316,7 +317,7 @@ class ProfilePageViewController: UITableViewController {
             return 170
         }
         else if sectionData[indexPath.section].sectionName == Headers.notes{
-            return 170
+            return UITableView.automaticDimension
 //            if let notes = contact.notes {
 //                let font = UIFont.systemFont(ofSize: 17)
 //                let size = (notes as NSString).size(withAttributes: [.font: font])

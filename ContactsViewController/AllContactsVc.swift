@@ -136,7 +136,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
         super.viewDidLoad()
         title = navigationBarTitle
         view.backgroundColor = .systemBackground
-        tableView.backgroundView = addContactView
+//        tableView.backgroundView = addContactView
         refreshDataSource()
         setUpNavigationItems()
         addSubviewsToProfileCardLabel()
@@ -159,14 +159,13 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
         }
         // if there is zero contacts
         if (passedData?.count == 0){
-            
-            addContactView.isHidden = false
+            tableView.backgroundView = addContactView
             dataCountLabel.isHidden = true
         }
 
         else{
 
-            addContactView.isHidden = true
+            tableView.backgroundView = nil
             if let passedData = passedData{
                 if (passedData.getTotalContacts() > 5){
                     dataCountLabel.isHidden = false
@@ -568,13 +567,17 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
             let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
                 let viewProfile = UIAction(title:"Remove From Group",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off)
                 { _ in
+                    DBHelper.removeContactFromGrp(grpName: self.navigationBarTitle!, contactId: (self.passedData?.getContact(indexPath: indexPath).contactId)!)
+                    self.refreshDataSource()
+                    self.tableView.reloadData()
                     
-                    print("remove")
                 }
                 let call = UIAction(title:"Delete Contact",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
                     
+                    DBHelper.deleteContact(contactId: (self.passedData?.getContact(indexPath: indexPath).contactId)!)
+                    self.refreshDataSource()
+                    self.tableView.reloadData()
                     
-                    print("delete")
                     
                 }
                 return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
@@ -604,11 +607,10 @@ extension AllContactsVc:UISearchBarDelegate{
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         //        profileCardLabel.isHidden = true
         //        profileCardLabel.frame.size.height = 0
-        addContactView.isHidden = true
+
         tableView.backgroundView = nil
         tableView.tableHeaderView = nil
         dataCountLabel.isHidden = true
-//        tableView.tableFooterView = nil
         tableView.sectionIndexColor = .clear
         print("did begin")
     }
@@ -623,10 +625,9 @@ extension AllContactsVc:UISearchBarDelegate{
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         print("cancel button")
-//        tableView.backgroundView = addContactView
+
         tableView.sectionIndexColor = .systemBlue
         tableView.tableHeaderView = profileCardLabel
-//        tableView.tableFooterView = dataCountLabel
         dataCountLabel.isHidden = false
         isSearchActive = false
         refreshDataSource()
@@ -641,7 +642,7 @@ extension AllContactsVc:UISearchBarDelegate{
 extension AllContactsVc : UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         print("update search results")
-//        isSearchActive = false
+
         guard let text = searchController.searchBar.text else{
             return
         }
@@ -649,7 +650,6 @@ extension AllContactsVc : UISearchResultsUpdating{
             searchTextLabel.text = "No Results for '\(text)'"
             addContactView.isHidden = true
             dataCountLabel.isHidden = true
-//            tableView.tableFooterView = nil
             filterInput(input: text)
         }
         else{
@@ -657,8 +657,6 @@ extension AllContactsVc : UISearchResultsUpdating{
             filteredData.removeAll()
             searchResultView.isHidden = true
             addContactView.isHidden = false
-//            tableView.tableFooterView = dataCountLabel
-//            dataCountLabel.isHidden = false
             
         }
         tableView.reloadData()

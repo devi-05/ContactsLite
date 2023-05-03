@@ -49,7 +49,7 @@ class ListTableViewController: UITableViewController {
         title = "Lists"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addList))
-        tableView.backgroundColor = .systemBackground
+        tableView.backgroundColor = .systemGroupedBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(CustomListTableViewCell.self, forCellReuseIdentifier: CustomListTableViewCell.identifier)
         tableView.register(CustomListTableViewCell1.self, forCellReuseIdentifier: CustomListTableViewCell1.identifier)
@@ -172,7 +172,7 @@ class ListTableViewController: UITableViewController {
                 if (!grpData[indexPath.row].groupName.isEmpty){
                     
                     cell?.label1.text = grpData[indexPath.row].groupName
-                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[0].rows.count)):(String(grpData[indexPath.row].data.count))
+                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[0].rows.count)):(grpData[indexPath.row].data.count == 0 ) ? (String(grpData[indexPath.row].data.count)) : (String(grpData[indexPath.row].data[0].rows.count))
                 }
             }
             

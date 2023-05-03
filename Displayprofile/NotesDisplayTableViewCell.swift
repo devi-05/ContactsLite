@@ -48,7 +48,7 @@ class NotesDisplayTableViewCell: UITableViewCell {
             subHeaders.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
             subHeaders.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             subHeaders.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            subHeaders.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -5)
+            subHeaders.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,constant: -5)
         ])
     }
     

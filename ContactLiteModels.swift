@@ -22,6 +22,9 @@ enum Headers{
     static var notes = "Notes"
     static var groups = "Groups"
 }
+enum HeaderNames:CaseIterable{
+    case contactId,profileImage,firstName,lastName,workInfo,phoneNumber,email,address,socialProfile,groups,notes,favourite,emergencyContact
+}
 
 struct Contact{
     var contactId:Int

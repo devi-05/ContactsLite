@@ -54,17 +54,17 @@ struct DBHelper {
                 return
             }
             else{
-                
-                print(contactList.groups!)
+
                 for i in contactList.groups!{
                     
                     
                     let grpId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(i)'")
                     for j in grpId{
                         for k in j{
-                            dbManager.Insert(tableName: "CONTACTS_AND_GROUPS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"GROUP_ID":Int(String(describing:k.value))!]])
-                            
-                        }
+                           
+                                dbManager.Insert(tableName: "CONTACTS_AND_GROUPS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"GROUP_ID":Int(String(describing:k.value))!]])
+                            }
+                        
                     }
                 }
                 
@@ -93,24 +93,20 @@ struct DBHelper {
               
                 for i in groups{
                     let grpId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(i)'")
-                    let contactIdInList = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["CONTACT_ID"], conditions: nil)
-                    var idList:[Int] = []
-                    for i in contactIdInList{
-                        for j in i{
-                            idList.append(Int(String(describing:j.value))!)
-                        }
-                    }
-                    if idList.contains(contact.contactId){
+//                    let contactIdInList = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["CONTACT_ID"], conditions: nil)
+//                    var idList:[Int] = []
+//                    for i in contactIdInList{
+//                        for j in i{
+//                            idList.append(Int(String(describing:j.value))!)
+//                        }
+//                    }
+//                    if (!idList.contains(contact.contactId)){
                         for j in grpId{
                             for k in j{
-                                dbManager.update(tableName: "CONTACTS_AND_GROUPS", colListWithVal: ["GROUP_ID":Int(String(describing:k.value))! ], criteria: "CONTACT_ID = \(contact.contactId)")
+                                let contactIdDict = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["CONTACT_ID"], conditions: "GROUP_ID = \(Int(String(describing:k.value))!)")
+                                let idList = contactIdDict.getIntList()
                                 
-                            }
-                        }
-                    }
-                    else{
-                        for j in grpId{
-                            for k in j{
+                                if(!idList.contains(contact.contactId)){
                                 dbManager.Insert(tableName: "CONTACTS_AND_GROUPS", listOfValToBeAppended: [["CONTACT_ID":contact.contactId,"GROUP_ID":Int(String(describing:k.value))!]])
                                 
                             }

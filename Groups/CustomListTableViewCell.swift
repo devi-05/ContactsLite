@@ -24,7 +24,6 @@ class CustomListTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(textField)
         textField.translatesAutoresizingMaskIntoConstraints = false
-        contentView.backgroundColor = .tertiarySystemGroupedBackground
         NSLayoutConstraint.activate([
             textField.topAnchor.constraint(equalTo: contentView.topAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),

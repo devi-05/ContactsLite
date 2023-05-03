@@ -20,3 +20,24 @@ extension Array where Element == SectionContent{
         self[indexPath.section].rows[indexPath.row]
     }
 }
+
+extension [[String:Any]]{
+    func getIntList()->[Int]{
+        var temp = [Int]()
+        for i in self{
+            for j in i{
+                temp.append(Int(String(describing:j.value))!)
+            }
+        }
+        return temp
+    }
+    func getStrList()->[String]{
+        var temp = [String]()
+        for i in self{
+            for j in i{
+                temp.append(j.value as? String ?? "")
+            }
+        }
+        return temp
+    }
+}

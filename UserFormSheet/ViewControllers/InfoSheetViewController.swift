@@ -18,7 +18,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     lazy var inputDict:[String:Any] = [:]
     
  
-    
     var phoneNumRowIndex:Int?
     
     var addressRowIndex:Int?
@@ -27,17 +26,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     var contact:Contact?
     
-    var headerDataSource:[DataSource] = [
-        DataSource(data: [Headers.firstName,Headers.lastName]),
-        DataSource(data: [Headers.workInfo]),
-        DataSource(data: [Headers.phoneNumber]),
-        DataSource(data: [Headers.email]),
-        DataSource(data: [Headers.address]),
-        DataSource(data: [Headers.socialProfile]),
-        DataSource(data: [Headers.notes]),
-        DataSource(data: [Headers.groups]),
-        DataSource(data: [Headers.favourite]),
-        DataSource(data: [Headers.emergencyContact])]
+    var headerDataSource:[DataSource] = []
+
     
     
     lazy var photoLabel:UIImageView = {
@@ -118,7 +108,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         ])
     }
     init(contact:Contact?){
-        super.init(nibName: nil, bundle: nil)
+        super.init(style: .grouped)
         self.info = contact
     }
     
@@ -134,6 +124,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         lazy var localDataSource = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: dbContactList))
         lazy var grpNames = DBHelper.fetchGrpNames(colName: "GROUP_NAME")
         groupNames = Helper.getGrpNames(grpName: grpNames)
+        headerDataSource = Helper.getDs(grpCount: groupNames.count)
         if(info != nil){
             isEditMode = true
         }
@@ -143,29 +134,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         else{
             title = "New Contact"
         }
-        if (groupNames.count == 0){
-            headerDataSource.remove(at: 7)
-        }
-        
-//        for i in 0..<groupNames.count{
-//            if let grpName = isAddedByGrp{
-//                if groupNames[i] == grpName{
-//                    selectedGrpIndex.append(i+1)
-//                }
-//            }
-//        }
-        if (isEditMode){
-            inputDict[Headers.groups] = groupNames
-//            if let grps = info?.groups{
-//                for i in grps{
-//                    for j in 0..<groupNames.count{
-//                        if i == groupNames[j]{
-//                            selectedGrpIndex.append(j+1)
-//                        }
-//                    }
-//                }
-//            }
-        }
+       
         tableView.reloadData()
     }
     
@@ -174,7 +143,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         
         
         
-        view.backgroundColor = .systemBackground.withAlphaComponent(0.9)
+        view.backgroundColor = .systemBackground
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(DoneButton))
         
@@ -198,7 +167,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 tempGrpArr.append(grpName)
                 inputDict[Headers.groups] = tempGrpArr
             }
-//            groups.append(grpName)
+
             
         }
         
@@ -250,14 +219,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.socialProfile]=socialProfile
             }
             
-//            if let grps = info?.groups{
-//                inputDict[Headers.groups] = grps
-//                for i in grps{
-//                    groups.append(i)
-//
-//                }
-                
-//            }
             if let fav = info?.favourite{
                 
                 inputDict[Headers.favourite] = fav
@@ -329,7 +290,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     func setUpTableView(){
         tableView.allowsSelectionDuringEditing = true
         tableView.isEditing = true
-        tableView.backgroundColor = .secondarySystemBackground
+        tableView.backgroundColor = .systemGroupedBackground
+        
         tableView.frame = view.bounds
         tableView.tableHeaderView = photoView
         configureConstraints()
@@ -343,6 +305,15 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         tableView.register(FavouriteAndEmergencyContactTableViewCell.self, forCellReuseIdentifier: FavouriteAndEmergencyContactTableViewCell.identifier)
         tableView.register(GroupsTableViewCell.self, forCellReuseIdentifier: GroupsTableViewCell.identifier)
         
+    }
+    func confifureCurrentGroups(){
+        if let selectedGrps = inputDict[Headers.groups] as? [String]{
+            for i in groupNames{
+                if (!selectedGrps.contains(i)){
+                    DBHelper.removeContactFromGrp(grpName: i, contactId: inputDict[Headers.contactId] as! Int)
+                }
+            }
+        }
     }
     
     @objc func showOptions(sender:UIButton){
@@ -489,6 +460,8 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.email] = emailArr
             }
             
+            confifureCurrentGroups()
+            
             let newContact = Contact(contactId: inputDict[Headers.contactId] as! Int,profileImage: profimg?.pngData(), firstName: inputDict[Headers.firstName] as! String,lastName: inputDict[Headers.lastName] as? String,workInfo:  inputDict[Headers.workInfo] as? String,phoneNumber: (inputDict[Headers.phoneNumber] as! [PhoneNumberModel]),email: inputDict[Headers.email] as? [String],address: inputDict[Headers.address] as? [AddressModel],socialProfile: inputDict[Headers.socialProfile] as?[SocialProfileModel],favourite:inputDict[Headers.favourite] as? Int,emergencyContact: inputDict[Headers.emergencyContact] as? Int,notes: inputDict[Headers.notes] as? String ,groups: inputDict[Headers.groups] as? [String])
             
             DBHelper.updateContact(contact: newContact)
@@ -544,8 +517,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 inputDict[Headers.workInfo] = workInfo[0]
             }
             let image = inputDict[Headers.profileImage] as? UIImage
-            
-            
+            if let groups = inputDict[Headers.groups] as? [String]{
+                if (groups.count == 0){
+                    inputDict[Headers.groups] = nil
+                }
+            }
             let newContact = Contact(
                 contactId: inputDict[Headers.contactId] as! Int,
                 profileImage: image?.pngData(),
@@ -1021,22 +997,21 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupsTableViewCell.identifier) as! GroupsTableViewCell
             cell.selectionStyle = .blue
             
-//            if (selectedGrpIndex.contains(indexPath.row)){
-//
-//                cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-//                cell.leftSideButton.tintColor = .systemGreen
-//
-//            }
-//            else{
-//                cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
-//                cell.leftSideButton.tintColor = .systemGreen
-//            }
+
             let current = groupNames[indexPath.row - 1]
             if let groups = inputDict[Headers.groups] as? [String]{
-                let isUserSelected = groups.contains(current)
-                if (isUserSelected){
-                    cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-                    cell.leftSideButton.tintColor = .systemGreen
+                
+                if(groups.count != 0){
+                    let isUserSelected = groups.contains(current)
+                    if (isUserSelected){
+                        cell.leftSideButton.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+                        cell.leftSideButton.tintColor = .systemGreen
+                        
+                    }
+                    else{
+                        cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
+                        cell.leftSideButton.tintColor = .systemGreen
+                    }
                 }
                 else{
                     cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
@@ -1044,11 +1019,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 }
             }
             else{
-                cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
-                cell.leftSideButton.tintColor = .systemGreen
+                    cell.leftSideButton.setImage(UIImage(systemName: "circle"), for: .normal)
+                    cell.leftSideButton.tintColor = .systemGreen
             }
             
-//            let isUserSelected = info?.groups!.contains(current)
+ 
             cell.label.text = groupNames[indexPath.row - 1]
             cell.label.textColor = .label
             return cell
@@ -1225,10 +1200,17 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                 
                 let userClicked = groupNames[indexPath.row - 1]
                 
-                if var groups = inputDict[Headers.groups] as? [String]{
+                if let groups = inputDict[Headers.groups] as? [String]{
                     if (groups.contains(userClicked)){
-                        groups.remove(at: indexPath.row - 1)
-                        inputDict[Headers.groups] = groups
+                        for i in 0..<groups.count{
+                            if(groups[i] == userClicked){
+                                var temp = groups
+                                temp.remove(at: i)
+                                inputDict[Headers.groups] = temp
+                            }
+                        }
+                        
+                        
                     }
                     else{
                         var tempGrpArr:[String] = groups
@@ -1237,12 +1219,6 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                     }
                 }
                     
-                 
-                    else{
-                        if var groups = info?.groups{
-                            groups.append(groupNames[indexPath.row - 1])
-                            inputDict[Headers.groups] = groups
-                        }
                         else{
                             var tempGrpArr:[String] = []
                             tempGrpArr.append(groupNames[indexPath.row - 1])
@@ -1251,7 +1227,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
                         }
 
                     
-                }
+                
                 
                 
                 
@@ -1259,6 +1235,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             }
             
         }
+        
         tableView.reloadData()
         
     }
@@ -1326,9 +1303,7 @@ extension InfoSheetViewController:UITextFieldDelegate {
                     workInfoArr[textField.tag] = workInfo
                     inputDict[Headers.workInfo] = workInfoArr
                 }
-                //                workInfoArray[textField.tag ] = workInfo
-                //
-                //                inputDict[Headers.workInfo] = workInfoArray[0]
+                
                 
             }
             
@@ -1457,10 +1432,11 @@ extension InfoSheetViewController:UITextFieldDelegate {
 
 extension InfoSheetViewController:UITextViewDelegate{
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.gray {
+        if textView.textColor == UIColor.gray && textView.text == Headers.notes {
             textView.text = ""
-            textView.textColor = UIColor.label
+            
         }
+        textView.textColor = UIColor.label
     }
     
     

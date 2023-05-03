@@ -215,7 +215,41 @@ class Helper{
 //        print(grpListWithData)
         
     }
-   
+    static func getDs(grpCount:Int)->[DataSource]{
+        var ds:[DataSource] = []
+        for i in HeaderNames.allCases.enumerated(){
+            
+            switch i.element{
+            
+            case .firstName:
+                ds.append(DataSource(data: [Headers.firstName,Headers.lastName]))
+            case .lastName,.contactId,.profileImage:
+                continue
+            case .workInfo:
+                ds.append(DataSource(data: [Headers.workInfo]))
+            case .phoneNumber:
+                ds.append(DataSource(data: [Headers.phoneNumber]))
+            case .email:
+                ds.append(DataSource(data: [Headers.email]))
+            case .address:
+                ds.append(DataSource(data: [Headers.address]))
+            case .groups:
+                if(grpCount > 0){
+                    ds.append(DataSource(data: [Headers.groups]))
+                }
+            case .notes:
+                ds.append(DataSource(data: [Headers.notes]))
+            case .socialProfile:
+                ds.append(DataSource(data: [Headers.socialProfile]))
+            case .favourite:
+                ds.append(DataSource(data: [Headers.favourite]))
+            case .emergencyContact:
+                ds.append(DataSource(data: [Headers.emergencyContact]))
+            }
+        
+        }
+        return ds
+    }
 }
 
 
