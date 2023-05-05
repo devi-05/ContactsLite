@@ -16,6 +16,14 @@ class TabBarViewController: UITabBarController{
 
         super.viewDidLoad()
 //        tabBar.isTranslucent = false
+//        let appearance =  UITabBarAppearance()
+//         appearance.backgroundColor = .cyan
+// //        tabBar.isTranslucent = false
+//         if #available(iOS 15.0, *) {
+//             UITabBar.appearance().standardAppearance = appearance
+//         } else {
+//             // Fallback on earlier versions
+//         }
         UITabBar.appearance().backgroundColor = .systemGray5
         let vc1 = UINavigationController(rootViewController: AllContactsVc(grpName: "Contacts"))
         let vc2 = UINavigationController(rootViewController: FavViewController())

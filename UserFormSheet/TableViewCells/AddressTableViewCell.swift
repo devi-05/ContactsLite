@@ -47,47 +47,47 @@ class AddressTableViewCell: UITableViewCell {
         return view
     }()
 
-    lazy var doorNumTf:UITextField = {
-        let tf = UITextField()
+    lazy var doorNumTf:Textfield = {
+        let tf = Textfield(textFieldId: 5)
         
         tf.placeholder = "Door no."
         tf.borderStyle = .none
         return tf
     }()
     
-    lazy var streetTf:UITextField = {
+    lazy var streetTf:Textfield = {
 
-            let tf = UITextField()
+            let tf = Textfield(textFieldId: 6)
             tf.placeholder = "Street"
             tf.borderStyle = .none
             return tf
         }()
     
-    lazy var cityTf:UITextField = {
-        let tf = UITextField()
+    lazy var cityTf:Textfield = {
+        let tf = Textfield(textFieldId: 7)
 
         tf.placeholder = "City"
         tf.borderStyle = .none
         return tf
     }()
     
-    lazy var postCodeTf:UITextField = {
-        let tf = UITextField()
+    lazy var postCodeTf:Textfield = {
+        let tf = Textfield(textFieldId: 8)
 
         tf.placeholder = "PostCode"
         tf.borderStyle = .none
         return tf
     }()
     
-    lazy var stateTf:UITextField = {
-        let tf = UITextField()
+    lazy var stateTf:Textfield = {
+        let tf = Textfield(textFieldId: 9)
         tf.placeholder = "State"
         tf.borderStyle = .none
         return tf
     }()
     
-    lazy var CountryTf:UITextField = {
-        let tf = UITextField()
+    lazy var CountryTf:Textfield = {
+        let tf = Textfield(textFieldId: 10)
         tf.placeholder = "Country"
         tf.borderStyle = .none
         return tf

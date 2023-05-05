@@ -14,8 +14,8 @@ class AddTableViewCell: UITableViewCell {
     static var identifier = "AddTableIdentifier"
     
     
-    lazy var textField:UITextField = {
-        let textField = UITextField()
+    lazy var textField:Textfield = {
+        let textField = Textfield(textFieldId: 2)
         textField.borderStyle = .none
         textField.keyboardAppearance = .default
         textField.backgroundColor = .clear

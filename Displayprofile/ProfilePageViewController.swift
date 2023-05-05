@@ -19,9 +19,10 @@ struct Datas{
 
 class ProfilePageViewController: UITableViewController {
    
+  
     
     var sectionData :[Datas]=[]
-    var contact:Contact
+    var contact:Contact?
     lazy var photoView:UIView = {
         let view = UIView(frame: CGRect(x: 10, y: 0, width: view.frame.size.width, height: 200))
         return view
@@ -58,39 +59,43 @@ class ProfilePageViewController: UITableViewController {
     
     var menuItems: [UIAction] {
         return [
-            UIAction(title: "Edit", image: UIImage(systemName: "pencil"), handler: { (_) in
-                
+            UIAction(title: "Edit", image: UIImage(systemName: "pencil"), handler: {[weak self] (_) in
+                guard let self else{
+                    return
+                }
                 let vc = InfoSheetViewController(contact: self.contact)
                 vc.editDelegate = self
                 self.navigationController?.pushViewController(vc, animated: true)
-        
+
             }),
-            UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: { (_) in
-                
+            UIAction(title: "Delete", image: UIImage(systemName: "trash"), handler: {[weak self] (_) in
+                guard let self else{
+                    return
+                }
                 let alertController = UIAlertController(title: nil, message: "Are you sure you want to delete this contact", preferredStyle: .alert)
-                
+
                 let deleteAction = UIAlertAction(title: "Delete", style: .destructive){ _ in
-                    
-                    DBHelper.deleteContact(contactId: self.contact.contactId)
-                    self.navigationController?.popViewController(animated: true)
-                    
+                    if let contact = self.contact{
+                        DBHelper.deleteContact(contactId: contact.contactId)
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 }
                 let cancelAction = UIAlertAction(title: "Cancel", style: .default){ _ in
-                    
-                    
+
+
                 }
                 alertController.addAction(cancelAction)
                 alertController.addAction(deleteAction)
-                
-                
+
+
                 self.present(alertController, animated: true)
-                
+
                 return
-                
+
             })
         ]
     }
-    
+
     var buttonMenu: UIMenu {
         return UIMenu(children: menuItems)
     }
@@ -103,14 +108,18 @@ class ProfilePageViewController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit{
+        print("deinit in profile page")
+    }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+
         sectionData = []
         setUpContents()
         tableView.reloadData()
-        
+
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.backgroundColor = .systemBackground
@@ -167,126 +176,148 @@ class ProfilePageViewController: UITableViewController {
         tableView.register(NotesDisplayTableViewCell.self, forCellReuseIdentifier: NotesDisplayTableViewCell.identifier)
     }
     func setUpContents(){
-        if let lastName = contact.lastName
-        {
-            nameLabel.text = "\(contact.firstName)  \(lastName)"}
-        else{
-            nameLabel.text = contact.firstName
+        if let contact = contact {
+            if  let lastName = contact.lastName
+            {
+                nameLabel.text = "\(contact.firstName)  \(lastName)"}
+            else{
+                nameLabel.text = contact.firstName
+                
+            }
             
-        }
-        
-        if let image = contact.profileImage {
-            photoLabel.image = UIImage(data:image)
-            photoLabel.tintColor = .gray
-            photoLabel.layer.cornerRadius = 60
-            photoLabel.clipsToBounds = true
-
-
-        }
-        else{
-            photoLabel.image = UIImage(systemName: "person.circle.fill")
-            photoLabel.tintColor = .gray
-        }
-        
-        if let workInfo = contact.workInfo{
             
-            workInfoLabel.text = workInfo
+            if let image = contact.profileImage {
+                photoLabel.image = UIImage(data:image)
+                photoLabel.tintColor = .gray
+                photoLabel.layer.cornerRadius = 60
+                photoLabel.clipsToBounds = true
+                
+                
+            }
+            else{
+                photoLabel.image = UIImage(systemName: "person.circle.fill")
+                photoLabel.tintColor = .gray
+            }
+            
+            if let workInfo = contact.workInfo{
+                
+                workInfoLabel.text = workInfo
+            }
+            else{
+                workInfoLabel.text = nil
+            }
+            setImage()
+            setPhoneNumber()
+            setEmail()
+            setAddress()
+            setSocialprofile()
+            setNotes()
         }
-        else{
-            workInfoLabel.text = nil
-        }
-        setImage()
-        setPhoneNumber()
-        setEmail()
-        setAddress()
-        setSocialprofile()
-        setNotes()
     }
     func setImage(){
-        if let imageData = contact.profileImage{
-            photoLabel.image = UIImage(data: imageData)
-            photoLabel.tintColor = .gray
+        if let contact = contact {
+            if let imageData = contact.profileImage{
+                photoLabel.image = UIImage(data: imageData)
+                photoLabel.tintColor = .gray
+            }
         }
     }
     
     func setPhoneNumber(){
         var temp:[Dict] = []
-        print("phn num : \(contact.phoneNumber)")
-        for i in contact.phoneNumber{
-            if let number = i.number{
-                print(i)
-                temp.append(Dict(key: i.modelType, value: String(number)))
-            }
+        if let contact = contact {
+            
+            if(contact.phoneNumber.count != 0){
+                    for i in contact.phoneNumber{
+                        if let number = i.number{
+                            print(i)
+                            temp.append(Dict(key: i.modelType, value: String(number)))
+                        }
+                    }
+                    
+                    sectionData.append(Datas(sectionName: "Phone Number", rows: temp))
+                }
+            
         }
-        print("temp \(temp)")
-        sectionData.append(Datas(sectionName: "Phone Number", rows: temp))
     }
     func setEmail(){
         var temp:[Dict] = []
-        if(contact.email?.count != 0){
-            if let email = contact.email{
-                for i in email{
-                    if (!i.isEmpty){
-                        temp.append(Dict(key: "", value: i))
-                    }
+        if let contact = contact,let email = contact.email {
+           
+                if(email.count != 0){
+                    if let email = contact.email{
+                        for i in email{
+                            if (!i.isEmpty){
+                                temp.append(Dict(key: "", value: i))
+                            }
+                        }
+                    
+                    
+                    sectionData.append(Datas(sectionName: "Email", rows: temp))
                 }
-                
-                sectionData.append(Datas(sectionName: "Email", rows: temp))
             }
         }
+            
     }
     func setAddress(){
         var temp:[Dict] = []
-       
-        if(contact.address?.count != 0){
-            if let contactAddress = contact.address{
-                for i in contactAddress{
-                    var address:String = ""
-                    if (i.doorNo) != nil{
-                        address+="\(i.doorNo!)\n"
+        if let contact = contact ,let address = contact.address{
+            
+            if(address.count != 0){
+                if let contactAddress = contact.address{
+                    for i in contactAddress{
+                        var address:String = ""
+                        if (i.doorNo) != nil{
+                            address+="\(i.doorNo!)\n"
+                        }
+                        if (i.Street) != nil{
+                            address+="\(i.Street!)\n"
+                        }
+                        if (i.city) != nil{
+                            address+="\(i.city!)\n"
+                        }
+                        if (i.postcode) != nil{
+                            address+="\(i.postcode!)\n"
+                        }
+                        if (i.state) != nil{
+                            address+="\(i.state!)\n"
+                        }
+                        if (i.country) != nil{
+                            address+="\(i.country!)"
+                        }
+                        
+                        temp.append(Dict(key: i.modelType, value: address))
                     }
-                    if (i.Street) != nil{
-                        address+="\(i.Street!)\n"
-                    }
-                    if (i.city) != nil{
-                        address+="\(i.city!)\n"
-                    }
-                    if (i.postcode) != nil{
-                        address+="\(i.postcode!)\n"
-                    }
-                    if (i.state) != nil{
-                        address+="\(i.state!)\n"
-                    }
-                    if (i.country) != nil{
-                        address+="\(i.country!)"
-                    }
-                    
-                    temp.append(Dict(key: i.modelType, value: address))
                 }
+                sectionData.append(Datas(sectionName: "Address", rows: temp))
             }
-            sectionData.append(Datas(sectionName: "Address", rows: temp))
         }
     }
     func setSocialprofile(){
         var temp:[Dict] = []
-        if(contact.socialProfile?.count != 0){
-            if let socialProfile = contact.socialProfile{
-                for i in socialProfile{
-                    if i.link != nil{
-                        temp.append(Dict(key: i.profileType, value: i.link!))
+        if let contact = contact,let socialProfile = contact.socialProfile {
+            if(socialProfile.count != 0){
+                if let socialProfile = contact.socialProfile{
+                    for i in socialProfile{
+                        if i.link != nil{
+                            temp.append(Dict(key: i.profileType, value: i.link!))
+                        }
                     }
                 }
+                
+                sectionData.append(Datas(sectionName: "Social Profile", rows: temp))
             }
-            sectionData.append(Datas(sectionName: "Social Profile", rows: temp))
         }
     }
     
     func setNotes(){
         var temp:[Dict] = []
-        if let notes = contact.notes{
-            if (!notes.isEmpty) {
-                temp.append(Dict(key: "", value: contact.notes!))
-                sectionData.append(Datas(sectionName: "Notes", rows: temp))
+        if let contact = contact {
+            if let notes = contact.notes{
+                if (!notes.isEmpty) {
+                    temp.append(Dict(key: "", value: contact.notes!))
+                    sectionData.append(Datas(sectionName: "Notes", rows: temp))
+                }
             }
         }
     }

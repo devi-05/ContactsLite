@@ -20,6 +20,8 @@
 		3323A06F29D6F1AA00BF193B /* ContactNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3323A06E29D6F1AA00BF193B /* ContactNameTableViewCell.swift */; };
 		3323A07129D7143500BF193B /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3323A07029D7143500BF193B /* ImagePickerViewController.swift */; };
 		33455ED32A021D48004E4CDC /* Textfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33455ED22A021D48004E4CDC /* Textfield.swift */; };
+		33455ED52A0277B0004E4CDC /* ListsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33455ED42A0277B0004E4CDC /* ListsTableViewCell.swift */; };
+		33455ED72A028A04004E4CDC /* AlternateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33455ED62A028A04004E4CDC /* AlternateTableViewCell.swift */; };
 		3369EEF829E307BD000831DA /* CustomListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3369EEF729E307BD000831DA /* CustomListTableViewCell.swift */; };
 		3369EEFA29E329C9000831DA /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3369EEF929E329C9000831DA /* FavouriteTableViewCell.swift */; };
 		336A8F5929DD41B8002B9F1F /* AddTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A8F5829DD41B8002B9F1F /* AddTableViewCell.swift */; };
@@ -65,6 +67,8 @@
 		3323A06E29D6F1AA00BF193B /* ContactNameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactNameTableViewCell.swift; sourceTree = "<group>"; };
 		3323A07029D7143500BF193B /* ImagePickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewController.swift; sourceTree = "<group>"; };
 		33455ED22A021D48004E4CDC /* Textfield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textfield.swift; sourceTree = "<group>"; };
+		33455ED42A0277B0004E4CDC /* ListsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListsTableViewCell.swift; sourceTree = "<group>"; };
+		33455ED62A028A04004E4CDC /* AlternateTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlternateTableViewCell.swift; sourceTree = "<group>"; };
 		3369EEF729E307BD000831DA /* CustomListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomListTableViewCell.swift; sourceTree = "<group>"; };
 		3369EEF929E329C9000831DA /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
 		336A8F5829DD41B8002B9F1F /* AddTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTableViewCell.swift; sourceTree = "<group>"; };
@@ -218,6 +222,8 @@
 				3369EEF729E307BD000831DA /* CustomListTableViewCell.swift */,
 				33A9329E29E3DBF1009ACEDA /* CustomListTableViewCell1.swift */,
 				336A8F7929E2FD0A002B9F1F /* ListTableViewController.swift */,
+				33455ED42A0277B0004E4CDC /* ListsTableViewCell.swift */,
+				33455ED62A028A04004E4CDC /* AlternateTableViewCell.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -347,6 +353,7 @@
 				336A8F6729DEF4F8002B9F1F /* AddressTableViewController.swift in Sources */,
 				33C289CA29EC6304007FAAAD /* SocialProfileTableViewCell.swift in Sources */,
 				336A8F5B29DD8113002B9F1F /* PhoneNumberTableViewCell.swift in Sources */,
+				33455ED72A028A04004E4CDC /* AlternateTableViewCell.swift in Sources */,
 				3391AB5429EA58F20040A41B /* ProfilePageViewController.swift in Sources */,
 				336A8F5F29DD9494002B9F1F /* PhoneNumOptionsTableViewController.swift in Sources */,
 				33C289CE29EE5593007FAAAD /* Helper.swift in Sources */,
@@ -359,6 +366,7 @@
 				33455ED32A021D48004E4CDC /* Textfield.swift in Sources */,
 				336A8F6D29E002A0002B9F1F /* NotesTableViewCell.swift in Sources */,
 				3391AB5629EA7D710040A41B /* ProfPageTableViewCell.swift in Sources */,
+				33455ED52A0277B0004E4CDC /* ListsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

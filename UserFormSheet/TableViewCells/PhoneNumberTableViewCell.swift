@@ -22,7 +22,6 @@ class PhoneNumberTableViewCell: UITableViewCell {
     
     lazy var cellView : UIButton = {
         let view = UIButton()
-        view.backgroundColor = .systemBackground
         return view
     }()
     
@@ -57,8 +56,8 @@ class PhoneNumberTableViewCell: UITableViewCell {
        
     }()
     
-    lazy var numInput:UITextField = {
-        let label = UITextField()
+    lazy var numInput:Textfield = {
+        let label = Textfield(textFieldId: 4)
         label.textColor = .label
         label.backgroundColor = .clear
         

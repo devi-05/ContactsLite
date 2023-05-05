@@ -8,7 +8,7 @@
 import UIKit
 
 class ImagePickerViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    var delegate:ImageDelegate?
+   weak var delegate:ImageDelegate?
     lazy var photoLabel:UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "person.circle.fill")
@@ -104,6 +104,8 @@ class ImagePickerViewController: UIViewController, UIImagePickerControllerDelega
         picker.dismiss(animated: true)
     }
     
-
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate = nil
+    }
 
 }

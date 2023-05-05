@@ -17,7 +17,7 @@ class ListTableViewController: UITableViewController {
     var isEdited:Bool = false
     var rowToBeEdited = -1
     lazy var grpData:[GroupModel] = []
-    lazy var grpNames:[[String:Any]] = []
+    lazy var grpNames:[String] = []
     
     lazy var containerView:UIView = {
         let view = UIView()
@@ -32,41 +32,47 @@ class ListTableViewController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    deinit{
+        print("deinit in list page")
+
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureDataSource()
+        if(grpData.count > 1){
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(edit))
+        }
         tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        configureDataSource()
+
     }
     
     private func configureView() {
         title = "Lists"
+      
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addList))
         tableView.backgroundColor = .systemGroupedBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.register(CustomListTableViewCell.self, forCellReuseIdentifier: CustomListTableViewCell.identifier)
         tableView.register(CustomListTableViewCell1.self, forCellReuseIdentifier: CustomListTableViewCell1.identifier)
-        
+        tableView.register(ListsTableViewCell.self, forCellReuseIdentifier: ListsTableViewCell.identifier)
         tableView.keyboardDismissMode = .onDrag
     }
     
     private func configureDataSource(){
-        let fetchedData = DBHelper.fetchData()
-        let dbContactList = Helper.decodeToContact(list: fetchedData)
-        let localDataSource = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: dbContactList))
-        grpNames = DBHelper.fetchGrpNames(colName: "GROUP_NAME")
-        let groupNames:[String] = Helper.getGrpNames(grpName: grpNames)
-        grpData = Helper.getGroupsData(locDS: localDataSource, grpName: groupNames)
-        if(grpData.count > 1){
-            navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "pencil"), style: .plain, target: self, action: #selector(edit))
-        }
+        
+        let localDataSource = Helper.getWholeContacts()
+
+        grpNames = DBHelper.fetchGrpNames()
+       
+        grpData = Helper.getGroupsData(locDS: localDataSource, grpName: grpNames)
+        
     }
     private func editFunctionalities(row:Int){
         self.isEdited = true
@@ -78,17 +84,19 @@ class ListTableViewController: UITableViewController {
     private func deleteFunctionalities(row:Int){
         let alertController = UIAlertController(title: "", message: "Are you sure you want to delete the list ' \(self.grpData[row].groupName)'?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        let delAction = UIAlertAction(title: "Delete",style:.destructive) { _ in
-            
+
+        let delAction = UIAlertAction(title: "Delete",style:.destructive) {[weak self] _ in
+            guard let self else{
+                return
+            }
             DBHelper.deleteGroup(grpName: self.grpData[row ].groupName)
             self.grpData.remove(at: row)
             if(self.grpData.count == 1){
-                
+
                 self.navigationItem.leftBarButtonItem = nil
                 self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"),style: .plain, target: self, action: #selector(self.addList))
             }
-            
+
             self.tableView.reloadData()
         }
         alertController.addAction(cancelAction)
@@ -172,7 +180,25 @@ class ListTableViewController: UITableViewController {
                 if (!grpData[indexPath.row].groupName.isEmpty){
                     
                     cell?.label1.text = grpData[indexPath.row].groupName
-                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[0].rows.count)):(grpData[indexPath.row].data.count == 0 ) ? (String(grpData[indexPath.row].data.count)) : (String(grpData[indexPath.row].data[0].rows.count))
+                    
+                    if(indexPath.row > 0){
+                        cell?.label2.text = String(grpData[indexPath.row].data.count )
+                    }
+                    
+                    else{
+                        
+                        if(grpData[indexPath.row].data.count == 0){
+                            cell?.label2.text =  String(grpData[indexPath.section].data.count)
+                        }
+                        
+                        else{
+                            cell?.label2.text = String(grpData[indexPath.section].data[indexPath.section].rows.count)
+                        }
+                                                        
+                        
+                                                        
+                    }
+//                    cell?.label2.text =  (indexPath.row == 0) ? (grpData[indexPath.row].data.count == 0 ? (String(grpData[indexPath.section].data.count)) : String(grpData[indexPath.section].data[0].rows.count)):(grpData[indexPath.row].data.count == 0 ) ? (String(grpData[indexPath.row].data.count)) : (String(grpData[indexPath.row].data[0].rows.count))
                 }
             }
             
@@ -205,9 +231,10 @@ class ListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-            let vc = AllContactsVc(grpName: grpData[indexPath.row].groupName)
+        print("in lists \(grpData[indexPath.row].groupName) : \(grpData[indexPath.row].data.count)")
+       let  vc = AllContactsVc(grpName: grpData[indexPath.row].groupName)
             navigationController?.pushViewController(vc, animated: true)
+           
     }
     
     // long press gesture actions
@@ -215,13 +242,19 @@ class ListTableViewController: UITableViewController {
         if(indexPath.row == 0){
             return nil
         }
-        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
-            let edit = UIAction(title:"Edit",image: UIImage(systemName: "pencil"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
+        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ [weak self]_ in
+            
+            let edit = UIAction(title:"Edit",image: UIImage(systemName: "pencil"),identifier:nil,discoverabilityTitle: nil,state: .off){[weak self] _ in
+                guard let self else{
+                    return
+                }
                 self.view.endEditing(true)
                 self.editFunctionalities(row: indexPath.row)
             }
-            let delete = UIAction(title:"Delete",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){ _ in
-                print("del")
+            let delete = UIAction(title:"Delete",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){[weak self] _ in
+                guard let self else{
+                    return
+                }
                 
                 self.deleteFunctionalities(row: indexPath.row)
             }
@@ -238,6 +271,7 @@ class ListTableViewController: UITableViewController {
         
         view.endEditing(true)
     }
+  
     
 }
 
@@ -275,4 +309,7 @@ extension ListTableViewController:UITextFieldDelegate{
         configureDataSource()
         return true
     }
+//    override func viewWillDisappear(_ animated: Bool) {
+//        grpData = []
+//    }
 }

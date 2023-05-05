@@ -30,7 +30,9 @@ class EmergencyContactViewController: UITableViewController
         label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
-   
+    deinit{
+        print("deinit in emergency")
+    }
   
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +50,10 @@ class EmergencyContactViewController: UITableViewController
         navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         configureBackgroundLabel()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        sortedEmergencyContacts = []
     }
     func refreshEmergencyData(){
         let emergencyContacts = DBHelper.fetchEmergencyContact(conditions: "IS_EMERGENCYCONTACT = 1")
@@ -79,15 +85,20 @@ class EmergencyContactViewController: UITableViewController
     }
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         
-        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
-            let edit = UIAction(title:"Remove from Emergency Contacts",image: UIImage(systemName: "multiply.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
-
+        let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){[weak self] _ in
+            let edit = UIAction(title:"Remove from Emergency Contacts",image: UIImage(systemName: "multiply.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){[weak self] _ in
+                guard let self else{
+                    return
+                }
                 self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row].emergencyContact = 0
                 DBHelper.updateContact(contact: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
                 self.refreshEmergencyData()
                 tableView.reloadData()
             }
-            let delete = UIAction(title:"Delete Contact",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){ _ in
+            let delete = UIAction(title:"Delete Contact",image: UIImage(systemName: "trash"),identifier:nil,discoverabilityTitle: nil,attributes:.destructive,state: .off){[weak self] _ in
+                guard let self else{
+                    return
+                }
                 self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row].emergencyContact = 0
                 DBHelper.updateContact(contact: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
                
@@ -96,8 +107,10 @@ class EmergencyContactViewController: UITableViewController
                 tableView.reloadData()
 
             }
-            let view = UIAction(title:"View Profile",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
-                
+            let view = UIAction(title:"View Profile",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){[weak self] _ in
+                guard let self else{
+                    return
+                }
                 let vc = ProfilePageViewController(contact: self.sortedEmergencyContacts[indexPath.section].rows[indexPath.row])
                 self.navigationController?.pushViewController(vc, animated: true)
 
@@ -115,7 +128,7 @@ class EmergencyContactViewController: UITableViewController
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
-        var name:String = sortedEmergencyContacts.getContact(indexPath: indexPath).fullName()
+        let name:String = sortedEmergencyContacts.getContact(indexPath: indexPath).fullName()
         cell?.textLabel?.text = name
         return cell!
     }

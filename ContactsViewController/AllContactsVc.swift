@@ -16,7 +16,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
     lazy var passedData:[SectionContent]? = nil
     lazy var filteredData:[Contact]=[]
     lazy var searchedQuery:String = ""
-    
+    lazy var isCustomGroup:Bool = false
     lazy var nameLabel : UILabel = {
         let label = UILabel()
         label.text = "Devi Sankar"
@@ -117,26 +117,25 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    deinit{
+        print("deinit in allcontacts page")
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
-        // when view appears this function is called so if i passed the data passedData passed data wont be nil it fetches data from db
-        
-        if let passedData  = passedData{
-            dataCountLabel.text = " \(passedData.getTotalContacts()) Contacts"
-            refreshDataSource()
-            tableView.reloadData()
+
+        if(navigationBarTitle != "Contacts"){
+            isCustomGroup = true
         }
+        refreshDataSource()
+        tableView.reloadData()
         
     }
+  
     override func viewDidLoad() {
      
         super.viewDidLoad()
         title = navigationBarTitle
         view.backgroundColor = .systemBackground
-//        tableView.backgroundView = addContactView
         refreshDataSource()
         setUpNavigationItems()
         addSubviewsToProfileCardLabel()
@@ -156,6 +155,10 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
         // passed data now filters records as per title
         if let navigationBarTitle = navigationBarTitle {
             passedData = data[navigationBarTitle]
+            
+     }
+        if let passedData  = passedData{
+            dataCountLabel.text = " \(passedData.getTotalContacts()) Contacts"
         }
         // if there is zero contacts
         if (passedData?.count == 0){
@@ -199,25 +202,18 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
         addContactView.addSubview(imgView)
         addContactView.addSubview(label)
         addContactView.addSubview(createTextButton)
-//        tableView.addSubview(addContactView)
-        
-//        addContactView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.backgroundColor = .darkGray
-//        addContactView.backgroundColor = .cyan
+
         imgView.translatesAutoresizingMaskIntoConstraints = false
         label.translatesAutoresizingMaskIntoConstraints = false
         createTextButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             
-//            addContactView.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
-//            addContactView.centerYAnchor.constraint(equalTo: tableView.centerYAnchor),
-//            addContactView.widthAnchor.constraint(equalToConstant: 400),
-//            addContactView.heightAnchor.constraint(equalToConstant: 400),
+
 
             imgView.centerXAnchor.constraint(equalTo: addContactView.centerXAnchor),
             imgView.centerYAnchor.constraint(equalTo: addContactView.centerYAnchor),
-//            imgView.topAnchor.constraint(equalTo: addContactView.topAnchor),
+
             imgView.widthAnchor.constraint(equalToConstant: 60),
             imgView.heightAnchor.constraint(equalToConstant: 60),
             
@@ -338,7 +334,7 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
     @objc func addButton(){
         let vc = InfoSheetViewController(contact: nil)
         vc.allContactsVc = self
-        if (title != "Contacts"){
+        if (isCustomGroup){
             vc.isAddedByGrp = title
         }
         let navVc = UINavigationController(rootViewController:  vc)
@@ -348,7 +344,6 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        print("&&&& \(isSearchActive)")
         if(isSearchActive){
             return filteredData.isEmpty ? 0 : 1
         }
@@ -505,27 +500,37 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
        
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         if (title == "Contacts"){
-            let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ _ in
-                let viewProfile = UIAction(title:"View",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off)
-                { _ in
-                    
+            let config = UIContextMenuConfiguration(identifier: nil,previewProvider: nil){ [weak self] _ in
+               
+                let viewProfile = UIAction(title:"View",image: UIImage(systemName: "person.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ [weak self] _ in
+                    guard let self else{
+                        return
+                    }
+
                     if self.filteredData.isEmpty{
                         if let passedData = self.passedData{
                             let vc = ProfilePageViewController(contact: passedData.getContact(indexPath: indexPath))
-                            
+
                             self.navigationController?.pushViewController(vc, animated: true)
                         }
                     }
                     else{
-                        
+
                         let vc = ProfilePageViewController(contact: self.filteredData[indexPath.row])
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                 }
-                let call = UIAction(title:"Call",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
-                    let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
+                
+                
+                let call = UIAction(title:"Call",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ [weak self]_ in
+                    guard let self else{
+                        return
+                    }
                     
-                    let callAction = UIAlertAction(title: "Call", style: .default){ _ in
+                    let alertController = UIAlertController(title: nil, message: "Are You sure you want to make a call", preferredStyle: .alert)
+
+                    let callAction = UIAlertAction(title: "Call", style: .default){  _ in
+                        
                         if let passedData = self.passedData{
                             if let number = passedData.getContact(indexPath: indexPath).phoneNumber[indexPath.row].number{
                                 Helper.makeACall(number: String(number))
@@ -533,34 +538,31 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
                         }
                         else{
                             let alertController = UIAlertController(title: nil, message: "Call Failed", preferredStyle: .alert)
-                            
-                            let okAction = UIAlertAction(title: "Ok", style: .default){ _ in
-                                
-                                //                        self.dismiss(animated: true)
-                            }
-                            
-                            
+
+                            let okAction = UIAlertAction(title: "Ok", style: .default)
+
                             alertController.addAction(okAction)
-                            
+
                             self.present(alertController, animated: true)
-                            
+
                             return
                         }
-                        
+
                     }
                     let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
-                            
+
                     alertController.addAction(cancelAction)
                     alertController.addAction(callAction)
                     self.present(alertController, animated: true)
-                            
+
                             return
                         }
-                    
-                
-                
+
+
+
                 return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
             }
+            
             return config
         }
         else{
@@ -570,23 +572,23 @@ class AllContactsVc: UITableViewController,UISearchControllerDelegate{
                     DBHelper.removeContactFromGrp(grpName: self.navigationBarTitle!, contactId: (self.passedData?.getContact(indexPath: indexPath).contactId)!)
                     self.refreshDataSource()
                     self.tableView.reloadData()
-                    
+
                 }
                 let call = UIAction(title:"Delete Contact",image: UIImage(systemName: "phone.circle"),identifier:nil,discoverabilityTitle: nil,state: .off){ _ in
-                    
+
                     DBHelper.deleteContact(contactId: (self.passedData?.getContact(indexPath: indexPath).contactId)!)
                     self.refreshDataSource()
                     self.tableView.reloadData()
-                    
-                    
+
+
                 }
                 return UIMenu(title: "",image: nil,identifier: nil,children: [viewProfile,call])
             }
             return config
         }
     }
-    
-        
+
+
     }
     
 extension UILabel{

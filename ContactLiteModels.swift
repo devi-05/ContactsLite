@@ -26,7 +26,7 @@ enum HeaderNames:CaseIterable{
     case contactId,profileImage,firstName,lastName,workInfo,phoneNumber,email,address,socialProfile,groups,notes,favourite,emergencyContact
 }
 
-struct Contact{
+class Contact{
     var contactId:Int
     var profileImage:Data?
     var firstName:String
@@ -41,6 +41,21 @@ struct Contact{
     var notes:String?
     var groups:[String]?
     
+    init(contactId: Int, profileImage: Data? = nil, firstName: String, lastName: String? = nil, workInfo: String? = nil, phoneNumber: [PhoneNumberModel], email: [String]? = nil, address: [AddressModel]? = nil, socialProfile: [SocialProfileModel]? = nil, favourite: Int? = nil, emergencyContact: Int? = nil, notes: String? = nil, groups: [String]? = nil) {
+        self.contactId = contactId
+        self.profileImage = profileImage
+        self.firstName = firstName
+        self.lastName = lastName
+        self.workInfo = workInfo
+        self.phoneNumber = phoneNumber
+        self.email = email
+        self.address = address
+        self.socialProfile = socialProfile
+        self.favourite = favourite
+        self.emergencyContact = emergencyContact
+        self.notes = notes
+        self.groups = groups
+    }
     
     func fullName() -> String {
         return firstName + " " + (lastName ?? "")
@@ -82,4 +97,4 @@ struct AddressModel:Codable{
 
 var dbPointer:OpaquePointer?
 
-
+var appFilePath:URL?

@@ -57,8 +57,8 @@ class SocialProfileTableViewCell: UITableViewCell {
            
         }()
         
-        lazy var numInput:UITextField = {
-            let label = UITextField()
+        lazy var numInput:Textfield = {
+            let label = Textfield(textFieldId: 11)
             label.textColor = .label
             label.backgroundColor = .clear
             

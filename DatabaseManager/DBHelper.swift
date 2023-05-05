@@ -31,6 +31,9 @@ struct DBHelper {
      static func prepare() {
         dbManager.createDb(location: .documentDirectory, path: "Contactsdb.sqlite")
     }
+    static func close(){
+        dbManager.closeDb()
+    }
     static func createTable(){ 
         dbManager.commonCreateTableFunc(query: "CREATE TABLE IF NOT EXISTS CONTACTS (CONTACT_ID INTEGER PRIMARY KEY,PROFILE_PHOTO BLOB,FIRST_NAME TEXT,LAST_NAME TEXT, WORK_INFO TEXT,PHONENUMBER TEXT,EMAIL TEXT,ADDRESS TEXT,SOCIAL_PROFILE TEXT,IS_FAVOURITE INT,IS_EMERGENCYCONTACT INT,NOTES TEXT)", tableName: "CONTACTS")
         dbManager.commonCreateTableFunc(query: "CREATE TABLE IF NOT EXISTS GROUPS (GROUP_ID INTEGER PRIMARY KEY,GROUP_NAME TEXT)", tableName: "GROUPS")
@@ -39,7 +42,6 @@ struct DBHelper {
         UserDefaults.standard.set("YES", forKey: "IS_TABLECOLUMNS_CREATED")
     }
     static func assignDb(contactList:Contact){
-        prepare()
         
         dbManager.Insert(tableName: "CONTACTS", listOfValToBeAppended: [["CONTACT_ID":contactList.contactId,"PROFILE_PHOTO":(contactList.profileImage) ,"FIRST_NAME":contactList.firstName,"LAST_NAME":(contactList.lastName == nil) ? nil : (contactList.lastName!) ,"WORK_INFO":((contactList.workInfo == nil) ? nil : contactList.workInfo!),"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contactList.phoneNumber)),"EMAIL": contactList.email == nil ? nil : convertListToString(list: (contactList.email)!),"ADDRESS":contactList.address == nil ? nil : convertListToString(list: addressEncoder(addressList: (contactList.address)!)),"SOCIAL_PROFILE":contactList.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contactList.socialProfile)!)),"IS_FAVOURITE":(contactList.favourite)!,"IS_EMERGENCYCONTACT":(contactList.emergencyContact)!,"NOTES":contactList.notes == nil ? nil : (contactList.notes)! ]])
         
@@ -72,18 +74,18 @@ struct DBHelper {
         }
     }
     static func fetchData()->[[String:Any]]{
-        prepare()
+//        prepare()
         return dbManager.fetch(tableName: "CONTACTS", colList: nil, conditions: nil)
         
     }
     
     static func delete(criteria:String?){
-        prepare()
+//        prepare()
         dbManager.deleteRow(tableName: "CONTACTS", criteria: criteria)
     }
     static func updateContact(contact:Contact){
-        prepare()
-        dbManager.update(tableName: "Contacts", colListWithVal: ["PROFILE_PHOTO":contact.profileImage,"FIRST_NAME":contact.firstName,"LAST_NAME":contact.lastName,"WORK_INFO":contact.workInfo,"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contact.phoneNumber)),"EMAIL":(contact.email == nil) ? nil : convertListToString(list: (contact.email)!),"ADDRESS": (contact.address == nil) ? nil : convertListToString(list: addressEncoder(addressList: (contact.address)!)),"SOCIAL_PROFILE":contact.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contact.socialProfile)!)),"IS_FAVOURITE":(contact.favourite)!,"IS_EMERGENCYCONTACT":(contact.emergencyContact)!,"NOTES": (contact.notes == nil) ? nil : (contact.notes)! ], criteria: "CONTACT_ID = \(contact.contactId)")
+//        prepare()
+        dbManager.update(tableName: "CONTACTS", colListWithVal: ["PROFILE_PHOTO":contact.profileImage,"FIRST_NAME":contact.firstName,"LAST_NAME":contact.lastName,"WORK_INFO":contact.workInfo,"PHONENUMBER":convertListToString(list: phoneNumEncoder(phoneNumList: contact.phoneNumber)),"EMAIL":(contact.email == nil) ? nil : convertListToString(list: (contact.email)!),"ADDRESS": (contact.address == nil) ? nil : convertListToString(list: addressEncoder(addressList: (contact.address)!)),"SOCIAL_PROFILE":contact.socialProfile == nil ? nil : convertListToString(list: socialProfileEncoder(socialProfList:(contact.socialProfile)!)),"IS_FAVOURITE":(contact.favourite)!,"IS_EMERGENCYCONTACT":(contact.emergencyContact)!,"NOTES": (contact.notes == nil) ? nil : (contact.notes)! ], criteria: "CONTACT_ID = \(contact.contactId)")
         if let groups = contact.groups{
             if(convertListToString(list: groups) == ""){
                 return
@@ -124,7 +126,7 @@ struct DBHelper {
     }
     
     static func deleteContact(contactId:Int){
-        prepare()
+//        prepare()
         dbManager.deleteRow(tableName: "CONTACTS", criteria: "CONTACT_ID = \(contactId)")
         dbManager.deleteRow(tableName: "CONTACTS_AND_GROUPS", criteria: "CONTACT_ID = \(contactId)")
     }
@@ -205,20 +207,28 @@ struct DBHelper {
     
 
     static func fetchFavourites(colName:String,conditions:String)->[[String:Any]]{
-        prepare()
+//        prepare()
        return dbManager.fetch(tableName: "CONTACTS", colList: [colName], conditions: conditions)
     }
     static func fetchEmergencyContact(conditions:String)->[[String:Any]]{
-        prepare()
+//        prepare()
        return dbManager.fetch(tableName: "CONTACTS", colList: nil, conditions: conditions)
     }
-    static func fetchGrpNames(colName:String)->[[String:Any]]{
-        prepare()
-        
-       return dbManager.fetch(tableName: "GROUPS", colList: [colName], conditions:nil)
+    static func fetchGrpNames()->[String] {
+//        prepare()
+        let data = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_NAME"], conditions:nil)
+        return data.joined().map({ $0.value as! String })
+    }
+    static func getContactCount(groupName:String)-> Int {
+//        prepare()
+        let groupIdDict = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(groupName)'")
+        let groupId = groupIdDict.joined().map({ Int(String(describing:$0.value ))!})[0]
+        let data = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["CONTACT_ID"], conditions: "GROUP_ID = \(groupId)")
+        let grpList =  data.joined().map({ Int(String(describing:$0.value ))!})
+        return grpList.count
     }
     static func fetchContactGrpInfo(contactId:Int)->[String]{
-        prepare()
+//        prepare()
         let grpId = dbManager.fetch(tableName: "CONTACTS_AND_GROUPS", colList: ["GROUP_ID"], conditions: "CONTACT_ID = \(contactId)")
 
         var temp:[String] = []
@@ -241,7 +251,7 @@ struct DBHelper {
     static func fetchGroupMembers(groupName:String)->[Contact]{
             
         var contactLists:[[Contact]] = []
-        prepare()
+//        prepare()
         let groupId = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(groupName)'")
         print("groupId:\(groupId)")
         var values:[Int] = []
@@ -268,7 +278,7 @@ struct DBHelper {
         return contactLists.flatMap({$0})
     }
     static func addGroup(grpName:String,grpId:Int){
-        prepare()
+//        prepare()
         dbManager.Insert(tableName: "GROUPS", listOfValToBeAppended: [["GROUP_ID":grpId,"GROUP_NAME":grpName]])
     }
     static func convertListToString(list:[String])->String {
@@ -280,7 +290,7 @@ struct DBHelper {
     }
     
     static func deleteGroup(grpName:String){
-        prepare()
+//        prepare()
         let grpIdList = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(grpName)'")
         var grpId:Int?
         for i in grpIdList{
@@ -294,15 +304,15 @@ struct DBHelper {
         }
     }
     static func updateGrpName(existingGrpName:String,newGrpName:String){
-        prepare()
+//        prepare()
         dbManager.update(tableName: "GROUPS", colListWithVal: ["GROUP_NAME" : (newGrpName)], criteria: "GROUP_NAME = '\(existingGrpName)'")
     }
     static func fetchSortedData(tableName:String,colName:[String]?,criteria:[String],sortPreference:String)->[[String : Any]]{
-        prepare()
+//        prepare()
         return dbManager.orderBy(tableName: tableName, colNames: colName, criteria: criteria, sortPreference: sortPreference)
     }
     static func removeContactFromGrp(grpName:String,contactId:Int){
-        prepare()
+//        prepare()
         let grpIdList = dbManager.fetch(tableName: "GROUPS", colList: ["GROUP_ID"], conditions: "GROUP_NAME = '\(grpName)'")
         var grpId :Int = 0
         for i in grpIdList{
@@ -312,4 +322,5 @@ struct DBHelper {
         }
         dbManager.deleteRow(tableName: "CONTACTS_AND_GROUPS", criteria: "GROUP_ID = \(grpId) AND CONTACT_ID = \(contactId)")
     }
+    
 }

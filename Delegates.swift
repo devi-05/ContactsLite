@@ -8,15 +8,15 @@
 import Foundation
 import UIKit
 
-protocol Delegate{
+protocol Delegate:AnyObject{
     func getOptions(option:String,type:String)
 }
 
-protocol ImageDelegate{
+protocol ImageDelegate:AnyObject{
     func getImage(images:UIImage)
 }
 
-protocol EditDelegate{
+protocol EditDelegate: AnyObject {
     func getUpdatedContact(newContact:Contact)
 }
 

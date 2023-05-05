@@ -9,7 +9,7 @@ import UIKit
 
 class PhoneNumOptionsTableView: UITableViewController {
    
-    var delegate:Delegate?
+    weak var delegate:Delegate?
     var selectedRowIndex:Int?
     var selectedSectionIndex:Int?
     var Options : [Int:[String]] = [0:["mobile","home","work","school","iphone","Apple Watch","main","home fax","work fax","pager","other"]]
@@ -58,6 +58,9 @@ class PhoneNumOptionsTableView: UITableViewController {
         delegate?.getOptions(option: (Options[indexPath.section]?[indexPath.row])!,type: Headers.phoneNumber)
         cancel()
         
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate = nil
     }
     
 }

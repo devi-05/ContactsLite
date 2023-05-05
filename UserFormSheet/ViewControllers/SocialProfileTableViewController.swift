@@ -9,7 +9,7 @@ import UIKit
 
 class SocialProfileTableViewController: UITableViewController {
     
-    var delegate:Delegate?
+    weak var delegate:Delegate?
     
     var selectedSecIndex:Int?
     
@@ -63,5 +63,7 @@ class SocialProfileTableViewController: UITableViewController {
         delegate?.getOptions(option: (options[indexPath.section]?[indexPath.row])!, type: Headers.socialProfile)
         Cancel()
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate = nil
+    }
 }

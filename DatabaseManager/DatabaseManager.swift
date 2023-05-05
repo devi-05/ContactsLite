@@ -33,7 +33,15 @@ struct DatabaseManager{
         
     }
     
-    
+    func closeDb(){
+        if sqlite3_close(database)  == SQLITE_OK{
+            print("db closed ")
+        }
+        else{
+            print("db not closed")
+        }
+        
+    }
     func commonCreateTableFunc(query:String,tableName:String){
         var statement:OpaquePointer? = nil
         if sqlite3_prepare_v2(database, query, -1, &statement, nil) == SQLITE_OK {
@@ -45,7 +53,7 @@ struct DatabaseManager{
             }
         }
         else {
-            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
+
             print("\(tableName) creation preparation failed!")
         }
         sqlite3_finalize(statement)
@@ -74,7 +82,7 @@ struct DatabaseManager{
             }
         }
         else {
-            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
+//            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
             print("\(tableName) creation preparation failed!")
         }
         sqlite3_finalize(statement)
@@ -100,6 +108,7 @@ struct DatabaseManager{
             for j in columns{
                 values.append(listOfValToBeAppended[i][j]! as Any)
             }
+            
             print(columns)
            print(values)
             if sqlite3_prepare_v2(database, query, -1, &statement, nil) ==
@@ -170,7 +179,8 @@ struct DatabaseManager{
             
         }
         else{
-            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
+            print("error in fetch ")
+//            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
         }
         return fetchedData
     }
@@ -264,13 +274,18 @@ struct DatabaseManager{
     }
     
     func bind(statement:OpaquePointer,values:[Any?]){
+        
         for i in 0..<values.count {
+            print(values[i])
             switch values[i]{
+           
             case is Int :
+                print(Int32(values[i] as! Int))
                 sqlite3_bind_int(statement, Int32(i+1), Int32(values[i] as! Int))
             case  is Double :
                 sqlite3_bind_double(statement, Int32(i+1), values[i] as! Double)
             case  is String :
+                print((values[i] as! NSString).utf8String!)
                 sqlite3_bind_text(statement, Int32(i+1), (values[i] as! NSString).utf8String, -1, nil)
             case is Data :
                 let _ = (values[i] as! Data).withUnsafeBytes{ (bytes:UnsafeRawBufferPointer) in
@@ -309,8 +324,10 @@ struct DatabaseManager{
         }
         query += temp.joined(separator: " ,")
         query += ";"
-        print(query)
-        
+//        let url = try? FileManager.default.url(for: .applicationDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+//        guard let url = url else { fatalError() }
+//        FileManager.default.contents(atPath: "")
+        // /private/var/mobile/Containers/Data/Application/D00C22D7-376C-4A4A-B147-CFFC7F87CC46/Documents/Contactsdb.sqlit
         var fetchedData:[[String:Any]] = []
         
         
@@ -344,7 +361,8 @@ struct DatabaseManager{
             
         }
         else{
-            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
+            print("Error in sqlite")
+//            print(String(cString: sqlite3_errmsg(DatabaseManager.shared.database)))
         }
         return fetchedData
     }

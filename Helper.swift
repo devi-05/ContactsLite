@@ -50,7 +50,7 @@ class Helper{
                 else{
                     var bool:Bool = false
                     for j in 0..<sectionData.count {
-                        print("datasource count:\(sectionData.count)")
+                        
                         if sectionData[j].sectionName.uppercased() == firstLetter.uppercased() {
                             sectionData[j].rows.append(i)
                             bool = true
@@ -204,10 +204,8 @@ class Helper{
         
         var grpListWithData:[String:[SectionContent]] = [:]
         grpListWithData["Contacts"] = Helper.extractNamesFromFetchedData(lists:(Helper.decodeToContact(list: (DBHelper.fetchSortedData(tableName: "CONTACTS", colName: nil, criteria: ["FIRST_NAME","LAST_NAME"], sortPreference: "ASC")))))
-        let groupDict = DBHelper.fetchGrpNames(colName: "GROUP_NAME")
-        
-        let grpNames = Helper.getGrpNames(grpName: groupDict)
-        
+        let grpNames = DBHelper.fetchGrpNames()
+                
         for i in grpNames{
             grpListWithData[i] = Helper.extractNamesFromFetchedData(lists: DBHelper.fetchGroupMembers(groupName: i))
         }
@@ -249,6 +247,16 @@ class Helper{
         
         }
         return ds
+    }
+    
+    static func getWholeContacts()->[SectionContent]{
+        let fetchedData = DBHelper.fetchData()
+        print("fetched data : \(fetchedData)")
+        let dbContactList = Helper.decodeToContact(list: fetchedData)
+        print("dbContactList ; \(dbContactList)")
+        let localDataSource = Helper.extractNamesFromFetchedData(lists: Helper.sort(data: dbContactList))
+        print("local dataSource : \(localDataSource)")
+        return localDataSource
     }
 }
 

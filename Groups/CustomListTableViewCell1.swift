@@ -27,20 +27,21 @@ class CustomListTableViewCell1: UITableViewCell {
          label.resignFirstResponder()
          return label
      }()
-     lazy var disclosureIndicator:UIButton = {
-         let button = UIButton()
-         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-         button.tintColor = .gray
-         return button
-     }()
+//     lazy var disclosureIndicator:UIButton = {
+//         let button = UIButton()
+//         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+//         button.tintColor = .gray
+//         return button
+//     }()
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: style, reuseIdentifier: reuseIdentifier)
          contentView.addSubview(label1)
          contentView.addSubview(label2)
-         contentView.addSubview(disclosureIndicator)
+         accessoryType = .disclosureIndicator
+//         contentView.addSubview(disclosureIndicator)
          label1.translatesAutoresizingMaskIntoConstraints = false
          label2.translatesAutoresizingMaskIntoConstraints = false
-         disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
+//         disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
          NSLayoutConstraint.activate([
              label1.topAnchor.constraint(equalTo: contentView.topAnchor),
              label1.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 10),
@@ -48,14 +49,14 @@ class CustomListTableViewCell1: UITableViewCell {
              label1.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
              
              label2.topAnchor.constraint(equalTo: contentView.topAnchor),
-             label2.leadingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -70),
+             label2.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
              label2.widthAnchor.constraint(equalToConstant: 40),
              label2.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
              
-             disclosureIndicator.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
-             disclosureIndicator.leadingAnchor.constraint(equalTo: label2.trailingAnchor, constant: 5),
-             disclosureIndicator.widthAnchor.constraint(equalToConstant: 30),
-             disclosureIndicator.heightAnchor.constraint(equalToConstant: 30)
+//             disclosureIndicator.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 10),
+//             disclosureIndicator.leadingAnchor.constraint(equalTo: label2.trailingAnchor, constant: 5),
+//             disclosureIndicator.widthAnchor.constraint(equalToConstant: 30),
+//             disclosureIndicator.heightAnchor.constraint(equalToConstant: 30)
              
          ])
          
@@ -65,7 +66,6 @@ class CustomListTableViewCell1: UITableViewCell {
          fatalError("init(coder:) has not been implemented")
      }
      override func prepareForReuse() {
-         super.prepareForReuse()
          label1.text = nil
          label2.text = nil
      }

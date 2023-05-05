@@ -8,7 +8,7 @@
 import UIKit
 
 class AddressTableViewController: UITableViewController {
-    var delegate:Delegate?
+    weak var delegate:Delegate?
     var options:[Int:[String]] = [0:["home","work","school","other"]]
     var selectedSecIndex:Int?
     var selectedRowIndex:Int?
@@ -60,6 +60,9 @@ class AddressTableViewController: UITableViewController {
         tableView.reloadData()
         delegate?.getOptions(option: (options[indexPath.section]?[indexPath.row])!, type: Headers.address)
         cancel()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        delegate = nil
     }
 
 }
