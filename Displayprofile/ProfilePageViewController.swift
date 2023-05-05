@@ -332,16 +332,31 @@ class ProfilePageViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if(sectionData[section].sectionName == Headers.phoneNumber){
-            return 30
+            return 55
         }
         else{
-            return 3
+            return 20
         }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return " "
+        switch sectionData[section].sectionName {
+        case Headers.phoneNumber:
+            return Headers.phoneNumber.uppercased()
+        case Headers.email:
+            return Headers.email.uppercased()
+        case Headers.address:
+            return Headers.address.uppercased()
+        case Headers.socialProfile:
+            return Headers.socialProfile.uppercased()
+        case Headers.notes:
+            return Headers.notes.uppercased()
+        default:
+            return ""
+            
+        }
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
          if sectionData[indexPath.section].sectionName == Headers.address{

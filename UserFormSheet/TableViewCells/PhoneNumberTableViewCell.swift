@@ -9,7 +9,7 @@ import UIKit
 
 class PhoneNumberTableViewCell: UITableViewCell {
     let optionValues:[String] = ["mobile","home","work","school","iphone","Apple Watch","main","home fax","work fax","pager","other"]
-    
+   
     var myString:String = ""
     
      var size: CGSize = CGSize(width: 0, height: 0)
@@ -57,7 +57,7 @@ class PhoneNumberTableViewCell: UITableViewCell {
     }()
     
     lazy var numInput:Textfield = {
-        let label = Textfield(textFieldId: 4)
+        let label = Textfield(textFieldId: .phoneNumber)
         label.textColor = .label
         label.backgroundColor = .clear
         
@@ -65,6 +65,7 @@ class PhoneNumberTableViewCell: UITableViewCell {
         label.keyboardType = .numberPad
         return label
     }()
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
        

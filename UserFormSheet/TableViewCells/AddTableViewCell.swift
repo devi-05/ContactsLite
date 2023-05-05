@@ -15,7 +15,7 @@ class AddTableViewCell: UITableViewCell {
     
     
     lazy var textField:Textfield = {
-        let textField = Textfield(textFieldId: 2)
+        let textField = Textfield(textFieldId: .workInfo)
         textField.borderStyle = .none
         textField.keyboardAppearance = .default
         textField.backgroundColor = .clear
@@ -42,7 +42,7 @@ class AddTableViewCell: UITableViewCell {
             
             textField.topAnchor.constraint(equalTo: contentView.topAnchor),
             textField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor,constant: 5),
-            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            textField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -15),
             textField.heightAnchor.constraint(equalTo: contentView.heightAnchor)
         ])
        

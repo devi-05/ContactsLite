@@ -12,6 +12,8 @@ class NotesDisplayTableViewCell: UITableViewCell {
      lazy var title :UILabel = {
          let label = UILabel()
          label.text = "Notes"
+         label.font = .systemFont(ofSize: 15)
+         label.textColor = .label.withAlphaComponent(0.5)
          label.textColor = .label
          label.textAlignment = .justified
          return label
@@ -19,7 +21,7 @@ class NotesDisplayTableViewCell: UITableViewCell {
 
     lazy var subHeaders:UILabel = {
         let label = UILabel()
-        
+        label.font = .monospacedDigitSystemFont(ofSize: 15, weight: .medium)
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
         label.sizeToFit()
@@ -41,12 +43,12 @@ class NotesDisplayTableViewCell: UITableViewCell {
         subHeaders.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             title.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2),
             
             subHeaders.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 5),
-            subHeaders.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            subHeaders.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             subHeaders.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             subHeaders.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor,constant: -5)
         ])

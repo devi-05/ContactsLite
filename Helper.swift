@@ -243,6 +243,7 @@ class Helper{
                 ds.append(DataSource(data: [Headers.favourite]))
             case .emergencyContact:
                 ds.append(DataSource(data: [Headers.emergencyContact]))
+            default: continue
             }
         
         }

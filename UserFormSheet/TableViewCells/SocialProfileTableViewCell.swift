@@ -58,7 +58,7 @@ class SocialProfileTableViewCell: UITableViewCell {
         }()
         
         lazy var numInput:Textfield = {
-            let label = Textfield(textFieldId: 11)
+            let label = Textfield(textFieldId: .socialProfile)
             label.textColor = .label
             label.backgroundColor = .clear
             
@@ -104,7 +104,7 @@ class SocialProfileTableViewCell: UITableViewCell {
                 
                 optionLabel.topAnchor.constraint(equalTo: cellView.topAnchor),
                 optionLabel.leadingAnchor.constraint(equalTo: cellView.leadingAnchor,constant: 10),
-                optionLabel.widthAnchor.constraint(equalToConstant: size.width),
+                optionLabel.widthAnchor.constraint(equalToConstant: 100),
                 optionLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
                 
                 disclosureIndicator.topAnchor.constraint(equalTo: cellView.topAnchor,constant: 23),
@@ -114,7 +114,7 @@ class SocialProfileTableViewCell: UITableViewCell {
                 
                 numInput.topAnchor.constraint(equalTo: contentView.topAnchor),
                 numInput.leadingAnchor.constraint(equalTo: cellView.trailingAnchor),
-                numInput.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                numInput.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -15),
                 numInput.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             ])
             

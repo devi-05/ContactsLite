@@ -43,11 +43,11 @@ class EmailTableViewCell: UITableViewCell {
             
             NSLayoutConstraint.activate([
                 title.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 5),
-                title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
                 title.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
                 title.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2),
                 header.topAnchor.constraint(equalTo:title.bottomAnchor, constant: 5),
-                header.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+                header.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
                 header.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
                 header.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2),
              

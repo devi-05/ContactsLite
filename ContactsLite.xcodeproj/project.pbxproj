@@ -113,6 +113,7 @@
 		3323A02629D2AFE700BF193B = {
 			isa = PBXGroup;
 			children = (
+				33C3CAFD2A0502E000BD5ACC /* Example */,
 				337F060229FBAD4C00EA3A15 /* Extensions */,
 				33D045FD29F396460058EE62 /* Delegates.swift */,
 				33C289CD29EE5593007FAAAD /* Helper.swift */,
@@ -222,8 +223,6 @@
 				3369EEF729E307BD000831DA /* CustomListTableViewCell.swift */,
 				33A9329E29E3DBF1009ACEDA /* CustomListTableViewCell1.swift */,
 				336A8F7929E2FD0A002B9F1F /* ListTableViewController.swift */,
-				33455ED42A0277B0004E4CDC /* ListsTableViewCell.swift */,
-				33455ED62A028A04004E4CDC /* AlternateTableViewCell.swift */,
 			);
 			path = Groups;
 			sourceTree = "<group>";
@@ -255,6 +254,15 @@
 				336A8F5E29DD9494002B9F1F /* PhoneNumOptionsTableViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		33C3CAFD2A0502E000BD5ACC /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				33455ED42A0277B0004E4CDC /* ListsTableViewCell.swift */,
+				33455ED62A028A04004E4CDC /* AlternateTableViewCell.swift */,
+			);
+			path = Example;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

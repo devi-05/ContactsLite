@@ -12,7 +12,7 @@ class ContactNameTableViewCell: UITableViewCell {
     static var identifier = "ContactNameTableViewCell"
     
     lazy var textField:Textfield = {
-        let textField = Textfield(textFieldId: 0)
+        let textField = Textfield(textFieldId: .firstName)
         textField.borderStyle = .none
         textField.backgroundColor = .clear
         return textField

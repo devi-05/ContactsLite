@@ -48,7 +48,7 @@ class AddressTableViewCell: UITableViewCell {
     }()
 
     lazy var doorNumTf:Textfield = {
-        let tf = Textfield(textFieldId: 5)
+        let tf = Textfield(textFieldId: .doorNum)
         
         tf.placeholder = "Door no."
         tf.borderStyle = .none
@@ -57,14 +57,14 @@ class AddressTableViewCell: UITableViewCell {
     
     lazy var streetTf:Textfield = {
 
-            let tf = Textfield(textFieldId: 6)
+        let tf = Textfield(textFieldId: .street)
             tf.placeholder = "Street"
             tf.borderStyle = .none
             return tf
         }()
     
     lazy var cityTf:Textfield = {
-        let tf = Textfield(textFieldId: 7)
+        let tf = Textfield(textFieldId: .city)
 
         tf.placeholder = "City"
         tf.borderStyle = .none
@@ -72,7 +72,7 @@ class AddressTableViewCell: UITableViewCell {
     }()
     
     lazy var postCodeTf:Textfield = {
-        let tf = Textfield(textFieldId: 8)
+        let tf = Textfield(textFieldId: .postcode)
 
         tf.placeholder = "PostCode"
         tf.borderStyle = .none
@@ -80,14 +80,14 @@ class AddressTableViewCell: UITableViewCell {
     }()
     
     lazy var stateTf:Textfield = {
-        let tf = Textfield(textFieldId: 9)
+        let tf = Textfield(textFieldId: .state)
         tf.placeholder = "State"
         tf.borderStyle = .none
         return tf
     }()
     
     lazy var CountryTf:Textfield = {
-        let tf = Textfield(textFieldId: 10)
+        let tf = Textfield(textFieldId: .country)
         tf.placeholder = "Country"
         tf.borderStyle = .none
         return tf
@@ -122,12 +122,12 @@ class AddressTableViewCell: UITableViewCell {
         disclosureIndicator.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         horizontalContainer.translatesAutoresizingMaskIntoConstraints = false
-//        doorNumTf.translatesAutoresizingMaskIntoConstraints = false
-//        streetTf.translatesAutoresizingMaskIntoConstraints = false
+        doorNumTf.translatesAutoresizingMaskIntoConstraints = false
+        streetTf.translatesAutoresizingMaskIntoConstraints = false
         cityTf.translatesAutoresizingMaskIntoConstraints = false
-//        stateTf.translatesAutoresizingMaskIntoConstraints = false
+        stateTf.translatesAutoresizingMaskIntoConstraints = false
         postCodeTf.translatesAutoresizingMaskIntoConstraints = false
-//        CountryTf.translatesAutoresizingMaskIntoConstraints = false
+        CountryTf.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             optionButton.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -145,9 +145,19 @@ class AddressTableViewCell: UITableViewCell {
             disclosureIndicator.widthAnchor.constraint(equalToConstant: 15),
             disclosureIndicator.heightAnchor.constraint(equalToConstant: 17),
             
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: optionButton.trailingAnchor),
+            containerView.widthAnchor.constraint(equalToConstant:200),
+            containerView.heightAnchor.constraint(equalTo:contentView.heightAnchor),
+            
+//            doorNumTf.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
+//            doorNumTf.widthAnchor.constraint(equalToConstant: 200),
+//            doorNumTf.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5),
+//            doorNumTf.heightAnchor.constraint(equalToConstant: 50),
+            
             horizontalContainer.topAnchor.constraint(equalTo: contentView.topAnchor,constant: 100),
             horizontalContainer.leadingAnchor.constraint(equalTo: optionButton.trailingAnchor),
-            horizontalContainer.widthAnchor.constraint(equalTo: contentView.widthAnchor),
+            horizontalContainer.widthAnchor.constraint(equalToConstant: 200),
             horizontalContainer.heightAnchor.constraint(equalToConstant: 100),
             
             cityTf.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -157,13 +167,9 @@ class AddressTableViewCell: UITableViewCell {
             
             postCodeTf.topAnchor.constraint(equalTo: contentView.topAnchor),
             postCodeTf.leadingAnchor.constraint(equalTo: cityTf.trailingAnchor,constant: 5),
-            postCodeTf.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: 5),
+            postCodeTf.trailingAnchor.constraint(equalTo: contentView.trailingAnchor,constant: -15),
             postCodeTf.heightAnchor.constraint(equalTo:contentView.heightAnchor),
             
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: optionButton.trailingAnchor),
-            containerView.widthAnchor.constraint(equalTo:contentView.widthAnchor),
-            containerView.heightAnchor.constraint(equalTo:contentView.heightAnchor)
         ])
         
         

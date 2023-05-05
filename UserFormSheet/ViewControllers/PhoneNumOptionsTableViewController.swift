@@ -10,9 +10,11 @@ import UIKit
 class PhoneNumOptionsTableView: UITableViewController {
    
     weak var delegate:Delegate?
+    
+    var selectedOption:String = "home"
     var selectedRowIndex:Int?
     var selectedSectionIndex:Int?
-    var Options : [Int:[String]] = [0:["mobile","home","work","school","iphone","Apple Watch","main","home fax","work fax","pager","other"]]
+    var Options : [String] = ["mobile","home","work","school","iphone","Apple Watch","main","home fax","work fax","pager","other"]
     override func viewDidLoad() {
         view.backgroundColor = .systemBackground
         title = "Label"
@@ -20,12 +22,22 @@ class PhoneNumOptionsTableView: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
     }
+   
+    init(selectedOption:String){
+        self.selectedOption = selectedOption
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return Options.count
+        return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Options[section]!.count
+        return Options.count
     }
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
@@ -35,8 +47,9 @@ class PhoneNumOptionsTableView: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
-        cell?.textLabel?.text = Options[indexPath.section]?[indexPath.row]
-        if ( indexPath.section == selectedSectionIndex && indexPath.row == selectedRowIndex) {
+        cell?.textLabel?.text = Options[indexPath.row]
+        if(Options[indexPath.row] == selectedOption){
+//        if ( indexPath.section == selectedSectionIndex && indexPath.row == selectedRowIndex) {
                     cell?.accessoryType = .checkmark
                 } else {
                     cell?.accessoryType = .none
@@ -54,8 +67,9 @@ class PhoneNumOptionsTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedSectionIndex = indexPath.section
         selectedRowIndex = indexPath.row
+        selectedOption = Options[indexPath.row]
         tableView.reloadData()
-        delegate?.getOptions(option: (Options[indexPath.section]?[indexPath.row])!,type: Headers.phoneNumber)
+        delegate?.getOptions(option: (Options[indexPath.row]),type: Headers.phoneNumber)
         cancel()
         
     }

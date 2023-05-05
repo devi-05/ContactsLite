@@ -9,8 +9,8 @@ import UIKit
 
 class Textfield: UITextField {
     
-    var textFieldId:Int
-    init(textFieldId:Int){
+    var textFieldId:HeaderNames
+    init(textFieldId:HeaderNames){
         self.textFieldId = textFieldId
         super.init(frame: .zero)
         

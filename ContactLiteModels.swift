@@ -23,7 +23,7 @@ enum Headers{
     static var groups = "Groups"
 }
 enum HeaderNames:CaseIterable{
-    case contactId,profileImage,firstName,lastName,workInfo,phoneNumber,email,address,socialProfile,groups,notes,favourite,emergencyContact
+    case contactId,profileImage,firstName,lastName,workInfo,phoneNumber,email,address,doorNum,street,city,postcode,state,country,socialProfile,groups,notes,favourite,emergencyContact
 }
 
 class Contact{

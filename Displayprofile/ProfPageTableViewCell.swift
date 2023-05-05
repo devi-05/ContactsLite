@@ -44,12 +44,12 @@ class ProfPageTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo:contentView.topAnchor, constant: 10),
-            header.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            header.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             header.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             header.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2),
             
             subHeader.topAnchor.constraint(equalTo:header.bottomAnchor, constant: 5),
-            subHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            subHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             subHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             subHeader.heightAnchor.constraint(equalToConstant: contentView.frame.size.height/2)
             

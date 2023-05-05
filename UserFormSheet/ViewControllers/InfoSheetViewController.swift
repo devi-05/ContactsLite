@@ -16,7 +16,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     var isEdited = false
     var info:Contact?
     lazy var inputDict:[String:Any] = [:]
-    
+
  
     var phoneNumRowIndex:Int?
     
@@ -179,7 +179,11 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             
         }
         
-        guard (!isEditMode) else{
+//        guard isEditMode else {
+//            return
+//        }
+//
+        if (isEditMode) {
             //Edit functionality
             
             
@@ -322,21 +326,33 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
     
     @objc func showOptions(sender:UIButton){
         phoneNumRowIndex = sender.tag
-        let phone = PhoneNumOptionsTableView()
+        var previousSelectedOption:String = ""
+        if let option = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
+           previousSelectedOption = option[sender.tag - 1].modelType
+        }
+        let phone = PhoneNumOptionsTableView(selectedOption: previousSelectedOption)
         phone.delegate = self
         present(UINavigationController(rootViewController: phone), animated: true)
     }
     @objc func addressOptions(sender:UIButton){
         
         addressRowIndex = sender.tag
-        let addressVc = AddressTableViewController()
+        var previousSelectedOption:String = ""
+        if let option = inputDict[Headers.address] as? [AddressModel]{
+            previousSelectedOption = option[sender.tag - 1].modelType
+        }
+        let addressVc = AddressTableViewController(selectedOption:previousSelectedOption)
         addressVc.delegate = self
         present(UINavigationController(rootViewController: addressVc), animated: true)
         
     }
     @objc func socialProfileOptions(sender:UIButton){
         socialProfileRowIndex = sender.tag
-        let vc = SocialProfileTableViewController()
+        var previousSelectedOption:String = ""
+        if let option = inputDict[Headers.socialProfile] as? [SocialProfileModel]{
+            previousSelectedOption = option[sender.tag - 1].profileType
+        }
+        let vc = SocialProfileTableViewController(selectedOption: previousSelectedOption)
         vc.delegate = self
         present(UINavigationController(rootViewController: vc), animated: true)
     }
@@ -757,7 +773,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         else if(headerName == Headers.lastName){
             let cell = tableView.dequeueReusableCell(withIdentifier: ContactNameTableViewCell.identifier, for: indexPath) as? ContactNameTableViewCell
             cell?.contentView.layoutMargins = UIEdgeInsets.zero
-            cell?.textField.textFieldId = 1
+            cell?.textField.textFieldId = .lastName
                 if inputDict[Headers.lastName] != nil && indexPath.row == 1 {
                     
                     if let lastName  = inputDict[Headers.lastName]{
@@ -967,7 +983,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             let cell = tableView.dequeueReusableCell(withIdentifier: AddTableViewCell.identifier, for: indexPath) as! AddTableViewCell
             
             cell.textField.tag = indexPath.row - 1
-            cell.textField.textFieldId = 2
+            cell.textField.textFieldId = .workInfo
             if let workInfoArr = inputDict[Headers.workInfo] as? [String]{
                 cell.textField.text = workInfoArr[indexPath.row - 1]
                 
@@ -983,7 +999,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
         else if (headerName == Headers.email && indexPath.row > 0){
             let cell = tableView.dequeueReusableCell(withIdentifier: AddTableViewCell.identifier, for: indexPath) as! AddTableViewCell
             cell.textField.tag =  indexPath.row - 1
-            cell.textField.textFieldId = 3
+            cell.textField.textFieldId = .email
             if let emailArr = inputDict[Headers.email] as? [String]{
                 if indexPath.row-1 < emailArr.count {
                     cell.textField.text = emailArr[indexPath.row-1]
@@ -1076,6 +1092,7 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
             
             
             else if (headerName == Headers.phoneNumber ){
+               
                 var tempPhoneArr:[PhoneNumberModel] = []
                 if let number = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
                     
@@ -1209,279 +1226,278 @@ class InfoSheetViewController: UITableViewController, UINavigationControllerDele
 
 extension InfoSheetViewController:UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        print(string)
-        return true
-    }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        isEdited = true
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let field = textField as? Textfield else{
-            return
-        }
-         
-        switch field.textFieldId{
-            
-            
-        case 0:
-            
-            if let value = textField.text{
+        if(textField.attributedPlaceholder?.string == Headers.phoneNumber){
+            let currentText = textField.text ?? ""
+            guard let range = Range(range, in: currentText) else {
+                return false
+            }
+            let proposedText = currentText.replacingCharacters(in: range, with: string)
+            let result = proposedText.range(
+                of: #"^[0-9]{0,10}$"#,
+                options: .regularExpression
+            )
+            if result == nil {
                 
+                let alert = UIAlertController(title: "Invalid phone number", message: "Maximum 10 digits is allowed.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                present(alert, animated: true, completion: nil)
+                
+            }
+        }
+            return true
+        
+       }
+    
+        func textFieldDidBeginEditing(_ textField: UITextField) {
+            isEdited = true
+        }
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            guard let field = textField as? Textfield else{
+                return
+            }
+            
+            switch field.textFieldId{
+                
+                
+            case .firstName:
+                
+                if let value = textField.text{
+                    
                     inputDict[Headers.firstName] = value.isEmpty ? nil: value
                 }
-               
-        case 1:
-
-            if let value = textField.text{
-                inputDict[Headers.lastName] = value.isEmpty ? nil: value
-            }
-        case 2:
-            
-            if let value = textField.text{
                 
-                if value != ""{
-                    if(textField.attributedPlaceholder?.string == Headers.workInfo){
-                        if var array = inputDict[Headers.workInfo] as? [String]{
-                            array[textField.tag] = value
-                            inputDict[Headers.workInfo] = array
+            case .lastName:
+                
+                if let value = textField.text{
+                    inputDict[Headers.lastName] = value.isEmpty ? nil: value
+                }
+            case .workInfo:
+                
+                if let value = textField.text{
+                    
+                    if value != ""{
+                        if(textField.attributedPlaceholder?.string == Headers.workInfo){
+                            if var array = inputDict[Headers.workInfo] as? [String]{
+                                array[textField.tag] = value
+                                inputDict[Headers.workInfo] = array
+                            }
+                        }
+                        else{
+                            inputDict[Headers.workInfo] = nil
                         }
                     }
                     else{
                         inputDict[Headers.workInfo] = nil
                     }
+                    
                 }
-                else{
-                    inputDict[Headers.workInfo] = nil
-                }
+            case .email:
                 
-            }
-        case 3:
-
-            if let value = textField.text{
-
-                if value != ""{
-                    if var array = inputDict[Headers.email] as? [String]{
-                        array[textField.tag] = value
-                        inputDict[Headers.email] = array
+                if let value = textField.text{
+                    
+                    if value != ""{
+                        if var array = inputDict[Headers.email] as? [String]{
+                            array[textField.tag] = value
+                            inputDict[Headers.email] = array
+                        }
+                        else{
+                            inputDict[Headers.email] = nil
+                        }
                     }
                     else{
                         inputDict[Headers.email] = nil
                     }
-                }
-                else{
-                    inputDict[Headers.email] = nil
+                    
                 }
                 
-            }
-                   
-        case 4:
-            
-            if let phoneNumber = textField.text {
+            case .phoneNumber:
                 
-                let result = String(phoneNumber).range(
-                    of: #"^\d{1,10}$"#,
-                    options: .regularExpression
-                )
-                if(result != nil){
+                if let phoneNumber = textField.text {
+                    
+                    
                     if var number = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
                         number[textField.tag - 1].number = Int64(phoneNumber)
                         inputDict[Headers.phoneNumber] = number
                     }
                     
-                    
                 }
-                else{
-                    let alertController = UIAlertController(title: "Invalid Phone Number", message: "Phone number should not contain alphabets!", preferredStyle: .alert)
-                    
-                    let okAction = UIAlertAction(title: "OK", style: .cancel)
-                    alertController.addAction(okAction)
-                    
-                    present(alertController, animated: true)
-                    
-                    return
-                    
+                
+            case .doorNum :
+                
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let doorNo = textField.text{
+                        address[textField.tag - 1].doorNo = doorNo
+                        inputDict[Headers.address] = address
+                    }
+                }
+                
+                
+            case .street:
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let street = textField.text{
+                        address[textField.tag - 1].Street = street
+                        inputDict[Headers.address] = address
+                    }
+                }
+                
+                
+            case .city:
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let city = textField.text{
+                        address[textField.tag - 1].city = city
+                        inputDict[Headers.address] = address
+                    }
+                }
+                
+                
+            case .postcode:
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let postCode = textField.text{
+                        address[textField.tag - 1].postcode = postCode
+                        inputDict[Headers.address] = address
+                    }
+                }
+                
+            case .state:
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let state = textField.text{
+                        address[textField.tag - 1].state = state
+                        inputDict[Headers.address] = address
+                    }
+                }
+                
+                
+            case .country:
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let country = textField.text{
+                        address[textField.tag - 1].country = country
+                        inputDict[Headers.address] = address
+                    }
+                }
+                
+            case .socialProfile:
+                if let socialProfile = textField.text{
+                    if var socialProfileArr = inputDict[Headers.socialProfile] as? [SocialProfileModel] {
+                        socialProfileArr[textField.tag - 1].link = socialProfile
+                        inputDict[Headers.socialProfile] = socialProfileArr
+                    }
+                }
+                
+            default:
+                return
+            }
+            
+            textField.resignFirstResponder()
+            print(inputDict)
+        }
+        
+        
+        
+        
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            textField.resignFirstResponder()
+            return true
+        }
+    }
+    
+    extension InfoSheetViewController:UITextViewDelegate{
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            if textView.textColor == UIColor.gray && textView.text == Headers.notes {
+                textView.text = ""
+                
+            }
+            textView.textColor = UIColor.label
+        }
+        
+        
+        
+        func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+            
+            
+            let txt = textView.text as? NSString
+            let str = txt?.replacingCharacters(in: range , with: text)
+            if str == "" {
+                textView.text = Headers.notes
+                textView.textColor = UIColor.gray
+                textView.resignFirstResponder()
+                inputDict[Headers.notes] = nil
+            }
+            else{
+                inputDict[Headers.notes] = str
+            }
+            
+            return true
+        }
+        
+    }
+    
+    
+    
+    extension InfoSheetViewController:Delegate{
+        
+        func getOptions(option: String,type: String) {
+            if type == Headers.phoneNumber {
+                
+                if var phoneNumber = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
+                    if let index = phoneNumRowIndex{
+                        phoneNumber[index - 1].modelType = option
+                        inputDict[Headers.phoneNumber] = phoneNumber
+                    }
                 }
                 
             }
-            
-        case 5 :
-            
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let doorNo = textField.text{
-                    address[textField.tag - 1].doorNo = doorNo
-                    inputDict[Headers.address] = address
+            else if type == Headers.address{
+                if var address = inputDict[Headers.address] as? [AddressModel]{
+                    if let index = addressRowIndex{
+                        address[index - 1].modelType = option
+                        inputDict[Headers.address] = address
+                    }
                 }
+                
+                
             }
             
-            
-        case 6:
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let street = textField.text{
-                    address[textField.tag - 1].Street = street
-                    inputDict[Headers.address] = address
+            else if type == Headers.socialProfile{
+                if var socialProfile = inputDict[Headers.socialProfile] as? [SocialProfileModel]{
+                    if let index = socialProfileRowIndex{
+                        socialProfile[index - 1].profileType = option
+                        inputDict[Headers.socialProfile] = socialProfile
+                    }
                 }
             }
+            tableView.reloadData()
             
             
-        case 7:
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let city = textField.text{
-                    address[textField.tag - 1].city = city
-                    inputDict[Headers.address] = address
-                }
-            }
-            
-            
-        case 8:
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let postCode = textField.text{
-                    address[textField.tag - 1].postcode = postCode
-                    inputDict[Headers.address] = address
-                }
-            }
-            
-        case 9:
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let state = textField.text{
-                    address[textField.tag - 1].state = state
-                    inputDict[Headers.address] = address
-                }
-            }
-            
-            
-        case 10:
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let country = textField.text{
-                    address[textField.tag - 1].country = country
-                    inputDict[Headers.address] = address
-                }
-            }
-            
-        case 11:
-            
-            if let socialProfile = textField.text{
-                if var socialProfileArr = inputDict[Headers.socialProfile] as? [SocialProfileModel] {
-                    socialProfileArr[textField.tag - 1].link = socialProfile
-                    inputDict[Headers.socialProfile] = socialProfileArr
-                }
-            }
-            
-        default:
-            return
         }
-        
-        textField.resignFirstResponder()
-        print(inputDict)
     }
-    
-    
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-}
-
-
-
-extension InfoSheetViewController:UITextViewDelegate{
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == UIColor.gray && textView.text == Headers.notes {
-            textView.text = ""
+    extension InfoSheetViewController:ImageDelegate{
+        func getImage(images: UIImage) {
             
-        }
-        textView.textColor = UIColor.label
-    }
-    
-    
-    
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        
-        
-        let txt = textView.text as? NSString
-        let str = txt?.replacingCharacters(in: range , with: text)
-        if str == "" {
-            textView.text = Headers.notes
-            textView.textColor = UIColor.gray
-            textView.resignFirstResponder()
-            inputDict[Headers.notes] = nil
-        }
-        else{
-            inputDict[Headers.notes] = str
-        }
-        
-        return true
-    }
-    
-}
-
-
-
-extension InfoSheetViewController:Delegate{
-
-    func getOptions(option: String,type: String) {
-        if type == Headers.phoneNumber {
-            
-            if var phoneNumber = inputDict[Headers.phoneNumber] as? [PhoneNumberModel]{
-                if let index = phoneNumRowIndex{
-                    phoneNumber[index - 1].modelType = option
-                    inputDict[Headers.phoneNumber] = phoneNumber
-                }
-            }
-            
-        }
-        else if type == Headers.address{
-            if var address = inputDict[Headers.address] as? [AddressModel]{
-                if let index = addressRowIndex{
-                    address[index - 1].modelType = option
-                    inputDict[Headers.address] = address
-                }
-            }
-          
-            
-        }
-        
-        else if type == Headers.socialProfile{
-            if var socialProfile = inputDict[Headers.socialProfile] as? [SocialProfileModel]{
-                if let index = socialProfileRowIndex{
-                    socialProfile[index - 1].profileType = option
-                    inputDict[Headers.socialProfile] = socialProfile
-                }
-            }
-        }
-        tableView.reloadData()
-        
-        
-    }
-}
-extension InfoSheetViewController:ImageDelegate{
-    func getImage(images: UIImage) {
-        
-        photoLabel.image = images
-        inputDict[Headers.profileImage] = images
-        photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
-        photoLabel.layer.masksToBounds = true
-        
-    }
-}
-extension InfoSheetViewController: UIImagePickerControllerDelegate{
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let images = info[.editedImage] as? UIImage{
             photoLabel.image = images
             inputDict[Headers.profileImage] = images
-            photoLabel.layer.cornerRadius = 75
+            photoLabel.layer.cornerRadius = photoLabel.frame.size.width / 2
             photoLabel.layer.masksToBounds = true
             
         }
-        
-        picker.dismiss(animated: true)
-        addPhotoButton.setTitle("Edit Photo", for: .normal)
-        if #available(iOS 14.0, *) {
-            addPhotoButton.menu = editMenu
-        } else {
-            // Fallback on earlier versions
-        }
     }
-    
-}
+    extension InfoSheetViewController: UIImagePickerControllerDelegate{
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let images = info[.editedImage] as? UIImage{
+                photoLabel.image = images
+                inputDict[Headers.profileImage] = images
+                photoLabel.layer.cornerRadius = 75
+                photoLabel.layer.masksToBounds = true
+                
+            }
+            
+            picker.dismiss(animated: true)
+            addPhotoButton.setTitle("Edit Photo", for: .normal)
+            if #available(iOS 14.0, *) {
+                addPhotoButton.menu = editMenu
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        
+    }
+

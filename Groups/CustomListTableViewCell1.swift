@@ -27,12 +27,7 @@ class CustomListTableViewCell1: UITableViewCell {
          label.resignFirstResponder()
          return label
      }()
-//     lazy var disclosureIndicator:UIButton = {
-//         let button = UIButton()
-//         button.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-//         button.tintColor = .gray
-//         return button
-//     }()
+
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super.init(style: style, reuseIdentifier: reuseIdentifier)
          contentView.addSubview(label1)
